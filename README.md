@@ -1,4 +1,3 @@
-# webapp12
 # CatalogGames
 ## Componentes del grupo
 
