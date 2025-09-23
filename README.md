@@ -30,7 +30,7 @@ Los miembros del equipo hemos decidido que la web que diseñaremos e implementar
 
 ## Imágenes
 La web debe permitir la **subida de imágenes** desde el navegador web para que sean vinculadas a la entidad principal.  
-Por ejemplo: fotos de productos, logotipo de un equipo, etc.
+Por ejemplo: fotos de productos.
 
 ---
 
