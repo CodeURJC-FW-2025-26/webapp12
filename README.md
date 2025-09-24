@@ -1,49 +1,57 @@
 # CatalogGames
-## Componentes del grupo
 
-| Nombre                     | Correo electrónico                        | Usuario    |
-|----------------------------|-------------------------------------------|------------|
-| Neville Gil Ortiz          | n.gil.2024@alumnos.urjc.es                | nevillegil |
-| Lucca Manfredotti García   | l.manfredotti.2024@alumnos.urjc.es        | lucca23    |
-| Pablo Villamayor Iglesias  | p.villamayor@alumnos.urjc.es              | PabloVILL  |
+## Group Members
 
----
-
-## Funcionalidad
-
-Los miembros del equipo hemos decidido que la web que diseñaremos e implementaremos será un **catálogo de videojuegos**.
-
-- **Entidad principal:**  
-  La entidad principal será el producto, en nuestro caso, los videojuegos.  
-  Cada videojuego podrá tener:
-  - Nombre
-  - Descripción
-  - Precio
-  - Fotografías
-  - Reseñas
-
-- **Entidad secundaria:**  
-  La entidad secundaria de nuestra web serán las reseñas.  
-  Un videojuego podrá tener varias reseñas.
+| Name                      | Email Address                             | Username   |
+|---------------------------|--------------------------------------------|------------|
+| Neville Gil Ortiz         | n.gil.2024@alumnos.urjc.es                 | nevillegil |
+| Lucca Manfredotti García  | l.manfredotti.2024@alumnos.urjc.es         | lucca23    |
+| Pablo Villamayor Iglesias | p.villamayor@alumnos.urjc.es               | PabloVILL  |
 
 ---
 
-## Imágenes
-La web debe permitir la **subida de imágenes** desde el navegador web para que sean vinculadas a la entidad principal.  
-Por ejemplo: fotos de productos.
+## Functionality
+
+**Video game catalog**.
+
+- **Main entity:**  
+  The main entity will be video games.  
+  Each video game may include:
+  - Name
+  - Description
+  - Price
+  - Category
+  - Year
+  - Studio
+  - Images
+  - Reviews
+
+- **Secondary entity:**  
+  The secondary entity of our website will be reviews.  
+  Each review may include:
+  - User
+  - Rating
+  - Description
 
 ---
 
-## Buscador, filtrado o categorización
+## Images
 
-La aplicación web deberá ofrecer una o varias de las siguientes funcionalidades:
+The main entity will include images.
 
-- **Buscador:**  
-  Un cuadro de texto que permita introducir un texto y que devuelva solo aquellos valores de la entidad principal en los que ese texto esté incluido en el título o nombre.
+---
 
-- **Filtrado:**  
-  Un formulario que permitira filtrar los elementos en base a uno o varios criterios: precio, estudio, año.
+## Search, Filtering, or Categorization
 
-- **Categorización:**  
-  Los videojuegos se categorizaran según sean juegos rpg, shooters, de estrategia.
-  Se pueden mostraran las categorías de los productos en el menú superior o lateral.
+The web application must offer one or more of the following features:
+
+- **Search bar:**  
+  A text box that allows users to enter a query and returns only those values from the main entity where the text is included in the name.
+
+- **Filtering:**  
+  A form that allows filtering items based on one or more criteria: price, studio, year.
+
+- **Categorization:**  
+  Video games will be categorized as RPGs, shooters, strategy games, etc.  
+  Product categories can be displayed in the top or side menu.
+
