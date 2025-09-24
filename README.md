@@ -45,5 +45,5 @@ La aplicación web deberá ofrecer una o varias de las siguientes funcionalidade
   Un formulario que permitira filtrar los elementos en base a uno o varios criterios: precio, estudio, año.
 
 - **Categorización:**  
-  Los videojuegos se categorizaran según sean juegos rpg, shooters, de estrategia..etc.  
+  Los videojuegos se categorizaran según sean juegos rpg, shooters, de estrategia.
   Se pueden mostraran las categorías de los productos en el menú superior o lateral.
