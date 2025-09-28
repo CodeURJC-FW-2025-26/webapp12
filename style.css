@@ -1,0 +1,60 @@
+
+
+body {
+        font-family: Arial, Helvetica, sans-serif;
+        color: #212529;
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
+    }
+
+    .hero {
+        height: 45vh;
+        width: 100%;
+        background:
+                 linear-gradient(to right, rgba(78, 171, 202, 0.7), rgba(0, 255, 51, 0.7)),
+                 url('https://s0.smartresize.com/wallpaper/616/437/HD-wallpaper-video-game-league-of-legends-wild-rift.jpg') center center / cover no-repeat;
+         }
+
+     .hero2 {
+    background: linear-gradient(to right, rgb(78, 171, 202), rgb(0, 255, 51));
+    height: 30vh;
+    width: 100%;
+     }
+
+
+ .decor-bar {
+     width: 120px;
+     height: 5px;
+     border-radius: 10px;
+     background: linear-gradient(90deg, #00b4d8, #38b000);
+ }
+.nav-link.active {
+    position: relative;
+}
+.nav-link.active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(to right, #00c853, #2196f3); /* verde-azul */
+    border-radius: 2px;
+}
+
+.nav-link:hover {
+    background: linear-gradient(to right, #00c853, #2196f3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: 0.3s;
+}
+
+  .btn-gradient {
+    background: linear-gradient(90deg, #00c6ff, #00ff87);
+    border: none;
+    color: #111;
+    font-weight: bold;
+  }
+
+
