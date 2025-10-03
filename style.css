@@ -58,3 +58,126 @@ body {
   }
 
 
+/* ***************************Details.html********************************** */
+.game-title {
+    background-color: #fff;
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.game-title h1 {
+    color: #111;
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.game-cover {
+    background: linear-gradient(145deg, #fff, #f0f0f0);
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 20px;
+    text-align: center;
+}
+
+.game-cover img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.game-info {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    height: 100%;
+}
+
+.game-info h3 {
+    color: var(--primary-color);
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    background: linear-gradient(to right, #00c853, #2196f3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border-image: linear-gradient(to right, #00c853, #2196f3) 1;
+    border-bottom: 2px solid transparent;
+}
+
+.info-item {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #ddd;
+}
+
+.info-item:last-child {
+    border-bottom: none;
+}
+
+.info-label {
+    font-weight: bold;
+    color: #111;
+    margin-bottom: 0.3rem;
+}
+
+.info-value {
+    color: #666;
+}
+
+.star-rating {
+    color: #ffd700;
+}
+
+.price-box {
+    background: linear-gradient(to right, #00c853, #2196f3);
+    color: #fff;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    text-align: center;
+    position: sticky;
+    top: 20px;
+}
+
+.price-box h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+}
+
+.price-item {
+    background-color: rgba(255,255,255,0.15);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: transform 0.2s;
+}
+
+.price-item:hover {
+    transform: translateY(-3px);
+    background-color: rgba(255,255,255,0.2);
+}
+
+.price-value {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.btn-buy {
+    background-color: #fff;
+    color: #111;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 5px;
+    font-weight: bold;
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+/* ********************Detail ends****************** */
