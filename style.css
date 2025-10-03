@@ -57,6 +57,19 @@ body {
     font-weight: bold;
   }
 
+  .card-gradient {
+      background: linear-gradient(90deg, #00c6ff, #00ff87);
+  }
+
+  .b-gradient {
+      background: linear-gradient(90deg, #00c6ff, #00ff87);
+  }
+
+
+  .display-3 {
+      font-family: "Oswald", sans-serif;
+  }
+
 
 /* ***************************Details.html********************************** */
 .game-title {
