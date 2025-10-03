@@ -9,11 +9,11 @@ body {
     }
 
     .hero {
-        height: 45vh;
+        height: 65vh;
         width: 100%;
         background:
                  linear-gradient(to right, rgba(78, 171, 202, 0.7), rgba(0, 255, 51, 0.7)),
-                 url('https://s0.smartresize.com/wallpaper/616/437/HD-wallpaper-video-game-league-of-legends-wild-rift.jpg') center center / cover no-repeat;
+                 url('https://img.builtbybit.com/UDP50wMZZ_EGcxuzY0osYNUOBHyaMLzIHCwH-7SqxB4/resize:fill:2000/format:webp/aHR0cHM6Ly9zdG9yYWdlLmdvb2dsZWFwaXMuY29tL2JyZWFkYnVpbGRzLXJlbmRlcnMvc3VucmlzZV9raW5nZG9tMi5wbmc') center center / cover no-repeat;
          }
 
      .hero2 {
