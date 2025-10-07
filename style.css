@@ -99,9 +99,16 @@ body {
 .game-cover img {
     max-width: 100%;
     height: auto;
-    border-radius: 5px;
-    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-}
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    margin-bottom: 1rem;
+  }
+
+.game-price {
+    font-weight: 700;
+    color: #222;
+    margin: 0;
+  }
 
 .game-info {
     background-color: #fff;
@@ -112,7 +119,6 @@ body {
 }
 
 .game-info h3 {
-    color: var(--primary-color);
     font-size: 1.3rem;
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
@@ -147,7 +153,7 @@ body {
     color: #ffd700;
 }
 
-.price-box {
+.modif-box {
     background: linear-gradient(to right, #00c853, #2196f3);
     color: #fff;
     border-radius: 10px;
@@ -158,13 +164,7 @@ body {
     top: 20px;
 }
 
-.price-box h3 {
-    font-size: 1.2rem;
-    margin-bottom: 1.5rem;
-    font-weight: bold;
-}
-
-.price-item {
+.card-item {
     background-color: rgba(255,255,255,0.15);
     border-radius: 8px;
     padding: 1.5rem;
@@ -172,21 +172,16 @@ body {
     transition: transform 0.2s;
 }
 
-.price-item:hover {
+.card-item:hover {
     transform: translateY(-3px);
     background-color: rgba(255,255,255,0.2);
 }
 
-.price-value {
-    font-size: 2rem;
-    font-weight: bold;
-}
-
-.btn-buy {
+.btn-modif {
     background-color: #fff;
     color: #111;
     border: none;
-    padding: 0.8rem 2rem;
+    padding: 0.8rem 20%;
     border-radius: 5px;
     font-weight: bold;
     width: 100%;
