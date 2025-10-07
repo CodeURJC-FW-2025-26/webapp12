@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- We call bootstrap library-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 </head>
 
 <body>
@@ -19,9 +20,10 @@
                 <div class="d-flex align-items-center">
                     <a class="navbar-brand fw-bold me-3" href="#">Catálogo Videojuegos</a>
                     <ul class="navbar-nav d-flex flex-row">
-                        <li class="nav-item mx-2"><a class="nav-link active" href="/">Inicio</a></li>
-                        <li class="nav-item mx-2"><a class="nav-link" href="#">Detalles</a></li>
-                        <li class="nav-item mx-2"><a class="nav-link" href="add.html">Añadir Contenido</a></li>
+                        <li class="nav-item mx-2"><a class="nav-link active" href="/"><i class="bi bi-house"></i> Inicio</a></li>
+                        <li class="nav-item mx-2"><a class="nav-link" href="/detail.html"><i class="bi bi-star"></i> Detalles</a></li>
+                        <li class="nav-item mx-2"><a class="nav-link" href="/create.html"><i class="bi bi-controller"></i> Añadir Videojuego</a>
+                        </li>
                     </ul>
                 </div>
         
@@ -32,195 +34,292 @@
             </div>
         </nav>
 
-        <!-- HERO -->
+    <!-- HERO -->
         <section class="hero d-flex align-items-center justify-content-center text-center text-white">
             <div class="container">
                 <h1 class="display-3 fw-bold">Catálogo de Videojuegos</h1>
                 <p class="lead mb-4">Explora los mejores títulos, descubre novedades y encuentra tu juego favorito.</p>
-                <a href="#catalogo" class="btn btn-warning btn-lg">Ver Catálogo</a>
+                <a href="#catalogo" class="scroll-down d-flex flex-column align-items-center text-decoration-none text-light">
+                    <img src="images/down_arrow.png" alt="Flecha abajo" class="arrow" />
+                </a>            
             </div>
         </section>
 
-        <!-- CONTENT -->
-        <section class="py-5 bg-dark text-light">
-            <div class="container">
-                <div class="row g-4"> 
-        
-                    <div class="col-md-9">
-    
-                        <h2 class="fw-bold text-start" id="catalogo">Nuestro Catálogo</h2>
-                        <div class="decor-bar mt-2"></div>
-                        <br>
-        
-                        <div class="row g-4"> 
-        
-                            <!-- Card 1 -->
-                            <div class="col-md-6 col-lg-3">
-                                <div class="card">
-                                    <img src="https://i.pinimg.com/originals/d8/dd/42/d8dd42d3f0a880ac86688dfdbb0412bd.jpg"
-                                        class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <h5 class="card-title">League of Legends</h5>
-                                        <h6 class="fw-bold text-success mb-3">€29.99</h6>
-        
-                                        <p class="card-text"><span class="badge text-bg-secondary">etiqueta</span></p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                    </div>
-                                </div>
-                            </div>
-        
-                            <!-- Card 2 -->
-                            <div class="col-md-6 col-lg-3">
-                                <div class="card">
-                                    <img src="https://pbs.twimg.com/media/FWrTzT7XoAAqMAj.png" class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Minecraft</h5>
-                                        <h6 class="fw-bold text-success mb-3">€29.99</h6>
-                                        <p class="card-text"><span class="badge text-bg-secondary">etiqueta</span></p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                    </div>
-                                </div>
-                            </div>
-        
-                            <!-- Card 3 -->
-                            <div class="col-md-6 col-lg-3">
-                                <div class="card">
-                                    <img src="https://e00-marca.uecdn.es/assets/multimedia/imagenes/2020/06/02/15910812147526.png"
-                                        class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Valorant</h5>
-                                        <h6 class="fw-bold text-success mb-3">€29.99</h6>
-                                        <p class="card-text"><span class="badge text-bg-secondary">etiqueta</span></p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                    </div>
-                                </div>
-                            </div>
-        
-                            <!-- Card 4 -->
-                            <div class="col-md-6 col-lg-3">
-                                <div class="card">
-                                    <img src="https://static.wikia.nocookie.net/esgta/images/e/ee/Noticias_PortadaVGIGTAV.jpg/revision/latest/scale-to-width-down/500?cb=20121109075419"
-                                        class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Grand Theft Auto V</h5>
-                                        <p class="card-text"><span class="badge text-bg-secondary">etiqueta</span></p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                    </div>
-                                </div>
-                            </div>
-        
-                            <!-- Card 5 -->
-                            <div class="col-md-6 col-lg-3">
-                                <div class="card">
-                                    <img src="https://static.wikia.nocookie.net/esgta/images/e/ee/Noticias_PortadaVGIGTAV.jpg/revision/latest/scale-to-width-down/500?cb=20121109075419"
-                                        class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Grand Theft Auto V</h5>
-                                        <p class="card-text"><span class="badge text-bg-secondary">etiqueta</span></p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                    </div>
-                                </div>
-                            </div>
-        
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-center">
-                                    <li class="page-item disabled">
-                                        <a class="page-link">Previous</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                    </li>
-                                </ul>
-                            </nav>
-        
-                        </div>
-                    </div>
-        
-        
-        
-             
-                    <div class="col-md-3">
-        
-                        <h4 class="fw-bold text-start">Información</h4> 
-                        <div class="decor-bar mt-2"></div>
-                        <p class="mt-3">Aquí puedes poner otra sección, como contacto, promociones o cualquier contenido
-                            adicional.</p><br>
-        
-                        <h4 class="fw-bold text-start">Categorías de Videojuegos</h4>
-                        <div class="decor-bar mt-2"></div><br>
-                        <div class="card-body">
-                            <div class="d-flex flex-wrap gap-2">
-                                <span class="badge bg-primary">Acción</span>
-                                <span class="badge bg-success">Aventura</span>
-                                <span class="badge bg-warning text-dark">Rol</span>
-                                <span class="badge bg-danger">Shooter</span>
-                                <span class="badge bg-info text-dark">Estrategia</span>
-                                <span class="badge bg-secondary">Multijugador</span>
-                                <span class="badge bg-light text-dark">Indie</span>
-                            </div>
-                        </div><br><br>
-        
-        
-        
-                        <h4 class="fw-bold text-start">Populares</h4> 
-                        <div class="decor-bar mt-2"></div><br>
-        
-        
-                        <ul class="list-group list-group-flush bg-transparent">
-                            <li class="list-group-item bg-transparent border-0 text-white">1. Elden Ring</li>
-                            <li class="list-group-item bg-transparent border-0 text-white">2. GTA V</li>
-                            <li class="list-group-item bg-transparent border-0 text-white">3. Cyberpunk 2077</li>
-                            <li class="list-group-item bg-transparent border-0 text-white">4. The Witcher 3</li>
-                            <li class="list-group-item bg-transparent border-0 text-white">5. Minecraft</li>
-                        </ul><br>
-        
-                        <h4 class="fw-bold text-start">Contenido Sugerido</h4> 
-                        <div class="decor-bar mt-2"></div><br>
-        
-                        <div class="card b-gradient mb-3">
-                            <img src="https://static.wikia.nocookie.net/esgta/images/e/ee/Noticias_PortadaVGIGTAV.jpg/revision/latest/scale-to-width-down/500?cb=20121109075419"
-                                class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                                    additional content.
-                                    This content is a little bit longer.</p>
-                                <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-                            </div>
-                        </div>
-        
-        </section>
+    <!-- CONTENT -->
+    <section class="py-5 bg-dark text-light">
+        <div class="container">
+            <div class="row g-4">
 
-        <!-- FOOTER -->
-        <footer class="bg-light text-dark pt-5 pb-4 mt-5">
-            <div class="container text-center text-md-start">
-                <div class="row">
-        
-                    <div class="col-md-4 col-lg-4 col-xl-3 mx-auto mb-4">
-                        <h5 class="text-uppercase fw-bold mb-3">Catálogo Videojuegos</h5>
-                        <p>Explora los mejores títulos y mantente al día con las últimas novedades del mundo gamer.</p>
-                    </div>
-        
-                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                        <h5 class="text-uppercase fw-bold mb-3">Enlaces</h5>
-                        <ul class="list-unstyled">
-                            <li><a href="#" class="text-decoration-none text-dark">Inicio</a></li>
-                            <li><a href="#" class="text-decoration-none text-dark">Detalle</a></li>
-                            <li><a href="#" class="text-decoration-none text-dark">Añadir</a></li>
-                            <li><a href="#" class="text-decoration-none text-dark">Contacto</a></li>
-                        </ul>
-                    </div>
-        
-        
-                    <div class="text-center py-3 border-top border-secondary">
-                        <small>© 2025 Catálogo Videojuegos | Todos los derechos reservados</small>
+                <div class="col-md-9">
+                    <h2 class="fw-bold text-start" id="catalogo">Nuestro Catálogo</h2>
+                    <div class="decor-bar mt-2"></div>
+                    <br>
+
+                    <div class="row g-4">
+
+
+                        <!-- Card 1 -->
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card">
+                                <img src="https://static.posters.cz/image/750/100282.jpg" class="card-img-top" alt="...">
+                                <div class="card-body card-body2">
+                                    <div>
+                                        <h5 class="card-title">Spider-Man (Miles Morales)</h5>
+                                        <h6 class="fw-bold text-success mb-3">59,99</h6>
+                                        <p class="card-text">
+                                            <span class="badge text-bg-secondary me-1">Sandbox</span>
+                                            <span class="badge text-bg-secondary me-1">Creativo</span>
+                                        </p>
+                                    </div>
+                                    <a href="#" class="btn btn-gradient">Más Información </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card">
+                                <img src="https://i.pinimg.com/originals/d8/dd/42/d8dd42d3f0a880ac86688dfdbb0412bd.jpg"
+                                    class="card-img-top" alt="...">
+                                <div class="card-body card-body2">
+                                    <h5 class="card-title">League of Legends</h5>
+                                    <h6 class="fw-bold text-success mb-3">Gratis</h6>
+                                    <p class="card-text">
+                                        <span class="badge text-bg-secondary me-1">MOBA</span>
+                                        <span class="badge text-bg-secondary me-1">Estrategia</span>
+                                    </p>
+                                    <a href="#" class="btn btn-gradient">Más Información</a>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <!-- Card 3 -->
+                        <div class="col-md-6 col-lg-3 ">
+                            <div class="card">
+                                <img src="https://pbs.twimg.com/media/FWrTzT7XoAAqMAj.png" class="card-img-top" alt="...">
+                                <div class="card-body card-body2">
+                                    <h5 class="card-title">Minecraft Java Edition</h5>
+                                    <h6 class="fw-bold text-success mb-3">€26.95</h6>
+                                    <p class="card-text">
+                                        <span class="badge text-bg-secondary me-1">Sandbox</span>
+                                        <span class="badge text-bg-secondary me-1">Supervivencia</span>
+                                    </p>
+                                    <a href="#" class="btn btn-gradient">Más Información</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 4 -->
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card">
+                                <img src="https://e00-marca.uecdn.es/assets/multimedia/imagenes/2020/06/02/15910812147526.png"
+                                    class="card-img-top" alt="...">
+                                <div class="card-body card-body2">
+                                    <h5 class="card-title">Valorant</h5>
+                                    <h6 class="fw-bold text-success mb-3">Gratis</h6>
+                                    <p class="card-text">
+                                        <span class="badge text-bg-secondary me-1">Shooter</span>
+                                        <span class="badge text-bg-secondary me-1">Estrategia</span>
+                                    </p>
+                                    <a href="#" class="btn btn-gradient">Más Información</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 5 -->
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnhz1_T2eH2uaoadDVjiKNpIKUaBNu9MoVkw&s"
+                                    class="card-img-top" alt="...">
+                                <div class="card-body card-body2">
+                                    <h5 class="card-title">Grand Theft Auto V</h5>
+                                    <h6 class="fw-bold text-success mb-3">€19.99</h6>
+                                    <p class="card-text">
+                                        <span class="badge text-bg-secondary me-1">Acción</span>
+                                        <span class="badge text-bg-secondary me-1">Mundo Abierto</span>
+                                    </p>
+                                    <a href="#" class="btn btn-gradient">Más Información</a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Card 6 -->
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card">
+                                <img src="https://i.3djuegos.com/juegos/15473/call_of_duty__2018_/fotos/ficha/call_of_duty__2018_-4549924.webp"
+                                    class="card-img-top" alt="...">
+                                <div class="card-body card-body2">
+                                    <h5 class="card-title">Call of Duty (Black Ops)</h5>
+                                    <h6 class="fw-bold text-success mb-3">€39.99</h6>
+                                    <p class="card-text">
+                                        <span class="badge text-bg-secondary me-1">Shooter</span>
+                                        <span class="badge text-bg-secondary me-1">Acción</span>
+                                    </p>
+                                    <a href="#" class="btn btn-gradient">Más Información</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 7 -->
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSouB_E-m8Z_Q5o5YnuBlgx-5sReea38Z7e5g&s"
+                                    class="card-img-top" alt="...">
+                                <div class="card-body card-body2">
+                                    <h5 class="card-title">Cyberpunk 2077</h5>
+                                    <h6 class="fw-bold text-success mb-3">€59.99</h6>
+                                    <p class="card-text">
+                                        <span class="badge text-bg-secondary me-1">RPG</span>
+                                        <span class="badge text-bg-secondary me-1">Mundo Abierto</span>
+                                        <span class="badge text-bg-secondary me-1">Acción</span>
+                                    </p>
+                                    <a href="#" class="btn btn-gradient">Más Información</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 8 -->
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card">
+                                <img src="https://i.3djuegos.com/juegos/18024/forza_horizon_5/fotos/ficha/forza_horizon_5-5942702.webp"
+                                    class="card-img-top" alt="...">
+                                <div class="card-body card-body2">
+                                    <h5 class="card-title">Forza Horizon 5</h5>
+                                    <h6 class="fw-bold text-success mb-3">€59.99</h6>
+                                    <p class="card-text">
+                                        <span class="badge text-bg-secondary me-1">Carreras</span>
+                                        <span class="badge text-bg-secondary me-1">Simulación</span>
+                                    </p>
+                                    <a href="#" class="btn btn-gradient">Más Información</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 9 -->
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card">
+                                <img src="https://i.3djuegos.com/juegos/9922/war_thunder/fotos/ficha/war_thunder-4967017.jpg"
+                                    class="card-img-top" alt="...">
+                                <div class="card-body card-body2">
+                                    <h5 class="card-title">War Thunder</h5>
+                                    <h6 class="fw-bold text-success mb-3">Gratis</h6>
+                                    <p class="card-text">
+                                        <span class="badge text-bg-secondary me-1">Simulación</span>
+                                        <span class="badge text-bg-secondary me-1">Bélico</span>
+                                    </p>
+                                    <a href="#" class="btn btn-gradient">Más Información</a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item disabled">
+                                    <a class="page-link">Antes</a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Después</a>
+                                </li>
+                            </ul>
+                        </nav>
+
                     </div>
                 </div>
+
+
+                <div class="col-md-3">
+
+                    <h4 class="fw-bold text-start">Información</h4>
+                    <div class="decor-bar mt-2"></div>
+                    <p class="mt-3">En nuestro Catálogo de Videojuegos encontrarás una selección cuidadosamente organizada
+                        de títulos para todas las
+                        plataformas y géneros. Nuestro objetivo es ofrecerte información clara y actualizada sobre los
+                        videojuegos más
+                        populares, clásicos imprescindibles y novedades del mercado, para que puedas tomar decisiones
+                        informadas antes de jugar
+                        o comprar.</p><br>
+
+                    <h4 class="fw-bold text-start">Categorías de Videojuegos</h4>
+                    <div class="decor-bar mt-2"></div><br>
+                    <div class="card-body">
+                        <div class="d-flex flex-wrap gap-2">
+                            <span class="badge bg-primary">Acción</span>
+                            <span class="badge bg-success">Aventura</span>
+                            <span class="badge bg-warning text-dark">Rol</span>
+                            <span class="badge bg-danger">Shooter</span>
+                            <span class="badge bg-info text-dark">Estrategia</span>
+                            <span class="badge bg-secondary">Multijugador</span>
+                            <span class="badge bg-light text-dark">Indie</span>
+                        </div>
+                    </div><br><br>
+
+
+
+                    <h4 class="fw-bold text-start">Populares</h4>
+                    <div class="decor-bar mt-2"></div><br>
+
+
+                    <ul class="list-group list-group-flush bg-transparent">
+                        <li class="list-group-item bg-transparent border-0 text-white">1. Elden Ring</li>
+                        <li class="list-group-item bg-transparent border-0 text-white">2. GTA V</li>
+                        <li class="list-group-item bg-transparent border-0 text-white">3. Cyberpunk 2077</li>
+                        <li class="list-group-item bg-transparent border-0 text-white">4. The Witcher 3</li>
+                        <li class="list-group-item bg-transparent border-0 text-white">5. Minecraft</li>
+                    </ul><br>
+
+                    <h4 class="fw-bold text-start">Contenido Sugerido</h4>
+                    <div class="decor-bar mt-2"></div><br>
+
+                    <div class="card b-gradient mb-3">
+                        <img src="https://static.posters.cz/image/750/100282.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Recien Salido</h5>
+                            <p class="card-text">Echa un vistazo a este nuevo juego, revisa toda su información así como sus
+                                valoraciones.</p>
+                            <a href="detail.html" class="card-text"><small class="text-body-secondary">Ver Videojuego <i
+                                        class="bi bi-box-arrow-down-right"></i></small></a>
+                        </div>
+                    </div>
+
+    </section>
+
+        <!-- FOOTER -->
+    <footer class="b-gradient text-dark pt-5 pb-4 mt-0">
+        <div class="container text-center text-md-start">
+            <div class="row">
+    
+                <div class="col-md-4 col-lg-4 col-xl-3 mx-auto mb-4">
+                    <h5 class="text-uppercase fw-bold mb-3">Catálogo Videojuegos</h5>
+                    <p>Neville Gil Ortiz<br>
+                        Lucca Manfredotti García<br>
+                        Pablo Villamayor Iglesias<br>
+                    </p>
+                </div>
+    
+                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                    <h5 class="text-uppercase fw-bold mb-3">Enlaces</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-decoration-none text-dark">Inicio</a></li>
+                        <li><a href="#" class="text-decoration-none text-dark">Servicios</a></li>
+                        <li><a href="#" class="text-decoration-none text-dark">Contacto</a></li>
+                        <li><a href="#" class="text-decoration-none text-dark">Catálogo</a></li>
+                    </ul>
+                </div>
+    
             </div>
-        </footer>
+    
+            <div class="text-center py-3 border-top border-secondary">
+                <small>© 2025 Catálogo Videojuegos | Todos los derechos reservados</small>
+            </div>
+        </div>
+    </footer>
    
 </body>
 
