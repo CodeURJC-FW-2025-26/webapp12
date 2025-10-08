@@ -7,6 +7,10 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
+    <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+/>
     <!-- We call bootstrap library-->
   </head>
 
@@ -111,13 +115,17 @@
       
             <div class="card-item">
               <p>Esta opción eliminará el videojuego de forma permanente.</p>
-              <button class="btn-modif btn-delete">Eliminar</button>
+              <button class="btn-modif btn-delete" title="Eliminar">
+                <i class="bi bi-trash"></i>
+              </button>
             </div>
             <div class="card-item">
               <p>
                 Modifica los datos del videojuego (nombre, precio, categoría, etc.).
               </p>
-              <button class="btn-modif btn-edit">Editar</button>
+              <button class="btn-modif btn-edit" title="Editar">
+                <i class="bi bi-pencil"></i>
+              </button>
             </div>
           </div>
         </div>
@@ -131,7 +139,71 @@
         >
         </iframe>
       </div>
+
+      <div class="row mt-4">
+        <div class="col-lg mb-4">
+            <div class="reviews-section">
+                <div class="overall-rating">
+                    <h2>4.8</h2>
+                    <div class="star-rating">★★★★★</div>
+                    <p>Basado en 2,453 valoraciones</p>
+                </div>
+
+                <h3 style="color: #1a1a1a; margin-bottom: 1.5rem;">Opiniones de usuarios</h3>
+
+                <div class="review-item">
+                    <div class="review-header">
+                        <span class="reviewer-name">Carlos M.</span>
+                        <span class="review-date">15 Marzo 2024</span>
+                    </div>
+                    <div class="star-rating" style="font-size: 1rem;">★★★★★</div>
+                    <p style="margin-top: 0.5rem; color: #666;">
+                        Increíble juego. La historia de Miles es emotiva y la jugabilidad es espectacular. Los gráficos en PS5 son impresionantes y el ray tracing hace que Nueva York cobre vida.
+                    </p>
+                    <button class="btn btn-link text-danger p-0 ms-3" title="Eliminar comentario">
+                      <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+
+                <div class="review-item">
+                    <div class="review-header">
+                        <span class="reviewer-name">Laura G.</span>
+                        <span class="review-date">8 Marzo 2024</span>
+                    </div>
+                    <div class="star-rating" style="font-size: 1rem;">★★★★★</div>
+                    <p style="margin-top: 0.5rem; color: #666;">
+                        Me encantó cada minuto. Los poderes de Miles son únicos y divertidos de usar. La banda sonora es perfecta y complementa la historia a la perfección.
+                    </p>
+                    <button class="btn btn-link text-danger p-0 ms-3" title="Eliminar comentario">
+                      <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+
+                <div class="review-item">
+                    <div class="review-header">
+                        <span class="reviewer-name">Miguel A.</span>
+                        <span class="review-date">2 Marzo 2024</span>
+                    </div>
+                    <div class="star-rating" style="font-size: 1rem;">★★★★☆</div>
+                    <p style="margin-top: 0.5rem; color: #666;">
+                        Muy buen juego aunque un poco corto. La experiencia es fantástica pero me hubiera gustado más contenido. Aún así, totalmente recomendable.
+                    </p>
+                    <button class="btn btn-link text-danger p-0 ms-3" title="Eliminar comentario">
+                      <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+
+                <div style="text-align: center; margin: 2rem 0;">
+                    <button class="btn-load-more">+ Ver más comentarios</button>
+                </div>
+            </div>
+        </div>
+
+
+
     </div>
+
+
 
     <!-- FOOTER -->
     <footer class="bg-light text-dark pt-5 pb-4 mt-5">
