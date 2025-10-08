@@ -22,8 +22,10 @@
   - Price
   - Category
   - Year
-  - Studio
+  - Developer
+  - Platform
   - Images
+  - Video(Trailer)
   - Reviews
 
 - **Secondary entity:**  
@@ -32,6 +34,7 @@
   - User
   - Rating
   - Description
+  - Date
 
 ---
 
