@@ -7,7 +7,6 @@ body {
 }
 
 .hero {
-<<<<<<< HEAD
   height: 65vh;
   width: 100%;
   background: linear-gradient(
@@ -17,16 +16,6 @@ body {
     ),
     url("https://img.builtbybit.com/UDP50wMZZ_EGcxuzY0osYNUOBHyaMLzIHCwH-7SqxB4/resize:fill:2000/format:webp/aHR0cHM6Ly9zdG9yYWdlLmdvb2dsZWFwaXMuY29tL2JyZWFkYnVpbGRzLXJlbmRlcnMvc3VucmlzZV9raW5nZG9tMi5wbmc")
       center center / cover no-repeat;
-=======
-    height: 70vh;
-    width: 100%;
-    background-image:
-        linear-gradient(to right, rgba(78, 171, 202, 0.7), rgba(0, 255, 51, 0.7)),
-        url('https://img.builtbybit.com/UDP50wMZZ_EGcxuzY0osYNUOBHyaMLzIHCwH-7SqxB4/resize:fill:2000/format:webp/aHR0cHM6Ly9zdG9yYWdlLmdvb2dsZWFwaXMuY29tL2JyZWFkYnVpbGRzLXJlbmRlcnMvc3VucmlzZV9raW5nZG9tMi5wbmc');
-    background-position: center center;
-    background-size: cover;
-    background-attachment: fixed;
->>>>>>> d8ab801da4193afca81c48ae7931b16937126d47
 }
 
 .hero2 {
@@ -77,46 +66,9 @@ body {
   background: linear-gradient(90deg, #00c6ff, #00ff87);
 }
 
-<<<<<<< HEAD
 .display-3 {
   font-family: "Oswald", sans-serif;
 }
-=======
-  .card-img-top {
-      width: 100%;
-      height: 250px;
-      object-fit: cover;
-      border-top-left-radius: 0.5rem;
-      border-top-right-radius: 0.5rem;
-  }
-
-  .card {
-      min-height: 450px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-  }
-
-  .arrow {
-      width: 64px;
-      height: auto;
-      filter: brightness(0) invert(1);
-
-  }
-
-
-  .card-body2 {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-  }
-
-  .card-body2 .btn {
-      margin-top: auto;
-      width: 80%;
-  }
-
->>>>>>> d8ab801da4193afca81c48ae7931b16937126d47
 
 /* ***************************Details.html********************************** */
 .game-title {
@@ -228,15 +180,11 @@ body {
   background-color: #fff;
   color: #111;
   border: none;
-  padding: 0.9rem 20%;
-  border-radius: 55px;
+  padding: 0.8rem 20%;
+  border-radius: 5px;
   font-weight: bold;
+  width: 100%;
   margin-top: 0.5rem;
-}
-
-.btn-modif:hover {
-  background-color: rgb(3, 3, 3);
-  color: #fff;
 }
 
 /* Reviews */
@@ -311,5 +259,85 @@ body {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
+
+.add-review-section {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 2rem;
+    margin-top: 2rem;
+    border: 2px dashed #ddd;
+}
+
+.form-group-custom {
+    margin-bottom: 1.5rem;
+}
+
+.form-label-custom {
+    display: block;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 0.5rem;
+}
+
+.form-control-custom {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-control-custom:focus {
+    outline: none;
+    border-color: #00b4d8;
+}
+
+.rating-input {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 0.3rem;
+}
+
+.rating-input input[type="radio"] {
+    display: none;
+}
+
+.rating-input label {
+    font-size: 2rem;
+    color: #ddd;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.rating-input label:hover,
+.rating-input label:hover ~ label {
+    color: #ffd700;
+}
+
+.rating-input input[type="radio"]:checked ~ label {
+    color: #ffd700;
+}
+
+.btn-submit-review {
+    background: linear-gradient(to right, #00c853, #2196f3);
+    color: #fff;
+    border: none;
+    padding: 0.9rem 3rem;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.btn-submit-review:hover {
+    background-color: black;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
 
 /* ********************Detail ends****************** */
