@@ -1,21 +1,17 @@
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  color: #212529;
-  margin: 0;
-  padding: 0;
-  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
 }
 
 .hero {
-  height: 65vh;
+  height: 70vh;
   width: 100%;
-  background: linear-gradient(
-      to right,
-      rgba(78, 171, 202, 0.7),
-      rgba(0, 255, 51, 0.7)
-    ),
-    url("https://img.builtbybit.com/UDP50wMZZ_EGcxuzY0osYNUOBHyaMLzIHCwH-7SqxB4/resize:fill:2000/format:webp/aHR0cHM6Ly9zdG9yYWdlLmdvb2dsZWFwaXMuY29tL2JyZWFkYnVpbGRzLXJlbmRlcnMvc3VucmlzZV9raW5nZG9tMi5wbmc")
-      center center / cover no-repeat;
+  background-image:
+    linear-gradient(to right, rgba(78, 171, 202, 0.7), rgba(0, 255, 51, 0.7)),
+    url('https://img.builtbybit.com/UDP50wMZZ_EGcxuzY0osYNUOBHyaMLzIHCwH-7SqxB4/resize:fill:2000/format:webp/aHR0cHM6Ly9zdG9yYWdlLmdvb2dsZWFwaXMuY29tL2JyZWFkYnVpbGRzLXJlbmRlcnMvc3VucmlzZV9raW5nZG9tMi5wbmc');
+  background-position: center center;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 .hero2 {
@@ -24,15 +20,18 @@ body {
   width: 100%;
 }
 
+
 .decor-bar {
   width: 120px;
   height: 5px;
   border-radius: 10px;
   background: linear-gradient(90deg, #00b4d8, #38b000);
 }
+
 .nav-link.active {
   position: relative;
 }
+
 .nav-link.active::after {
   content: "";
   position: absolute;
@@ -51,11 +50,22 @@ body {
   transition: 0.3s;
 }
 
+
+
+footer a.text-dark:hover {
+  font-weight: bold;
+}
+
 .btn-gradient {
   background: linear-gradient(90deg, #00c6ff, #00ff87);
   border: none;
   color: #111;
   font-weight: bold;
+}
+
+.btn-gradient:hover {
+  background: linear-gradient(90deg, #74e1ff, #a0ffd3);
+  color: #111;
 }
 
 .card-gradient {
@@ -66,10 +76,44 @@ body {
   background: linear-gradient(90deg, #00c6ff, #00ff87);
 }
 
+
 .display-3 {
   font-family: "Oswald", sans-serif;
 }
 
+.card-img-top {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+.card {
+  min-height: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.arrow {
+  width: 64px;
+  height: auto;
+  filter: brightness(0) invert(1);
+
+}
+
+
+.card-body2 {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card-body2 .btn {
+  margin-top: auto;
+  width: 80%;
+}
 /* ***************************Details.html********************************** */
 .game-title {
   background-color: #fff;
