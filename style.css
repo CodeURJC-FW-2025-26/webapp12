@@ -6,9 +6,12 @@ body {
 .hero {
   height: 70vh;
   width: 100%;
-  background-image:
-    linear-gradient(to right, rgba(78, 171, 202, 0.7), rgba(0, 255, 51, 0.7)),
-    url('https://img.builtbybit.com/UDP50wMZZ_EGcxuzY0osYNUOBHyaMLzIHCwH-7SqxB4/resize:fill:2000/format:webp/aHR0cHM6Ly9zdG9yYWdlLmdvb2dsZWFwaXMuY29tL2JyZWFkYnVpbGRzLXJlbmRlcnMvc3VucmlzZV9raW5nZG9tMi5wbmc');
+  background-image: linear-gradient(
+      to right,
+      rgba(78, 171, 202, 0.7),
+      rgba(0, 255, 51, 0.7)
+    ),
+    url("https://img.builtbybit.com/UDP50wMZZ_EGcxuzY0osYNUOBHyaMLzIHCwH-7SqxB4/resize:fill:2000/format:webp/aHR0cHM6Ly9zdG9yYWdlLmdvb2dsZWFwaXMuY29tL2JyZWFkYnVpbGRzLXJlbmRlcnMvc3VucmlzZV9raW5nZG9tMi5wbmc");
   background-position: center center;
   background-size: cover;
   background-attachment: fixed;
@@ -19,7 +22,6 @@ body {
   height: 30vh;
   width: 100%;
 }
-
 
 .decor-bar {
   width: 120px;
@@ -50,8 +52,6 @@ body {
   transition: 0.3s;
 }
 
-
-
 footer a.text-dark:hover {
   font-weight: bold;
 }
@@ -76,7 +76,6 @@ footer a.text-dark:hover {
   background: linear-gradient(90deg, #00c6ff, #00ff87);
 }
 
-
 .display-3 {
   font-family: "Oswald", sans-serif;
 }
@@ -100,9 +99,7 @@ footer a.text-dark:hover {
   width: 64px;
   height: auto;
   filter: brightness(0) invert(1);
-
 }
-
 
 .card-body2 {
   display: flex;
@@ -246,66 +243,127 @@ footer a.text-dark:hover {
 }
 
 .overall-rating {
-    text-align: center;
-    padding: 2rem;
-    background: linear-gradient(135deg, #fce668, #fcf5b7);
-    border-radius: 10px;
-    margin-bottom: 2rem;
+  text-align: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, #fce668, #fcf5b7);
+  border-radius: 10px;
+  margin-bottom: 2rem;
 }
 
 .overall-rating h2 {
-    font-size: 3rem;
-    font-weight: bold;
-    color: black;
-    margin: 0;
+  font-size: 3rem;
+  font-weight: bold;
+  color: black;
+  margin: 0;
 }
 
 .overall-rating p {
-    color: #666;
-    margin: 0.5rem 0 0 0;
+  color: #666;
+  margin: 0.5rem 0 0 0;
 }
 
 .review-item {
-    border-bottom: 1px solid #ddd;
-    padding: 1.5rem 0;
+  border-bottom: 1px solid #ddd;
+  padding: 1.5rem 0;
 }
 
 .review-item:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .review-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
 }
 
 .reviewer-name {
-    font-weight: bold;
-    color: black;
+  font-weight: bold;
+  color: black;
 }
 
 .review-date {
-    color: #999;
-    font-size: 0.9rem;
+  color: #999;
+  font-size: 0.9rem;
 }
 
 .btn-load-more {
-    background: linear-gradient(to right, #00c853, #2196f3);
-    color: #fff;
-    border: none;
-    padding: 0.8rem 2.5rem;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s;
-    font-size: 1rem;
+  background: linear-gradient(to right, #00c853, #2196f3);
+  color: #fff;
+  border: none;
+  padding: 0.8rem 2.5rem;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 1rem;
 }
 
 .btn-load-more:hover {
-    background-color: #00b4d8;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Add review */
+
+.add-review-section {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 2rem;
+  margin-top: 2rem;
+  border: 2px dashed #ddd;
+}
+
+.form-label-custom {
+  display: block;
+  font-weight: bold;
+  color: black;
+  margin-bottom: 0.5rem;
+}
+
+.rating-input {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  gap: 0.3rem;
+}
+
+.rating-input input[type="radio"] {
+  display: none;
+}
+
+.rating-input label {
+  font-size: 2rem;
+  color: #ddd;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.rating-input label:hover,
+.rating-input label:hover ~ label {
+  color: #ffd700;
+}
+
+.rating-input input[type="radio"]:checked ~ label {
+  color: #ffd700;
+}
+
+.btn-submit-review {
+  padding: 0.9rem 3rem;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 1rem;
+  width: 100%;
+  background: linear-gradient(to right, #00c853, #2196f3);
+  color: #fff;
+  border: none;
+}
+
+.btn-submit-review:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 /* ********************Detail ends****************** */
