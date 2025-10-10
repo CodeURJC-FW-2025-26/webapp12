@@ -51,15 +51,71 @@
                 <input type="number" class="form-control" id="inputPrice" name="price" required>
               <!-- Category -->
               <div class="mb-3">
-                <label for="inputCategory" class="form-label">Categoría</label>
-                <select class="form-select" id="inputCategory" name="category" required>
-                  <option value="">Selecciona una categoría</option>
-                  <option value="RPG">RPG</option>
-                  <option value="Shooter">Shooter</option>
-                  <option value="Strategy">Estrategia</option>
-                  <option value="Platform">Plataformas</option>
-                </select>
-              <!-- Platforms -->
+                  <label class="form-label">Selecciona el genero o generos del videojuego:</label>
+                  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-2">
+                    <div class="col">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="genres[]" value="rpg" id="rpg">
+                        <label class="form-check-label" for="rpg">RPG</label>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="genres[]" value="shooter" id="shooter">
+                        <label class="form-check-label" for="shooter">Shooter</label>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="genres[]" value="platform" id="platform">
+                        <label class="form-check-label" for="platform">Platform</label>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="genres[]" value="strategy" id="strategy">
+                        <label class="form-check-label" for="strategy">Strategy Games</label>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="genres[]" value="war" id="war">
+                        <label class="form-check-label" for="war">War</label>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="genres[]" value="action" id="action">
+                        <label class="form-check-label" for="action">Action</label>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="genres[]" value="racing" id="racing">
+                        <label class="form-check-label" for="racing">Racing</label>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="genres[]" value="moba" id="moba">
+                        <label class="form-check-label" for="moba">MOBA</label>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="genres[]" value="sandbox" id="sandbox">
+                        <label class="form-check-label" for="sandbox">Sandbox</label>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="genres[]" value="openworld" id="openworld">
+                        <label class="form-check-label" for="openworld">Open World</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                          <!-- Platforms -->
               <div class="mb-3">
                 <label for="inputCategory" class="form-label">Plataforma</label>
                 <select class="form-select" id="inputCategory" name="category" required>
