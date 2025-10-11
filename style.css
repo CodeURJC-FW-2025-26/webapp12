@@ -215,6 +215,11 @@ footer a.text-dark:hover {
   background-color: rgba(255, 255, 255, 0.2);
 }
 
+.btn-modif a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .btn-modif {
   background-color: #fff;
   color: #111;
