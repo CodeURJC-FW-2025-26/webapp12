@@ -113,49 +113,47 @@ footer a.text-dark:hover {
 }
 /* ***************************Details.html********************************** */
 .game-title {
-  background-color: #fff;
   padding: 2rem 0;
   margin-bottom: 2rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgb(255, 255, 255);
+  background-color: rgba(241, 241, 241, 0.1)
 }
 
 .game-title h1 {
-  color: #111;
   font-size: 2rem;
   font-weight: bold;
   margin: 0;
 }
 
 .game-cover {
-  background: linear-gradient(145deg, #fff, #f0f0f0);
   border-radius: 10px;
   padding: 2rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.336);
   position: sticky;
   top: 20px;
   text-align: center;
+  background-color: rgba(241, 241, 241, 0.1);
 }
 
 .game-cover img {
   max-width: 100%;
   height: auto;
   border-radius: 10px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 12px rgba(255, 255, 255, 0.15);
   margin-bottom: 1rem;
 }
 
 .game-price {
   font-weight: 700;
-  color: #222;
   margin: 0;
 }
 
 .game-info {
-  background-color: #fff;
   border-radius: 10px;
   padding: 2rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.336);
   height: 100%;
+  background-color: rgba(241, 241, 241, 0.1);
 }
 
 .game-info h3 {
@@ -181,12 +179,11 @@ footer a.text-dark:hover {
 
 .info-label {
   font-weight: bold;
-  color: #111;
   margin-bottom: 0.3rem;
 }
 
 .info-value {
-  color: #666;
+  color: #c0c0c0;
 }
 
 .star-rating {
@@ -198,10 +195,11 @@ footer a.text-dark:hover {
   color: #fff;
   border-radius: 10px;
   padding: 2rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.336);
   text-align: center;
   position: sticky;
   top: 20px;
+  max-width: 530px;
 }
 
 .card-item {
@@ -235,10 +233,10 @@ footer a.text-dark:hover {
 /* Reviews */
 
 .reviews-section {
-  background-color: #fff;
+  background-color: rgba(241, 241, 241, 0.1);
   border-radius: 10px;
   padding: 2rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.336);
   margin-top: 2rem;
 }
 
@@ -279,11 +277,10 @@ footer a.text-dark:hover {
 
 .reviewer-name {
   font-weight: bold;
-  color: black;
 }
 
 .review-date {
-  color: #999;
+  color: #c0c0c0;
   font-size: 0.9rem;
 }
 
@@ -307,17 +304,15 @@ footer a.text-dark:hover {
 /* Add review */
 
 .add-review-section {
-  background-color: #f9f9f9;
   border-radius: 8px;
   padding: 2rem;
   margin-top: 2rem;
-  border: 2px dashed #ddd;
+  border: 2px dashed #c0c0c0;
 }
 
 .form-label-custom {
   display: block;
   font-weight: bold;
-  color: black;
   margin-bottom: 0.5rem;
 }
 
@@ -334,7 +329,7 @@ footer a.text-dark:hover {
 
 .rating-input label {
   font-size: 2rem;
-  color: #ddd;
+  color: #ffffffda;
   cursor: pointer;
   transition: color 0.2s;
 }
@@ -364,6 +359,59 @@ footer a.text-dark:hover {
 .btn-submit-review:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Related games */
+
+.related-game-card {
+  margin: 0 auto;
+  display: block;
+}
+
+.related-games h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(to right, #00c853, #2196f3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  border-image: linear-gradient(to right, #00c853, #2196f3) 1;
+  border-bottom: 2px solid transparent;
+  padding-bottom: 0.5rem;
+}
+
+.related-game-card {
+  background-color: rgba(241, 241, 241, 0.1);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.336);
+  transition: transform 0.2s;
+  text-align: center;
+  height: 250px;
+  max-width: 300px;
+}
+
+.related-game-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgb(255, 255, 255);
+}
+
+.related-game-card img {
+  height: 150px;
+  width: auto;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+.related-game-title {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.related-game-price {
+  font-weight: bold;
+  font-size: 1.2rem;
 }
 
 /* ********************Detail ends****************** */
