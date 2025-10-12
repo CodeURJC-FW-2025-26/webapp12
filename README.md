@@ -55,7 +55,7 @@ The web application must offer one or more of the following features:
   A form that allows filtering items based on one or more criteria: price, studio, year.
 
 - **Categorization:**  
-  Video games will be categorized as RPGs, shooters, platform, strategy games, war, action, racing, MOBA, sandbox, open word.
+  Video games will be categorized as RPGs, shooters, platform, strategy games, war, action, racing, MOBA, sandbox, open word, simulation.
   Video games will also be categorized by its platform as Pc, Xbox series x, PlayStation 5, and Nintendo Switch.
   Product categories can be displayed in the top or side menu.
 
