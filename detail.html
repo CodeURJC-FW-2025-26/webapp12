@@ -17,22 +17,27 @@
   <body>
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
-      <div class="container d-flex justify-content-between align-items-center">
+      <div class="container">
+          <a class="navbar-brand fw-bold" href="#">Catálogo Videojuegos</a>
   
-          <div class="d-flex align-items-center">
-              <a class="navbar-brand fw-bold me-3" href="#">Catálogo Videojuegos</a>
-              <ul class="navbar-nav d-flex flex-row">
-                  <li class="nav-item mx-2"><a class="nav-link" href="index.html"><i class="bi bi-house"></i> Inicio</a></li>
-                  <li class="nav-item mx-2"><a class="nav-link" href="create.html"><i class="bi bi-controller"></i> Añadir Videojuego</a>
-                  <li class="nav-item mx-2"><a class="nav-link active" href="detail.html"><i class="bi bi-star"></i> Detalles</a></li>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+              aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+  
+          <div class="collapse navbar-collapse" id="navbarContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item mx-2"><a class="nav-link" href="index.html"><i class="bi bi-house"></i> Inicio</a>
                   </li>
+                  
+                  <li class="nav-item mx-2"><a class="nav-link" href="create.html"><i class="bi bi-controller"></i> Añadir
+                          Videojuego</a></li>
               </ul>
+                  <form class="d-flex" role="search">
+                  <input class="form-control me-2" type="search" placeholder="Buscar videojuegos..." aria-label="Buscar">
+                  <button class="btn btn-gradient" type="submit">Buscar</button>
+              </form>
           </div>
-  
-          <form class="d-flex" role="search">
-              <input class="form-control me-2" type="search" placeholder="Buscar videojuegos..." aria-label="Buscar">
-              <button class="btn btn-gradient" type="submit">Buscar</button>
-          </form>
       </div>
   </nav>
 
@@ -139,19 +144,19 @@
             <div class="reviews-section">
                 <div class="overall-rating">
                     <h2>4.8</h2>
-                    <div class="star-rating" style="font-size: 2rem;">★★★★★</div>
+                    <div class="star-rating star2">★★★★★</div>
                     <p>Basado en 2,453 valoraciones</p>
                 </div>
 
-                <h3 style="margin-bottom: 1.5rem;">Opiniones de usuarios</h3>
+                <h3>Opiniones de usuarios</h3>
 
                 <div class="review-item">
-                    <div class="review-header">
+                    <div class="review-header d-flex justify-content-between mb-2">
                         <span class="reviewer-name">Carlos M.</span>
                         <span class="review-date">15 Marzo 2024</span>
                     </div>
-                    <div class="star-rating" style="font-size: 1rem;">★★★★★</div>
-                    <p style="margin-top: 0.5rem; color: #c0c0c0;">
+                    <div class="star-rating star3">★★★★★</div>
+                    <p>
                         Increíble juego. La historia de Miles es emotiva y la jugabilidad es espectacular. Los gráficos en PS5 son impresionantes y el ray tracing hace que Nueva York cobre vida.
                     </p>
                     <button class="btn btn-link text-danger p-0 ms-3" title="Eliminar comentario">
@@ -163,12 +168,12 @@
                 </div>
 
                 <div class="review-item">
-                    <div class="review-header">
+                    <div class="review-header d-flex justify-content-between mb-2">
                         <span class="reviewer-name">Laura G.</span>
                         <span class="review-date">8 Marzo 2024</span>
                     </div>
-                    <div class="star-rating" style="font-size: 1rem;">★★★★★</div>
-                    <p style="margin-top: 0.5rem; color: #c0c0c0;">
+                    <div class="star-rating star3">★★★★★</div>
+                    <p>
                         Me encantó cada minuto. Los poderes de Miles son únicos y divertidos de usar. La banda sonora es perfecta y complementa la historia a la perfección.
                     </p>
                     <button class="btn btn-link text-danger p-0 ms-3" title="Eliminar comentario">
@@ -180,12 +185,12 @@
                 </div>
 
                 <div class="review-item">
-                    <div class="review-header">
+                    <div class="review-header d-flex justify-content-between mb-2">
                         <span class="reviewer-name">Miguel A.</span>
                         <span class="review-date">2 Marzo 2024</span>
                     </div>
-                    <div class="star-rating" style="font-size: 1rem;">★★★★☆</div>
-                    <p style="margin-top: 0.5rem; color: #c0c0c0;">
+                    <div class="star-rating star3">★★★★☆</div>
+                    <p>
                         Muy buen juego aunque un poco corto. La experiencia es fantástica pero me hubiera gustado más contenido. Aún así, totalmente recomendable.
                     </p>
                     <button class="btn btn-link text-danger p-0 ms-3" title="Eliminar comentario">
@@ -197,7 +202,7 @@
                   
                 </div>
 
-                <div style="text-align: center; margin: 2rem 0;">
+                <div class="divLoadMore">
                     <button class="btn-load-more">+ Ver más comentarios</button>
                 </div>
 
@@ -205,15 +210,27 @@
                   <div class="add-review-section">
                     <h4 class="mb-4 text-light">Añade tu opinión</h4>
                     <form>
-                      <label class="form-label-custom">Tu valoración</label> <div class="rating-input"> <input type="radio" name="rating" id="star5" value="5"> <label for="star5">★</label> <input type="radio" name="rating" id="star4" value="4"> <label for="star4">★</label> <input type="radio" name="rating" id="star3" value="3"> <label for="star3">★</label> <input type="radio" name="rating" id="star2" value="2"> <label for="star2">★</label> <input type="radio" name="rating" id="star1" value="1"> <label for="star1">★</label> </div>
+                      <label class="form-label-custom d-block">Tu valoración</label> 
+                      <div class="rating-input d-flex flex-row-reverse justify-content-end"> 
+                        <input type="radio" name="rating" id="star5" value="5"> 
+                          <label for="star5">★</label> 
+                        <input type="radio" name="rating" id="star4" value="4"> 
+                          <label for="star4">★</label> 
+                        <input type="radio" name="rating" id="star3" value="3"> 
+                          <label for="star3">★</label> 
+                        <input type="radio" name="rating" id="star2" value="2"> 
+                          <label for="star2">★</label> 
+                        <input type="radio" name="rating" id="star1" value="1"> 
+                          <label for="star1">★</label> 
+                      </div>
                 
                       <div class="mb-3">
-                        <label for="userName" class="form-label-custom">Tu nombre</label>
+                        <label for="userName" class="form-label-custom d-block">Tu nombre</label>
                         <input type="text" class="form-control" id="userName" placeholder="Escribe tu nombre">
                       </div>
 
                       <div class="mb-3">
-                        <label for="reviewText" class="form-label-custom">Tu comentario</label>
+                        <label for="reviewText" class="form-label-custom d-block">Tu comentario</label>
                         <textarea class="form-control" id="reviewText" rows="4" placeholder="Comparte tu experiencia con este juego..."></textarea>
                       </div>
 
@@ -229,20 +246,20 @@
           <div class="related-games">
               <h3>Juegos relacionados - PS5</h3>
 
-              <div class="related-game-card">
+              <div class="related-game-card d-block">
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSm1dKUiTfbzfVo9Toe4waTyob7yvkX_OpLvQ&s" class="card-img-top" alt="...">
                   <div class="related-game-title">Minecraft</div>
                   <div class="related-game-price">€26.95</div>
               </div>
 
-              <div class="related-game-card">
+              <div class="related-game-card d-block">
                 <img src="https://m.media-amazon.com/images/I/81W+fYqjU0L._UF1000,1000_QL80_.jpg"
                 class="card-img-top" alt="...">
                   <div class="related-game-title">Grand Theft Auto V</div>
                   <div class="related-game-price">€19.99</div>
               </div>
 
-              <div class="related-game-card">
+              <div class="related-game-card d-block">
                 <img src="https://dixgamer.com/wp-content/uploads/2021/08/call-of-duty-black-ops-4-ps5.jpg"
                 class="card-img-top" alt="...">
                   <div class="related-game-title">Call of Duty (Black Ops)</div>
@@ -273,10 +290,9 @@
               <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
                   <h5 class="text-uppercase fw-bold mb-3">Enlaces</h5>
                   <ul class="list-unstyled">
-                      <li><a href="#" class="text-decoration-none text-dark">Inicio</a></li>
-                      <li><a href="#" class="text-decoration-none text-dark">Servicios</a></li>
-                      <li><a href="#" class="text-decoration-none text-dark">Contacto</a></li>
-                      <li><a href="#" class="text-decoration-none text-dark">Catálogo</a></li>
+                      <li><a href="index.html" class="text-decoration-none text-dark">Inicio</a></li>
+                      <li><a href="create.html" class="text-decoration-none text-dark">Añadir Videojuego</a></li>
+                      <li><a href="#catalogo" class="text-decoration-none text-dark">Catálogo</a></li>
                   </ul>
               </div>
   

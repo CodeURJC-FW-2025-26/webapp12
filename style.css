@@ -90,9 +90,6 @@ footer a.text-dark:hover {
 
 .card {
   min-height: 450px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
 
 .arrow {
@@ -102,8 +99,6 @@ footer a.text-dark:hover {
 }
 
 .card-body2 {
-  display: flex;
-  flex-direction: column;
   height: 100%;
 }
 
@@ -246,6 +241,18 @@ footer a.text-dark:hover {
   margin-top: 2rem;
 }
 
+.star2 {
+  font-size: 2rem;
+}
+
+.star3 {
+  font-size: 1rem;
+}
+
+.reviews-section h3 {
+  margin-bottom: 1.5rem;
+}
+
 .overall-rating {
   text-align: center;
   padding: 2rem;
@@ -275,10 +282,9 @@ footer a.text-dark:hover {
   border-bottom: none;
 }
 
-.review-header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.5rem;
+.review-item p {
+  margin-top: 0.5rem; 
+  color: #c0c0c0;
 }
 
 .reviewer-name {
@@ -288,6 +294,11 @@ footer a.text-dark:hover {
 .review-date {
   color: #c0c0c0;
   font-size: 0.9rem;
+}
+
+.divLoadMore {
+  text-align: center; 
+  margin: 2rem 0;
 }
 
 .btn-load-more {
@@ -317,15 +328,11 @@ footer a.text-dark:hover {
 }
 
 .form-label-custom {
-  display: block;
   font-weight: bold;
   margin-bottom: 0.5rem;
 }
 
 .rating-input {
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: flex-end;
   gap: 0.3rem;
 }
 
@@ -371,7 +378,6 @@ footer a.text-dark:hover {
 
 .related-game-card {
   margin: 0 auto;
-  display: block;
 }
 
 .related-games h3 {
