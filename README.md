@@ -67,8 +67,7 @@ Mi participación en la práctica se ha centrado principalmente en el desarrollo
 
 El archivo `create.html` tiene como función principal mostrar el formulario que recoge los atributos necesarios para generar nuevas entidades principales (en nuestro caso, videojuegos).
 
--5 commits mas relevantes:
-| Nº | Enlace al commit |
+| Nº | Commits más relevantes |
 |----|------------------|
 | 1  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/a36eacd7190b68298fd28235665fd001cc56393a |
 | 2  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/43db44353b9cddbf9c4303744a844a4b9c5459ca |
