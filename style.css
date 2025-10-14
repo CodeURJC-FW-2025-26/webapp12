@@ -17,12 +17,6 @@ body {
   background-attachment: fixed;
 }
 
-.hero2 {
-  background: linear-gradient(to right, rgb(78, 171, 202), rgb(0, 255, 51));
-  height: 30vh;
-  width: 100%;
-}
-
 .decor-bar {
   width: 120px;
   height: 5px;
@@ -443,6 +437,12 @@ input[type=number]::-webkit-outer-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+.hero2 {
+  background: linear-gradient(to right, rgb(78, 171, 202), rgb(0, 255, 51));
+  height: 25vh;
+  width: 100%;
 }
 
 /* ***************************Create ends********************************** */
