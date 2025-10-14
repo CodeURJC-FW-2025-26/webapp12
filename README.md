@@ -93,4 +93,18 @@ También se añadió una sección de categorías a cada card (entidad) y una sec
   
 -Los ficheros en los que más he participado ha sido: index.html y style.css
   
+**Lucca Manfredotti**
 
+En el desarrollo de este catálogo de videojuegos el trabajo más destacado que he realizado ha sido en `detail.html` y `style.css`, creando el apartado de toda la información del juego (como imagen, precio, descripción, trailer, ...), añadiendo la entidad secundaria que son las reviews con su formulario de añadir comentario, y incluyendo los juegos relacionados. Todo esto dando estilo para la página en el `style.css`.
+
+También he colaborado ayudando en la realización del `README.md`.
+
+| Nº | Commits más relevantes |
+|----|------------------|
+| 1  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/2d3fdf912bf23d11786cc2eae12e226ad3588c96 |
+| 2  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/ac92b660067c0779d5f009d5accfe83b92ffca44 |
+| 3  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/d0029da22bbc701eb23850bbbda4743fa2c7b939 |
+| 4  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/1a3aa6a8bd6cf26594072e7b7f2e13630582a3b7 |
+| 5  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/632b0206a2de62e07c29587a6ca5786007118e83 |
+  
+-Los ficheros en los que más he participado ha sido: index.html, style.css, y parcialmente en el readme.md.
