@@ -59,3 +59,23 @@ The web application must offer one or more of the following features:
   Video games will also be categorized by its platform as Pc, Xbox series x, PlayStation 5, and Nintendo Switch.
   Product categories can be displayed in the top or side menu.
 
+## Participation
+
+**Pablo Villamayor**
+
+Mi participación en la práctica se ha centrado principalmente en el desarrollo del documento `create.html` y del archivo `style.css`, encargado de estilizar los componentes HTML de dicha página. Además, he colaborado en la redacción y revisión del documento `README.md`.
+
+El archivo `create.html` tiene como función principal mostrar el formulario que recoge los atributos necesarios para generar nuevas entidades principales (en nuestro caso, videojuegos).
+
+-5 commits mas relevantes:
+| Nº | Enlace al commit |
+|----|------------------|
+| 1  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/a36eacd7190b68298fd28235665fd001cc56393a |
+| 2  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/43db44353b9cddbf9c4303744a844a4b9c5459ca |
+| 3  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/2ce1c398bc52edb9544593ee1574fa5aa3ab56e0 |
+| 4  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/e421ff99f8f905bd356ae9b06fa21c1ef613038d |
+| 5  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/cb29d5230b7ceb49727253df057258a2e5e04309 |
+  
+-Los ficheros en los que más he participado ha sido: create.html, style.css y readme.md
+  
+
