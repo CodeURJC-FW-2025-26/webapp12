@@ -76,5 +76,21 @@ El archivo `create.html` tiene como función principal mostrar el formulario que
 | 5  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/cb29d5230b7ceb49727253df057258a2e5e04309 |
   
 -Los ficheros en los que más he participado ha sido: create.html, style.css y readme.md
+
+**Neville Gil**
+
+En esta práctica el documento principal en el que he trabajo ha sido `index.html` y `style.css`, creado el hero (con flecha para bajar a catálogo), creación inicial del navbar y footer y las 9 cards de los videojuegos de la página principal. También di estilo a los elementos principales de la web, el botón gradiente, estilo del hero, degradados etc. También añadí algunos elementos como, card destacada, sección de información y "lo más visto".
+
+También se añadió una sección de categorías a cada card (entidad) y una sección en la página principal donde se muestran todas las usadas. Luego en las respectivas páginas se usan las mismas etiquetas/categorías, así como el uso de imágenes.
+
+| Nº | Commits más relevantes |
+|----|------------------|
+| 1  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/828a06649b9afaa71b8ac1648204428e967362a0 |
+| 2  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/51a388ebbaeb42d2cda2fdf5ea8e287b52b7ad75 |
+| 3  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/e1fe0e7967065fd812c332d9de0333de2176c7a2 |
+| 4  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/1e6a51851096cf1309c32f88928157eb80a2bb08 |
+| 5  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/c3a3e7dd74fb1e24119789e1b2fed32790108aac |
+  
+-Los ficheros en los que más he participado ha sido: index.html y style.css
   
 
