@@ -112,6 +112,7 @@ footer a.text-dark:hover {
 background: linear-gradient(to right, #00c853, #2196f3);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+    font-weight: bold;
 }
 /* ***************************Details.html********************************** */
 .game-title {
