@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Videojuego añadido</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+  </head>
+
+  <body class="bg-dark text-light d-flex flex-column min-vh-100">
+
+    <!-- HERO 2 -->
+    <section class="hero2 d-flex align-items-center justify-content-center text-center text-white">
+      <div class="container">
+        <h1 class="display-3 fw-bold">Página de videojuego añadido</h1>
+      </div>
+    </section>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <section class="d-flex flex-column justify-content-center align-items-center text-center flex-grow-1 py-5">
+      <div class="container">
+        <div class="card bg-dark border-light shadow-lg p-5">
+          <div class="card-body">
+            <i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i>
+            <h1 class="mt-3 mb-4 text-white">¡Videojuego añadido correctamente!</h1>
+
+            <!-- Nombre dinámico del videojuego -->
+            <h4 class="mb-4 text-secondary text-white">{{nombre}}</h4>
+
+            <p class="lead mb-5 text-white">
+              El videojuego ha sido agregado exitosamente al catálogo.  
+              Puedes volver al inicio o añadir otro videojuego.
+            </p>
+
+            <div class="d-flex justify-content-center gap-3">
+              <a href="/index" class="btn btn-gradient px-4 py-2">
+                <i class="bi bi-house"></i> Volver al inicio
+              </a>
+              <a href="/create" class="btn btn-outline-light px-4 py-2">
+                <i class="bi bi-plus-circle"></i> Añadir otro videojuego
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="b-gradient text-dark pt-5 pb-4 mt-auto">
+      <div class="container text-center text-md-start">
+        <div class="row">
+          <div class="col-md-4 col-lg-4 col-xl-3 mx-auto mb-4">
+            <h5 class="text-uppercase fw-bold mb-3">Catálogo Videojuegos</h5>
+            <p>
+              Neville Gil Ortiz<br />
+              Lucca Manfredotti García<br />
+              Pablo Villamayor Iglesias<br />
+            </p>
+          </div>
+
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+            <h5 class="text-uppercase fw-bold mb-3">Enlaces</h5>
+            <ul class="list-unstyled">
+              <li><a href="/index" class="text-decoration-none text-dark">Inicio</a></li>
+              <li><a href="/create" class="text-decoration-none text-dark">Añadir Videojuego</a></li>
+              <li><a href="/index#catalogo" class="text-decoration-none text-dark">Catálogo</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="text-center py-3 border-top border-secondary">
+          <small>© 2025 Catálogo Videojuegos | Todos los derechos reservados</small>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

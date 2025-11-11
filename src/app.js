@@ -29,9 +29,16 @@ app.get('/detail', (req, res)=>{
     res.render('detail');
 });
 
-
 app.get('/create', (req, res)=>{
     res.render('create');
+});
+
+app.get('/deleteVideogame', (req, res)=>{
+    res.render('deleteVideogame');
+});
+
+app.get('/uploadVideogame', (req, res)=>{
+    res.render('uploadVideogame');
 });
 
 // Iniciar servidor
