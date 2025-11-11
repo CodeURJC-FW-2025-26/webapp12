@@ -1,45 +1,30 @@
 [
     {
         "title": "Spiderman",
-        "text": "Acción y aventura en mundo abierto con el icónico superhéroe de Marvel.",
+        "description": "Acción y aventura en mundo abierto con el icónico superhéroe de Marvel.",
         "imageFilename": "spiderman.avif",
-        "precio": "10",
-        "categorias": [
+        "price": "10",
+        "platform": "PS5",
+        "year": "2024",
+        "developer": "Microsoft",
+        "categories": [
             "Acción",
             "Mundo Abierto"
         ]
     },
     {
         "title": "Minecraft",
-        "text": "Juego de mundo abierto y supervivencia donde puedes construir, explorar y sobrevivir.",
+        "description": "Juego de mundo abierto y supervivencia donde puedes construir, explorar y sobrevivir.",
         "imageFilename": "minecraft.jpeg",
-        "precio": "25",
-        "categorias": [
-            "Simulación",
-            "Supervivencia"
-        ]
-    },
-    {
-        "title": "The Legend of Zelda: Tears of the Kingdom",
-        "text": "Explora un vasto mundo lleno de secretos, desafíos y aventuras épicas.",
-        "imageFilename": "zelda_totk.jpeg",
-        "precio": "69.99",
-        "categorias": [
-            "Aventura",
-            "Mundo Abierto"
-        ]
-    },
-    {
-        "title": "Call of Duty: Modern Warfare III",
-        "text": "Shooter en primera persona con intensas campañas y combates multijugador.",
-        "imageFilename": "cod_mw3.jpeg",
-        "precio": "59.99",
-        "categorias": [
-            "Shooter",
-            "Acción"
-        ]
+        "price": "25",
+        "platform": "PS5",
+        "year": "2024",
+        "developer": "Microsoft",        
+        "categories": [
+                    "Simulación",
+                    "Supervivencia"
+                ]
     }
-   
   
 
 ]
