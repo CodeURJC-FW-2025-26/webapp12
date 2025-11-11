@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalles del Videojuego</title>
-    <link rel="stylesheet" href="style.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -14,6 +13,7 @@
   href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
 />
     <!-- We call bootstrap library-->
+    <link rel="stylesheet" href="/style.css">
   </head>
 
   <body>
@@ -47,7 +47,7 @@
 <section class="bg-dark text-light">
     <div class="game-title">
       <div class="container">
-        <h1>Marvel's Spider-Man: Miles Morales</h1>
+        <h1>{{title}}</h1>
       </div>
     </div>
 
@@ -56,11 +56,11 @@
         <div class="col-8 col-md-6 col-lg-4 mb-4 mx-auto">
           <div class="game-cover">
             <img
-              src="Images/spiderman.avif"
+              src="/uploads/{{imageFilename}}"
               alt="Videogame image"
               class="img-fluid"
             />
-            <h2 class="game-price">59,99€</h2>
+            <h2 class="game-price">{{precio}}€</h2>
           </div>
         </div>
       
@@ -71,21 +71,18 @@
             <div class="info-item">
               <div class="info-label">Descripción</div>
               <div class="info-value">
-                Experimenta el ascenso de Miles Morales mientras domina nuevos y
-                explosivos poderes para convertirse en Spider-Man. En esta aventura
-                de acción y narrativa épica, atraviesa una Nueva York nevada mientras
-                Miles busca su lugar en el mundo.
+                {{description}}
               </div>
             </div>
       
             <div class="info-item">
               <div class="info-label">Plataforma</div>
-              <div class="info-value">PlayStation 5</div>
+              <div class="info-value">{{platform}}</div>
             </div>
       
             <div class="info-item">
               <div class="info-label">Año de lanzamiento</div>
-              <div class="info-value">2020</div>
+              <div class="info-value">{{year}}</div>
             </div>
       
             <div class="info-item">
@@ -97,7 +94,7 @@
       
             <div class="info-item">
               <div class="info-label">Desarrollador</div>
-              <div class="info-value">Insomniac Games</div>
+              <div class="info-value">{{developer}}</div>
             </div>
       
             <div class="info-item">

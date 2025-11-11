@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
 
 router.post('/post/new', upload.single('image'), async (req, res) => {
 
-    let post = {
+    let videogame = {
         user: req.body.user,
         title: req.body.title,
         text: req.body.text,
@@ -27,16 +27,19 @@ router.post('/post/new', upload.single('image'), async (req, res) => {
 
     await videogame.addVideogame(videogame);
 
-    res.render('saved_Videogame', { _id: post._id.toString() });
+    res.render('saved_Videogame', { _id: videogame._id.toString() });
 
 });
 
-router.get('/post/:id', async (req, res) => {
-
-    let post = await videogame.getVideogame(req.params.id);
-
-    res.render('show_Videogame', { videogame });
-});
+router.get('/detail/:id', async (req, res) => {
+    const game = await videogame.getVideogame(req.params.id);
+  
+    if (!game) {
+      return res.status(404).send('Videojuego no encontrado');
+    }
+  
+    res.render('detail', game);
+  });
 
 router.get('/post/:id/delete', async (req, res) => {
 

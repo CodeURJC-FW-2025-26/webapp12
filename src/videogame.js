@@ -6,6 +6,8 @@ export default router;
 
 const client = new MongoClient('mongodb://localhost:27017');
 
+await client.connect();
+
 const db = client.db('videogame');
 const videogames = db.collection('videogames');
 
