@@ -13,7 +13,14 @@ router.get('/', async (req, res) => {
 
     let videogamesAct = await videogame.getVideogames();
 
-    res.render('index', { videogamesAct });
+    // Seleccionar un videojuego aleatorio como sugerido
+    let suggestedGame = null;
+    if (videogamesAct.length > 0) {
+        const randomIndex = Math.floor(Math.random() * videogamesAct.length);
+        suggestedGame = videogamesAct[randomIndex];
+    }
+
+    res.render('index', { videogamesAct, suggestedGame });
 });
 
 router.post('/post/new', upload.single('image'), async (req, res) => {
