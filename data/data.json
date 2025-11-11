@@ -1,14 +1,16 @@
 [
     {
         "user": "Pepe",
-        "title": "Vendo moto",
-        "text": "Barata, barata",
-        "imageFilename": "post0.jpeg"
+        "title": "Spiderman",
+        "text": "descripcion",
+        "imageFilename": "post0.jpeg",
+        "precio": "10"
     },
     {
         "user": "Juan",
         "title": "Compro coche",
         "text": "Pago bien",
-        "imageFilename": "post1.jpeg"
+        "imageFilename": "post1.jpeg",
+        "precio": "12"
     }
 ]
