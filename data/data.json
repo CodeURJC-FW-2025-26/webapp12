@@ -1,16 +1,30 @@
 [
     {
-        "user": "Pepe",
         "title": "Spiderman",
-        "text": "descripcion",
-        "imageFilename": "post0.jpeg",
-        "precio": "10"
+        "description": "Acción y aventura en mundo abierto con el icónico superhéroe de Marvel.",
+        "imageFilename": "spiderman.avif",
+        "price": "10",
+        "platform": "PS5",
+        "year": "2024",
+        "developer": "Microsoft",
+        "categories": [
+            "Acción",
+            "Mundo Abierto"
+        ]
     },
     {
-        "user": "Juan",
-        "title": "Compro coche",
-        "text": "Pago bien",
-        "imageFilename": "post1.jpeg",
-        "precio": "12"
+        "title": "Minecraft",
+        "description": "Juego de mundo abierto y supervivencia donde puedes construir, explorar y sobrevivir.",
+        "imageFilename": "minecraft.jpeg",
+        "price": "25",
+        "platform": "PS5",
+        "year": "2024",
+        "developer": "Microsoft",        
+        "categories": [
+                    "Simulación",
+                    "Supervivencia"
+                ]
     }
+  
+
 ]
