@@ -57,7 +57,6 @@ router.get('/post/:id/image', async (req, res) => {
 router.get('/', async (req, res) => {
     const query = req.query.q?.trim() || "";
 
-    // Obtener los videojuegos según búsqueda
     let videogamesAct;
     if (query === "") {
         videogamesAct = await videogame.getVideogames();
@@ -65,10 +64,8 @@ router.get('/', async (req, res) => {
         videogamesAct = await videogame.searchVideogames(query);
     }
 
-    // Obtener todos los videojuegos para contenido sugerido
     const allVideogames = await videogame.getVideogames();
 
-    // Seleccionar un videojuego aleatorio como sugerido
     let suggestedGame = null;
     if (allVideogames.length > 0) {
         const randomIndex = Math.floor(Math.random() * allVideogames.length);
