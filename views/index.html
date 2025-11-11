@@ -32,10 +32,11 @@
                     <li class="nav-item mx-2"><a class="nav-link" href="/create"><i class="bi bi-controller"></i> Añadir
                             Videojuego</a></li>
                 </ul>
-                    <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Buscar videojuegos..." aria-label="Buscar">
+                <form class="d-flex" role="search" action="/search" method="get">
+                    <input class="form-control me-2" type="search" name="q" placeholder="Buscar videojuegos..." aria-label="Buscar">
                     <button class="btn btn-gradient" type="submit">Buscar</button>
                 </form>
+
             </div>
         </div>
     </nav>
