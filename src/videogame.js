@@ -11,6 +11,11 @@ await client.connect();
 const db = client.db('videogame');
 const videogames = db.collection('videogames');
 
+await videogames.createIndex(
+    { title: "text", text: "text" },
+    { name: "text_search_index" }
+  );
+
 export const UPLOADS_FOLDER = './uploads';
 
 export async function addVideogame(post) {
