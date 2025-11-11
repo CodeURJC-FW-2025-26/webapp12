@@ -91,22 +91,23 @@
                             </div>
                         </div>
 
-                        {{#videogamesAct}}
-                        <div class="col-md-6 col-lg-4">
-                            <div class="card d-flex flex-column justify-content-between">
-                                <img src="/uploads/{{imageFilename}}" class="card-img-top" alt="{{title}}">
-                                <div class="card-body card-body2 d-flex flex-column">
-                                    <h5 class="card-title">{{title}}</h5>
-                                    <h6 class="fw-bold text-success mb-3">{{precio}}</h6>
-                            <p class="card-text">
-                            <span class="badge text-bg-secondary me-1">Sandbox</span>
-                            <span class="badge text-bg-secondary me-1">Creativo</span>
-                        </p>
-                       <a href="/post/{{_id}}" class="btn btn-gradient">Más Información</a>
-                                </div>
+                    {{#videogamesAct}}
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card d-flex flex-column justify-content-between">
+                            <img src="/uploads/{{imageFilename}}" class="card-img-top" alt="{{title}}">
+                            <div class="card-body card-body2 d-flex flex-column">
+                                <h5 class="card-title">{{title}}</h5>
+                                <h6 class="fw-bold text-success mb-3">{{precio}} €</h6>
+                                <p class="card-text">
+                                    {{#categorias}}
+                                    <span class="badge text-bg-secondary me-1">{{.}}</span>
+                                    {{/categorias}}
+                                </p>
+                                <a href="/post/{{_id}}" class="btn btn-gradient mt-auto">Más Información</a>
                             </div>
                         </div>
-                        {{/videogamesAct}}
+                    </div>
+                    {{/videogamesAct}}
                          {{^videogamesAct}}
                             <p>No hay videojuegos disponibles todavía.</p>
                         {{/videogamesAct}}
