@@ -56,26 +56,38 @@ router.get('/post/:id/image', async (req, res) => {
 
 router.get('/', async (req, res) => {
     const query = req.query.q?.trim() || "";
+    const page = parseInt(req.query.page) || 1;
+    const limit = 6; // cantidad de videojuegos por página
 
-    let videogamesAct;
-    if (query === "") {
-        videogamesAct = await videogame.getVideogames();
-    } else {
-        videogamesAct = await videogame.searchVideogames(query);
-    }
+    // Obtener todos los videojuegos
+    let videogames = query === ""
+        ? await videogame.getVideogames()
+        : await videogame.searchVideogames(query);
 
+    const totalVideogames = videogames.length;
+    const totalPages = Math.ceil(totalVideogames / limit);
+
+    // Cortar los resultados para la página actual
+    const startIndex = (page - 1) * limit;
+    const endIndex = startIndex + limit;
+    const videogamesAct = videogames.slice(startIndex, endIndex);
+
+    // Videojuego sugerido aleatorio
     const allVideogames = await videogame.getVideogames();
-
     let suggestedGame = null;
     if (allVideogames.length > 0) {
         const randomIndex = Math.floor(Math.random() * allVideogames.length);
         suggestedGame = allVideogames[randomIndex];
     }
 
-    res.render('index', { 
-        videogamesAct, 
+    res.render('index', {
+        videogamesAct,
         suggestedGame,
-        searchQuery: query
+        currentPage: page,
+        totalPages,
+        hasPrev: page > 1,
+        hasNext: page < totalPages,
+        prevPage: page - 1,
+        nextPage: page + 1
     });
 });
-
