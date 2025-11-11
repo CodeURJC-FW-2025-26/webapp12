@@ -59,7 +59,7 @@ router.get('/', async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const limit = 6; // cantidad de videojuegos por página
 
-    // Obtener todos los videojuegos
+    // Obtener videojuegos
     let videogames = query === ""
         ? await videogame.getVideogames()
         : await videogame.searchVideogames(query);
@@ -67,12 +67,21 @@ router.get('/', async (req, res) => {
     const totalVideogames = videogames.length;
     const totalPages = Math.ceil(totalVideogames / limit);
 
-    // Cortar los resultados para la página actual
+    // Recortar los resultados según la página actual
     const startIndex = (page - 1) * limit;
     const endIndex = startIndex + limit;
     const videogamesAct = videogames.slice(startIndex, endIndex);
 
-    // Videojuego sugerido aleatorio
+    // Generar lista de páginas (ej: [1,2,3,4,...])
+    const pages = [];
+    for (let i = 1; i <= totalPages; i++) {
+        pages.push({
+            number: i,
+            isActive: i === page
+        });
+    }
+
+    // Juego sugerido aleatorio
     const allVideogames = await videogame.getVideogames();
     let suggestedGame = null;
     if (allVideogames.length > 0) {
@@ -88,6 +97,8 @@ router.get('/', async (req, res) => {
         hasPrev: page > 1,
         hasNext: page < totalPages,
         prevPage: page - 1,
-        nextPage: page + 1
+        nextPage: page + 1,
+        pages
     });
 });
+
