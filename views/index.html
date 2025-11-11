@@ -91,144 +91,25 @@
                             </div>
                         </div>
 
-                        <!-- Card 2 -->
+                        {{#videogamesAct}}
                         <div class="col-md-6 col-lg-4">
                             <div class="card d-flex flex-column justify-content-between">
-                                <img src="Images/lol.jpg"
-                                    class="card-img-top" alt="...">
+                                <img src="/uploads/{{imageFilename}}" class="card-img-top" alt="{{title}}">
                                 <div class="card-body card-body2 d-flex flex-column">
-                                    <h5 class="card-title">League of Legends</h5>
-                                    <h6 class="fw-bold text-success mb-3">Gratis</h6>
-                                    <p class="card-text">
-                                        <span class="badge text-bg-secondary me-1">MOBA</span>
-                                        <span class="badge text-bg-secondary me-1">Estrategia</span>
-                                    </p>
-                                    <a href="/detail" class="btn btn-gradient">Más Información</a>
+                                    <h5 class="card-title">{{title}}</h5>
+                                    <p class="card-text">{{text}}</p>
+                                    <a href="/post/{{_id}}" class="btn btn-gradient">Más Información</a>
                                 </div>
                             </div>
                         </div>
+                        {{/videogamesAct}}
+                         {{^videogamesAct}}
+                            <p>No hay videojuegos disponibles todavía.</p>
+                        {{/videogamesAct}}
+    
 
+                       
 
-
-                        <!-- Card 3 -->
-                        <div class="col-md-6 col-lg-4 ">
-                            <div class="card d-flex flex-column justify-content-between">
-                                <img src="Images/minecraft.jpeg" class="card-img-top" alt="...">
-                                <div class="card-body card-body2 d-flex flex-column">
-                                    <h5 class="card-title">Minecraft</h5>
-                                    <h6 class="fw-bold text-success mb-3">€26.95</h6>
-                                    <p class="card-text">
-                                        <span class="badge text-bg-secondary me-1">Sandbox</span>
-                                        <span class="badge text-bg-secondary me-1">Supervivencia</span>
-                                    </p>
-                                    <a href="/detail" class="btn btn-gradient">Más Información</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 4 -->
-                        <div class="col-md-6 col-lg-4">
-                            <div class="card d-flex flex-column justify-content-between">
-                                <img src="Images/valorant.png"
-                                    class="card-img-top" alt="...">
-                                <div class="card-body card-body2 d-flex flex-column">
-                                    <h5 class="card-title">Valorant</h5>
-                                    <h6 class="fw-bold text-success mb-3">Gratis</h6>
-                                    <p class="card-text">
-                                        <span class="badge text-bg-secondary me-1">Shooter</span>
-                                        <span class="badge text-bg-secondary me-1">Estrategia</span>
-                                    </p>
-                                    <a href="/detail" class="btn btn-gradient">Más Información</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 5 -->
-                        <div class="col-md-6 col-lg-4">
-                            <div class="card d-flex flex-column justify-content-between">
-                                <img src="Images/gtaV.jpg"
-                                    class="card-img-top" alt="...">
-                                <div class="card-body card-body2 d-flex flex-column">
-                                    <h5 class="card-title">Grand Theft Auto V</h5>
-                                    <h6 class="fw-bold text-success mb-3">€19.99</h6>
-                                    <p class="card-text">
-                                        <span class="badge text-bg-secondary me-1">Acción</span>
-                                        <span class="badge text-bg-secondary me-1">Mundo Abierto</span>
-                                    </p>
-                                    <a href="/detail" class="btn btn-gradient">Más Información</a>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <!-- Card 6 -->
-                        <div class="col-md-6 col-lg-4">
-                            <div class="card d-flex flex-column justify-content-between">
-                                <img src="Images/callofduty.jpg"
-                                    class="card-img-top" alt="...">
-                                <div class="card-body card-body2 d-flex flex-column">
-                                    <h5 class="card-title">Call of Duty (Black Ops)</h5>
-                                    <h6 class="fw-bold text-success mb-3">€39.99</h6>
-                                    <p class="card-text">
-                                        <span class="badge text-bg-secondary me-1">Shooter</span>
-                                        <span class="badge text-bg-secondary me-1">Acción</span>
-                                    </p>
-                                    <a href="/detail" class="btn btn-gradient">Más Información</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 7 -->
-                        <div class="col-md-6 col-lg-4">
-                            <div class="card d-flex flex-column justify-content-between">
-                                <img src="Images/cyber.jpeg"
-                                    class="card-img-top" alt="...">
-                                <div class="card-body card-body2 d-flex flex-column">
-                                    <h5 class="card-title">Cyberpunk 2077</h5>
-                                    <h6 class="fw-bold text-success mb-3">€59.99</h6>
-                                    <p class="card-text">
-                                        <span class="badge text-bg-secondary me-1">RPG</span>
-                                        <span class="badge text-bg-secondary me-1">Mundo Abierto</span>
-                                        <span class="badge text-bg-secondary me-1">Acción</span>
-                                    </p>
-                                    <a href="/detail" class="btn btn-gradient">Más Información</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 8 -->
-                        <div class="col-md-6 col-lg-4">
-                            <div class="card d-flex flex-column justify-content-between">
-                                <img src="Images/forza.jpg"
-                                    class="card-img-top" alt="...">
-                                <div class="card-body card-body2 d-flex flex-column">
-                                    <h5 class="card-title">Forza Horizon 5</h5>
-                                    <h6 class="fw-bold text-success mb-3">€59.99</h6>
-                                    <p class="card-text">
-                                        <span class="badge text-bg-secondary me-1">Carreras</span>
-                                        <span class="badge text-bg-secondary me-1">Simulación</span>
-                                    </p>
-                                    <a href="/detail" class="btn btn-gradient">Más Información</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 9 -->
-                        <div class="col-md-6 col-lg-4">
-                            <div class="card d-flex flex-column justify-content-between">
-                                <img src="Images/warthunder.jpg"
-                                    class="card-img-top" alt="...">
-                                <div class="card-body card-body2 d-flex flex-column">
-                                    <h5 class="card-title">War Thunder</h5>
-                                    <h6 class="fw-bold text-success mb-3">Gratis</h6>
-                                    <p class="card-text">
-                                        <span class="badge text-bg-secondary me-1">Simulación</span>
-                                        <span class="badge text-bg-secondary me-1">Bélico</span>
-                                    </p>
-                                    <a href="/detail" class="btn btn-gradient">Más Información</a>
-                                </div>
-                            </div>
-                        </div>
 
 
                         <nav aria-label="Page navigation example">
