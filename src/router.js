@@ -61,13 +61,9 @@ router.get('/post/:id/image', async (req, res) => {
 });
 
 router.get('/search', async (req, res) => {
-    const query = req.query.q?.toLowerCase() || '';
+    const query = req.query.q?.trim() || "";
 
-    let videogames = await videogame.getVideogames();
+    const videogamesAct = await videogame.searchVideogames(query);
 
-    let filtered = videogames.filter(v =>
-        v.title.toLowerCase().includes(query)
-    );
-
-    res.render('index', { videogamesAct: filtered, searchQuery: req.query.q });
+    res.render('index', { videogamesAct, searchQuery: query });
 });

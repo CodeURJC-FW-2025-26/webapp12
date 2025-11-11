@@ -38,3 +38,26 @@ export async function getVideogame(id){
     return await videogames.findOne({ _id: new ObjectId(id) });
 }
 
+export async function searchVideogames(searchBar) {
+    if (!searchBar || searchBar.trim() === "") {
+        return await videogames.find().toArray();
+    }
+
+    const regex = new RegExp(searchBar, 'i');
+
+    const textResults = await videogames
+        .find({ $text: { $search: searchBar } }, { score: { $meta: "textScore" } })
+        .sort({ score: { $meta: "textScore" } })
+        .toArray();
+
+    if (textResults.length > 0) return textResults;
+
+    return await videogames
+        .find({
+            $or: [
+                { title: regex },
+                { text: regex }
+            ]
+        })
+        .toArray();
+}
