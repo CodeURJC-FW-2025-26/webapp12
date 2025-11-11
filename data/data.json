@@ -1,8 +1,8 @@
 [
     {
         "title": "Spiderman",
-        "text": "descripcion",
-        "imageFilename": "post0.jpeg",
+        "text": "Acción y aventura en mundo abierto con el icónico superhéroe de Marvel.",
+        "imageFilename": "spiderman.avif",
         "precio": "10",
         "categorias": [
             "Acción",
@@ -11,92 +11,35 @@
     },
     {
         "title": "Minecraft",
-        "text": "mundo abierto survival",
-        "imageFilename": "post1.jpeg",
+        "text": "Juego de mundo abierto y supervivencia donde puedes construir, explorar y sobrevivir.",
+        "imageFilename": "minecraft.jpeg",
         "precio": "25",
         "categorias": [
             "Simulación",
-            "Carreras"
+            "Supervivencia"
         ]
     },
     {
-        "title": "Eternal Realms",
-        "text": "Un RPG de mundo abierto con batallas épicas y decisiones morales complejas.",
-        "imageFilename": "post2.jpeg",
-        "precio": "59.99",
+        "title": "The Legend of Zelda: Tears of the Kingdom",
+        "text": "Explora un vasto mundo lleno de secretos, desafíos y aventuras épicas.",
+        "imageFilename": "zelda_totk.jpeg",
+        "precio": "69.99",
         "categorias": [
-            "RPG",
+            "Aventura",
             "Mundo Abierto"
         ]
     },
     {
-        "title": "Steel Horizon",
-        "text": "Juego bélico en el que lideras una flota de guerra futurista en batallas oceánicas.",
-        "imageFilename": "post3.jpeg",
-        "precio": "49.99",
-        "categorias": [
-            "Bélico",
-            "Estrategia"
-        ]
-    },
-    {
-        "title": "Pixel Forge",
-        "text": "Construye, crea y comparte tus mundos en este sandbox creativo sin límites.",
-        "imageFilename": "post4.jpeg",
-        "precio": "29.99",
-        "categorias": [
-            "Sandbox",
-            "Creativo"
-        ]
-    },
-    {
-        "title": "Wild Survival",
-        "text": "Sobrevive en una isla llena de peligros, recolecta recursos y construye tu refugio.",
-        "imageFilename": "post5.jpeg",
-        "precio": "39.99",
-        "categorias": [
-            "Supervivencia",
-            "Acción"
-        ]
-    },
-    {
-        "title": "StrikeZone X",
-        "text": "Shooter en primera persona con modos cooperativos y combates tácticos intensos.",
-        "imageFilename": "post6.jpeg",
-        "precio": "54.99",
+        "title": "Call of Duty: Modern Warfare III",
+        "text": "Shooter en primera persona con intensas campañas y combates multijugador.",
+        "imageFilename": "cod_mw3.jpeg",
+        "precio": "59.99",
         "categorias": [
             "Shooter",
             "Acción"
         ]
-    },
-    {
-        "title": "Battlefront Legends",
-        "text": "MOBA con héroes personalizados y combates en arenas dinámicas.",
-        "imageFilename": "post7.jpeg",
-        "precio": "44.99",
-        "categorias": [
-            "MOBA",
-            "Estrategia"
-        ]
-    },
-    {
-        "title": "Turbo Drift X",
-        "text": "Carreras urbanas realistas con personalización extrema y física avanzada.",
-        "imageFilename": "post8.jpeg",
-        "precio": "34.99",
-        "categorias": [
-            "Carreras",
-            "Simulación"
-        ]
-    },
-    {
-        "title": "Galactic Command",
-        "text": "Estrategia espacial donde gestionas recursos, colonias y flotas intergalácticas.",
-        "imageFilename": "post9.jpeg",
-        "precio": "42.99",
-        "categorias": [
-            "Estrategia",
-            "Simulación"
-        ]
     }
+   
+  
+
 ]
