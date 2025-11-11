@@ -60,3 +60,14 @@ router.get('/post/:id/image', async (req, res) => {
 
 });
 
+router.get('/search', async (req, res) => {
+    const query = req.query.q?.toLowerCase() || '';
+
+    let videogames = await videogame.getVideogames();
+
+    let filtered = videogames.filter(v =>
+        v.title.toLowerCase().includes(query)
+    );
+
+    res.render('index', { videogamesAct: filtered, searchQuery: req.query.q });
+});
