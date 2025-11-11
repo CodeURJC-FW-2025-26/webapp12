@@ -136,19 +136,28 @@
             <br>
 
 
-                <h4 class="fw-bold text-start">Contenido Sugerido</h4>
-                <div class="decor-bar mt-2"></div><br>
-
-                <div class="card b-gradient mb-3">
-                    <img src="Images/spiderman.avif" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Recien Salido</h5>
-                        <p class="card-text">Echa un vistazo a este nuevo juego, revisa toda su información así como sus
-                            valoraciones.</p>
-                        <a href="/detail" class="card-text"><small class="text-body-secondary">Ver Videojuego <i
-                                    class="bi bi-box-arrow-down-right"></i></small></a>
-                    </div>
+            <h4 class="fw-bold text-start">Contenido Sugerido</h4>
+            <div class="decor-bar mt-2"></div><br>
+            
+            {{#suggestedGame}}
+            <div class="card b-gradient mb-3">
+                <img src="/uploads/{{imageFilename}}" class="card-img-top" alt="{{title}}">
+                <div class="card-body">
+                    <h5 class="card-title">{{title}}</h5>
+                    <p class="card-text">{{description}}</p>
+                    <a href="/detail/{{_id}}" class="card-text">
+                        <small class="text-body-secondary">Ver Videojuego <i class="bi bi-box-arrow-down-right"></i></small>
+                    </a>
                 </div>
+            </div>
+            {{/suggestedGame}}
+            
+            {{^suggestedGame}}
+            <p>No hay contenido sugerido disponible.</p>
+            {{/suggestedGame}}
+
+            
+
                 <br>
                 <h4 class="fw-bold text-start">Sobre Nosotros</h4>
                 <div class="decor-bar mt-2"></div><br>
