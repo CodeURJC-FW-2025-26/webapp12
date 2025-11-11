@@ -9,20 +9,6 @@ export default router;
 
 const upload = multer({ dest: videogame.UPLOADS_FOLDER })
 
-router.get('/', async (req, res) => {
-
-    let videogamesAct = await videogame.getVideogames();
-
-    // Seleccionar un videojuego aleatorio como sugerido
-    let suggestedGame = null;
-    if (videogamesAct.length > 0) {
-        const randomIndex = Math.floor(Math.random() * videogamesAct.length);
-        suggestedGame = videogamesAct[randomIndex];
-    }
-
-    res.render('index', { videogamesAct, suggestedGame });
-});
-
 router.post('/post/new', upload.single('image'), async (req, res) => {
 
     let videogame = {
@@ -67,10 +53,32 @@ router.get('/post/:id/image', async (req, res) => {
 
 });
 
-router.get('/search', async (req, res) => {
+
+router.get('/', async (req, res) => {
     const query = req.query.q?.trim() || "";
 
-    const videogamesAct = await videogame.searchVideogames(query);
+    // Obtener los videojuegos según búsqueda
+    let videogamesAct;
+    if (query === "") {
+        videogamesAct = await videogame.getVideogames();
+    } else {
+        videogamesAct = await videogame.searchVideogames(query);
+    }
 
-    res.render('index', { videogamesAct, searchQuery: query });
+    // Obtener todos los videojuegos para contenido sugerido
+    const allVideogames = await videogame.getVideogames();
+
+    // Seleccionar un videojuego aleatorio como sugerido
+    let suggestedGame = null;
+    if (allVideogames.length > 0) {
+        const randomIndex = Math.floor(Math.random() * allVideogames.length);
+        suggestedGame = allVideogames[randomIndex];
+    }
+
+    res.render('index', { 
+        videogamesAct, 
+        suggestedGame,
+        searchQuery: query
+    });
 });
+

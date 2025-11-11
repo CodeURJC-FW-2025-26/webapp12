@@ -12,7 +12,7 @@ const db = client.db('videogame');
 const videogames = db.collection('videogames');
 
 await videogames.createIndex(
-    { title: "text", text: "text" },
+    { title: "text"},
     { name: "text_search_index" }
   );
 
@@ -58,11 +58,6 @@ export async function searchVideogames(searchBar) {
     if (textResults.length > 0) return textResults;
 
     return await videogames
-        .find({
-            $or: [
-                { title: regex },
-                { text: regex }
-            ]
-        })
+        .find({title: regex})
         .toArray();
 }

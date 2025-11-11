@@ -100,8 +100,9 @@
             <div class="info-item">
               <div class="info-label">Categoría</div>
               <p class="card-text">
-                <span class="badge text-bg-secondary me-1">Sandbox</span>
-                <span class="badge text-bg-secondary me-1">Creativo</span>
+                {{#categories}}
+                <span class="badge text-bg-secondary me-1">{{.}}</span>
+                {{/categories}}
             </p>
             </div>
           </div>
