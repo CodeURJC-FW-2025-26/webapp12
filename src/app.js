@@ -10,6 +10,9 @@ const app = express();
 // Servir archivos estáticos desde 'public'
 app.use(express.static('./public'));
 
+app.use('/uploads', express.static('uploads'));
+
+
 // Configurar Mustache como motor de plantillas
 app.engine('html', mustacheExpress());
 app.set('view engine', 'html');
@@ -40,6 +43,8 @@ app.get('/deleteVideogame', (req, res)=>{
 app.get('/uploadVideogame', (req, res)=>{
     res.render('uploadVideogame');
 });
+
+
 
 // Iniciar servidor
 app.listen(3000, () => console.log('Web ready in http://localhost:3000/'));
