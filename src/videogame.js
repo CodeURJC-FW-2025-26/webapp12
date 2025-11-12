@@ -23,10 +23,10 @@ export async function addVideogame(post) {
     return await videogames.insertOne(post);
 }
 
-export async function deletVideogame(id){
-
+export async function deleteVideogame(id) {
+    
     return await videogames.findOneAndDelete({ _id: new ObjectId(id) });
-}
+  }
 
 export async function deleteVideogames(){
 

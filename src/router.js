@@ -34,16 +34,18 @@ router.get('/detail/:id', async (req, res) => {
     res.render('detail', game);
   });
 
-router.get('/post/:id/delete', async (req, res) => {
+router.get('/detail/:id/deleteVideogame', async (req, res) => {
 
-    let post = await videogame.deleteVideogame(req.params.id);
+    let idGame = await videogame.deleteVideogame(req.params.id);
 
-    if (post && post.imageFilename) {
-        await fs.rm(videogame.UPLOADS_FOLDER + '/' + post.imageFilename);
+    if (idGame && idGame.imageFilename) {
+        await fs.rm(videogame.UPLOADS_FOLDER + '/' + idGame.imageFilename);
     }
 
-    res.render('deleted_videogame');
+    res.render('deleteVideogame', idGame);
+
 });
+
 
 router.get('/post/:id/image', async (req, res) => {
 
