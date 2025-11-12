@@ -76,7 +76,7 @@ footer a.text-dark:hover {
 
 .card-img-top {
   width: 100%;
-  height: 250px;
+  height: 290px;
   object-fit: cover;
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
@@ -459,3 +459,4 @@ input[type=number] {
 }
 
 /* ***************************Create ends********************************** */
+
