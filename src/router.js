@@ -9,7 +9,7 @@ export default router;
 
 const upload = multer({ dest: videogame.UPLOADS_FOLDER })
 
-router.post('/post/new', upload.single('image'), async (req, res) => {
+/*router.post('/post/new', upload.single('image'), async (req, res) => {
 
     let videogame = {
         user: req.body.user,
@@ -22,7 +22,34 @@ router.post('/post/new', upload.single('image'), async (req, res) => {
 
     res.render('saved_Videogame', { _id: videogame._id.toString() });
 
+});*/
+
+
+router.post('/post/new', upload.single('image'), async (req, res) => {
+    const videogameData = {
+        title: req.body.title,
+        description: req.body.description,
+        price: req.body.price,
+        platform: req.body.platform,
+        year: req.body.year,
+        developer: req.body.developer,
+        categories: Array.isArray(req.body.genres) ? req.body.genres : [req.body.genres],
+        imageFilename: req.file?.filename || null,
+        trailer: req.body.trailer,
+        createdAt: new Date()
+    };
+
+    
+
+    const result = await videogame.addVideogame(videogameData);
+
+    console.log('Insertado en MongoDB:', result);
+
+    res.render('uploadVideogame', { _id: result.insertedId.toString() });
+
+
 });
+
 
 router.get('/detail/:id', async (req, res) => {
     const game = await videogame.getVideogame(req.params.id);
