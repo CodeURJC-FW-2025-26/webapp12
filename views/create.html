@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Añadir Videojuego</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
@@ -48,7 +48,7 @@
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-sm 12 col-md-10 col-lg-8">
-            <form action="/upload" method="POST" enctype="multipart/form-data">       
+            <form action="/post/new" method="POST" enctype="multipart/form-data">       
               <label for="inputName" class="form-label">Nombre</label>
               <input type="text" class="form-control" id="inputName" name="name" required>
               <!-- Description -->
@@ -135,7 +135,7 @@
                           <!-- Platforms -->
               <div class="mb-3">
                 <label for="inputCategory" class="form-label">Plataforma</label>
-                <select class="form-select" id="inputCategory" name="category" required>
+                <select class="form-select" id="inputPlatform" name="platform" required>
                   <option value="">Selecciona una plataforma</option>
                   <option value="Pc">Pc</option>
                   <option value="XBox_seriesX">Xbox Series Xbox</option>
@@ -154,7 +154,7 @@
               <!-- Video -->
               <div class="mb-3">
                 <label for="video" class="form-label">URL del trailer del juego</label>
-                <input type="text" class="form-control" id="inputTrailer" name="Trailer" required>
+                <input type="text" class="form-control" id="inputTrailer" name="trailer" required>
               </div>
               <!-- Imagen -->
               <div class="mb-3">
@@ -165,7 +165,7 @@
               <div class="d-flex gap-2">
                 <a href="index.html" class="btn btn-secondary">Cancelar</a>
                 <button type="reset" class="btn btn-warning">Resetear</button>
-                <button type="submit" class="btn btn-gradient"><a href="/uploadVideogame" class="text-decoration-none text-reset">Enviar</a></button>
+                <button type="submit" class="btn btn-gradient"><a class="text-decoration-none text-reset">Enviar</a></button>
               </div>
             </form>
           </div>

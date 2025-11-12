@@ -21,6 +21,7 @@ export const UPLOADS_FOLDER = './uploads';
 export async function addVideogame(post) {
 
     return await videogames.insertOne(post);
+
 }
 
 export async function deleteVideogame(id) {
@@ -61,3 +62,4 @@ export async function searchVideogames(searchBar) {
         .find({title: regex})
         .toArray();
 }
+
