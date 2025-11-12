@@ -58,26 +58,49 @@ router.get('/post/:id/image', async (req, res) => {
 
 router.get('/', async (req, res) => {
     const query = req.query.q?.trim() || "";
+    const page = parseInt(req.query.page) || 1;
+    const limit = 6; // cantidad de videojuegos por página
 
-    let videogamesAct;
-    if (query === "") {
-        videogamesAct = await videogame.getVideogames();
-    } else {
-        videogamesAct = await videogame.searchVideogames(query);
+    // Obtener videojuegos
+    let videogames = query === ""
+        ? await videogame.getVideogames()
+        : await videogame.searchVideogames(query);
+
+    const totalVideogames = videogames.length;
+    const totalPages = Math.ceil(totalVideogames / limit);
+
+    // Recortar los resultados según la página actual
+    const startIndex = (page - 1) * limit;
+    const endIndex = startIndex + limit;
+    const videogamesAct = videogames.slice(startIndex, endIndex);
+
+    // Generar lista de páginas (ej: [1,2,3,4,...])
+    const pages = [];
+    for (let i = 1; i <= totalPages; i++) {
+        pages.push({
+            number: i,
+            isActive: i === page
+        });
     }
 
+    // Juego sugerido aleatorio
     const allVideogames = await videogame.getVideogames();
-
     let suggestedGame = null;
     if (allVideogames.length > 0) {
         const randomIndex = Math.floor(Math.random() * allVideogames.length);
         suggestedGame = allVideogames[randomIndex];
     }
 
-    res.render('index', { 
-        videogamesAct, 
+    res.render('index', {
+        videogamesAct,
         suggestedGame,
-        searchQuery: query
+        currentPage: page,
+        totalPages,
+        hasPrev: page > 1,
+        hasNext: page < totalPages,
+        prevPage: page - 1,
+        nextPage: page + 1,
+        pages
     });
 });
 
