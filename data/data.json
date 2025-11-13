@@ -19,12 +19,102 @@
         "price": "25",
         "platform": "PS5",
         "year": "2024",
-        "developer": "Microsoft",        
+        "developer": "Microsoft",
         "categories": [
-                    "Simulación",
-                    "Supervivencia"
-                ]
+            "Sandbox",
+            "Supervivencia"
+        ]
+    },
+    {
+        "title": "Elden Ring",
+        "description": "RPG de acción y mundo abierto con una ambientación de fantasía oscura.",
+        "imageFilename": "eldenring.jpg",
+        "price": "40",
+        "platform": "PS5",
+        "year": "2022",
+        "developer": "FromSoftware",
+        "categories": [
+            "RPG",
+            "Mundo Abierto"
+        ]
+    },
+    {
+        "title": "Call of Duty: Modern Warfare III",
+        "description": "Shooter bélico en primera persona con acción intensa y modos multijugador.",
+        "imageFilename": "callofduty.jpg",
+        "price": "50",
+        "platform": "PS5",
+        "year": "2023",
+        "developer": "Activision",
+        "categories": [
+            "Shooter",
+            "Bélico"
+        ]
+    },
+    {
+        "title": "League of Legends",
+        "description": "Juego MOBA competitivo donde equipos luchan por destruir la base enemiga.",
+        "imageFilename": "lol.jpg",
+        "price": "0",
+        "platform": "PC",
+        "year": "2009",
+        "developer": "Riot Games",
+        "categories": [
+            "MOBA",
+            "Estrategia"
+        ]
+    },
+    {
+        "title": "Gran Turismo 7",
+        "description": "Simulador de conducción realista con cientos de coches y circuitos detallados.",
+        "imageFilename": "granturismo.avif",
+        "price": "55",
+        "platform": "PS5",
+        "year": "2022",
+        "developer": "Polyphony Digital",
+        "categories": [
+            "Simulación",
+            "Carreras"
+        ]
+    },
+    {
+        "title": "ARK: Survival Evolved",
+        "description": "Juego de supervivencia en un mundo lleno de dinosaurios donde puedes construir y domesticar criaturas.",
+        "imageFilename": "ark.jpg",
+        "price": "35",
+        "platform": "PS5",
+        "year": "2021",
+        "developer": "Studio Wildcard",
+        "categories": [
+            "Supervivencia",
+            "Mundo Abierto"
+        ]
+    },
+    {
+        "title": "Age of Empires IV",
+        "description": "Estrategia en tiempo real donde construyes imperios y lideras civilizaciones a la victoria.",
+        "imageFilename": "ageempires.jpg",
+        "price": "45",
+        "platform": "PC",
+        "year": "2021",
+        "developer": "Relic Entertainment",
+        "categories": [
+            "Estrategia",
+            "Bélico"
+        ]
+    },
+    {
+        "title": "No Man's Sky",
+        "description": "Explora un vasto universo con planetas únicos, crea bases y sobrevive en entornos extremos.",
+        "imageFilename": "nomans.jpg",
+        "price": "30",
+        "platform": "PS5",
+        "year": "2022",
+        "developer": "Hello Games",
+        "categories": [
+            "Sandbox",
+            "Exploración",
+            "Supervivencia"
+        ]
     }
-  
-
 ]
