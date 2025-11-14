@@ -10,6 +10,26 @@
         "categories": [
             "Acción",
             "Mundo Abierto"
+        ],
+        "comments": [
+            {
+                "user": "Carlos M.",
+                "stars": 5,
+                "text": "Increíble juego. La historia de Miles es emotiva y la jugabilidad es espectacular.",
+                "date": "2024-03-15"
+            },
+            {
+                "user": "Laura G.",
+                "stars": 5,
+                "text": "Me encantó cada minuto. Los poderes de Miles son únicos y divertidos de usar.",
+                "date": "2024-03-08"
+            },
+            {
+                "user": "Miguel A.",
+                "stars": 4,
+                "text": "Muy buen juego aunque un poco corto. Aun así, totalmente recomendable.",
+                "date": "2024-03-02"
+            }
         ]
     },
     {
@@ -23,6 +43,26 @@
         "categories": [
             "Sandbox",
             "Supervivencia"
+        ],
+        "comments": [
+            {
+                "user": "Carlos M.",
+                "stars": 5,
+                "text": "Increíble juego. La historia de Miles es emotiva y la jugabilidad es espectacular.",
+                "date": "2024-03-15"
+            },
+            {
+                "user": "Laura G.",
+                "stars": 5,
+                "text": "Me encantó cada minuto. Los poderes de Miles son únicos y divertidos de usar.",
+                "date": "2024-03-08"
+            },
+            {
+                "user": "Miguel A.",
+                "stars": 4,
+                "text": "Muy buen juego aunque un poco corto. Aun así, totalmente recomendable.",
+                "date": "2024-03-02"
+            }
         ]
     },
     {
@@ -36,6 +76,26 @@
         "categories": [
             "RPG",
             "Mundo Abierto"
+        ],
+        "comments": [
+            {
+                "user": "Carlos M.",
+                "stars": 5,
+                "text": "Increíble juego. La historia de Miles es emotiva y la jugabilidad es espectacular.",
+                "date": "2024-03-15"
+            },
+            {
+                "user": "Laura G.",
+                "stars": 5,
+                "text": "Me encantó cada minuto. Los poderes de Miles son únicos y divertidos de usar.",
+                "date": "2024-03-08"
+            },
+            {
+                "user": "Miguel A.",
+                "stars": 2,
+                "text": "Muy buen juego aunque un poco corto. Aun así, totalmente recomendable.",
+                "date": "2024-03-02"
+            }
         ]
     },
     {
@@ -49,6 +109,26 @@
         "categories": [
             "Shooter",
             "Bélico"
+        ],
+        "comments": [
+            {
+                "user": "Carlos M.",
+                "stars": 5,
+                "text": "Increíble juego. La historia de Miles es emotiva y la jugabilidad es espectacular.",
+                "date": "2024-03-15"
+            },
+            {
+                "user": "Laura G.",
+                "stars": 3,
+                "text": "Me encantó cada minuto. Los poderes de Miles son únicos y divertidos de usar.",
+                "date": "2024-03-08"
+            },
+            {
+                "user": "Miguel A.",
+                "stars": 4,
+                "text": "Muy buen juego aunque un poco corto. Aun así, totalmente recomendable.",
+                "date": "2024-03-02"
+            }
         ]
     },
     {
@@ -62,6 +142,26 @@
         "categories": [
             "MOBA",
             "Estrategia"
+        ],
+        "comments": [
+            {
+                "user": "Carlos M.",
+                "stars": 5,
+                "text": "Increíble juego. La historia de Miles es emotiva y la jugabilidad es espectacular.",
+                "date": "2024-03-15"
+            },
+            {
+                "user": "Laura G.",
+                "stars": 3,
+                "text": "Me encantó cada minuto. Los poderes de Miles son únicos y divertidos de usar.",
+                "date": "2024-03-08"
+            },
+            {
+                "user": "Miguel A.",
+                "stars": 5,
+                "text": "Muy buen juego aunque un poco corto. Aun así, totalmente recomendable.",
+                "date": "2024-03-02"
+            }
         ]
     },
     {
@@ -75,6 +175,26 @@
         "categories": [
             "Simulación",
             "Carreras"
+        ],
+        "comments": [
+            {
+                "user": "Carlos M.",
+                "stars": 4,
+                "text": "Increíble juego. La historia de Miles es emotiva y la jugabilidad es espectacular.",
+                "date": "2024-03-15"
+            },
+            {
+                "user": "Laura G.",
+                "stars": 5,
+                "text": "Me encantó cada minuto. Los poderes de Miles son únicos y divertidos de usar.",
+                "date": "2024-03-08"
+            },
+            {
+                "user": "Miguel A.",
+                "stars": 4,
+                "text": "Muy buen juego aunque un poco corto. Aun así, totalmente recomendable.",
+                "date": "2024-03-02"
+            }
         ]
     },
     {
@@ -88,6 +208,26 @@
         "categories": [
             "Supervivencia",
             "Mundo Abierto"
+        ],
+        "comments": [
+            {
+                "user": "Carlos M.",
+                "stars": 4,
+                "text": "Increíble juego. La historia de Miles es emotiva y la jugabilidad es espectacular.",
+                "date": "2024-03-15"
+            },
+            {
+                "user": "Laura G.",
+                "stars": 5,
+                "text": "Me encantó cada minuto. Los poderes de Miles son únicos y divertidos de usar.",
+                "date": "2024-03-08"
+            },
+            {
+                "user": "Miguel A.",
+                "stars": 4,
+                "text": "Muy buen juego aunque un poco corto. Aun así, totalmente recomendable.",
+                "date": "2024-03-02"
+            }
         ]
     },
     {
@@ -101,6 +241,26 @@
         "categories": [
             "Estrategia",
             "Bélico"
+        ],
+        "comments": [
+            {
+                "user": "Carlos M.",
+                "stars": 3,
+                "text": "Increíble juego. La historia de Miles es emotiva y la jugabilidad es espectacular.",
+                "date": "2024-03-15"
+            },
+            {
+                "user": "Laura G.",
+                "stars": 4,
+                "text": "Me encantó cada minuto. Los poderes de Miles son únicos y divertidos de usar.",
+                "date": "2024-03-08"
+            },
+            {
+                "user": "Miguel A.",
+                "stars": 4,
+                "text": "Muy buen juego aunque un poco corto. Aun así, totalmente recomendable.",
+                "date": "2024-03-02"
+            }
         ]
     },
     {
@@ -115,6 +275,8 @@
             "Sandbox",
             "Exploración",
             "Supervivencia"
+        ],
+        "comments": [
         ]
     }
 ]

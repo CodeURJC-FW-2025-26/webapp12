@@ -1,6 +1,7 @@
 import express from 'express';
 import multer from 'multer';
 import fs from 'node:fs/promises';
+import { ObjectId } from 'mongodb';
 
 import * as videogame from './videogame.js';
 
@@ -36,7 +37,8 @@ router.post('/post/new', upload.single('image'), async (req, res) => {
         categories: Array.isArray(req.body.genres) ? req.body.genres : [req.body.genres],
         imageFilename: req.file?.filename || null,
         trailer: req.body.trailer,
-        createdAt: new Date()
+        createdAt: new Date(),
+        comments: []
     };
 
     
@@ -53,13 +55,25 @@ router.post('/post/new', upload.single('image'), async (req, res) => {
 
 router.get('/detail/:id', async (req, res) => {
     const game = await videogame.getVideogame(req.params.id);
+    if (!game) return res.status(404).send('Videojuego no encontrado');
   
-    if (!game) {
-      return res.status(404).send('Videojuego no encontrado');
+    if (Array.isArray(game.comments)) {
+        game.comments.sort((a, b) => new Date(b.date) - new Date(a.date));
+    }
+
+    if (Array.isArray(game.comments)) {
+      game.comments = game.comments.map(c => {
+        const n = Number(c.stars) || 0;
+        return {
+          ...c,
+          stars_visual: '★'.repeat(n) + '☆'.repeat(5 - n)
+        };
+      });
     }
   
     res.render('detail', game);
   });
+  
 
 router.get('/detail/:id/deleteVideogame', async (req, res) => {
 
@@ -71,6 +85,22 @@ router.get('/detail/:id/deleteVideogame', async (req, res) => {
 
     res.render('deleteVideogame', idGame);
 
+});
+
+router.post('/detail/:id/comment', async (req, res) => {
+    const { userName, reviewText, rating } = req.body;
+
+    const newComment = {
+        _id: new ObjectId(),
+        user: userName,
+        text: reviewText,
+        stars: parseInt(rating),
+        date: new Date().toISOString().split('T')[0]
+    };
+
+    await videogame.addComment(req.params.id, newComment);
+
+    res.redirect('/detail/' + req.params.id);
 });
 
 

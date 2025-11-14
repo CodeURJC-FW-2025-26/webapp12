@@ -63,3 +63,9 @@ export async function searchVideogames(searchBar) {
         .toArray();
 }
 
+export async function addComment(id, comment) {
+    return await videogames.updateOne(
+        { _id: new ObjectId(id) },
+        { $push: { comments: comment } }
+    );
+}
