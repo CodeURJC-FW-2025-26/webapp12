@@ -56,23 +56,20 @@ router.post('/post/new', upload.single('image'), async (req, res) => {
 router.get('/detail/:id', async (req, res) => {
     const game = await videogame.getVideogame(req.params.id);
     if (!game) return res.status(404).send('Videojuego no encontrado');
-  
-    if (Array.isArray(game.comments)) {
-        game.comments.sort((a, b) => new Date(b.date) - new Date(a.date));
-    }
 
-    if (Array.isArray(game.comments)) {
-      game.comments = game.comments.map(c => {
-        const n = Number(c.stars) || 0;
-        return {
-          ...c,
-          stars_visual: '★'.repeat(n) + '☆'.repeat(5 - n)
-        };
-      });
-    }
-  
+    const comments = game.comments || [];
+    comments.sort((a,b) => new Date(b.date) - new Date(a.date));
+    let sum = 0;
+    comments.forEach(c => { sum += c.stars||0; c.stars_visual = '★'.repeat(c.stars||0)+'☆'.repeat(5-(c.stars||0)) });
+    
+    game.totalComments = comments.length;
+
+    game.averageStars = comments.length ? (sum/comments.length).toFixed(1) : 0;
+    game.averageStarsVisual = '★'.repeat(Math.round(game.averageStars))+'☆'.repeat(5-Math.round(game.averageStars));
+
     res.render('detail', { game });
-  });
+});
+
   
 
 router.get('/detail/:id/deleteVideogame', async (req, res) => {
@@ -105,11 +102,46 @@ router.post('/detail/:id/comment', async (req, res) => {
 
 router.get('/detail/:id/comment/:commentId/delete', async (req, res) => {
     const { id, commentId } = req.params;
+    const game = await videogame.getVideogame(req.params.id);
 
     await videogame.deleteComment(id, commentId);
 
-    res.redirect('/detail/' + id);
+    res.render('deleteComment', { game });
 });
+
+router.get('/detail/:id/comment/:commentId/edit', async (req, res) => {
+    const game = await videogame.getVideogame(req.params.id);
+    if (!game) return res.status(404).send('Videojuego no encontrado');
+
+    const comment = game.comments.find(c => c._id.toString() === req.params.commentId);
+    if (!comment) return res.status(404).send('Comentario no encontrado');
+
+    // Preparamos un objeto para cada estrella para mostrar "checked"
+    comment.starsChecked = {
+        1: comment.stars === 1 ? 'checked' : '',
+        2: comment.stars === 2 ? 'checked' : '',
+        3: comment.stars === 3 ? 'checked' : '',
+        4: comment.stars === 4 ? 'checked' : '',
+        5: comment.stars === 5 ? 'checked' : ''
+    };
+
+    res.render('editComment', { game, comment });
+});
+
+
+router.post('/detail/:id/comment/:commentId/edit', async (req, res) => {
+
+    const game = await videogame.getVideogame(req.params.id);
+
+    const { reviewText } = req.body;
+    const ratingField = `rating-${req.params.commentId}`;
+    const stars = parseInt(req.body[ratingField]) || 0;
+
+    await videogame.editComment(req.params.id, req.params.commentId, reviewText, stars);
+
+    res.render('modifyComment', { game });
+});
+
 
 router.get('/post/:id/image', async (req, res) => {
 

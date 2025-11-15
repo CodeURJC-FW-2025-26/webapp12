@@ -44,6 +44,10 @@ app.get('/uploadVideogame', (req, res)=>{
     res.render('uploadVideogame');
 });
 
+app.get('/modifyComment', (req, res)=>{
+    res.render('modifyComment');
+});
+
 
 
 // Iniciar servidor

@@ -76,3 +76,15 @@ export async function deleteComment(gameId, commentId) {
         { $pull: { comments: { _id: new ObjectId(commentId) } } }
     );
 }
+
+export async function editComment(gameId, commentId, newText, newStars) {
+    return await videogames.updateOne(
+        { _id: new ObjectId(gameId), "comments._id": new ObjectId(commentId) },
+        { 
+            $set: { 
+                "comments.$.text": newText,
+                "comments.$.stars": newStars
+            } 
+        }
+    );
+}

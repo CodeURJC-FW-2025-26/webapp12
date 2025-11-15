@@ -45,7 +45,7 @@
             <div class="info-item">
               <div class="info-label">Valoración</div>
               <div class="info-value">
-                <span class="star-rating">★★★★★</span> 4.8/5
+                <span class="star-rating">{{game.averageStarsVisual}}</span> {{game.averageStars}}/5
               </div>
             </div>
       
@@ -100,9 +100,9 @@
         <div class="col-lg-9 mb-4">
             <div class="reviews-section">
                 <div class="overall-rating">
-                    <h2>4.8</h2>
-                    <div class="star-rating star2">★★★★★</div>
-                    <p>Basado en 2,453 valoraciones</p>
+                    <h2>{{game.averageStars}}</h2>
+                    <div class="star-rating star2">{{game.averageStarsVisual}}</div>
+                    <p>Basado en {{game.totalComments}} valoraciones</p>
                 </div>
 
                 <h3>Opiniones de usuarios</h3>
@@ -121,8 +121,9 @@
                       <a href="/detail/{{game._id}}/comment/{{_id}}/delete" class="text-danger"><i class="bi bi-trash"></i></a>
                   </button>
                   <button class="btn btn-link text-warning p-0 ms-3" title="Modificar comentario">
-                    <i class="bi bi-pencil"></i>
+                    <a href="/detail/{{game._id}}/comment/{{_id}}/edit" class="text-warning"><i class="bi bi-pencil"></i></a>
                   </button>
+                  
                 </div>
                 {{/game.comments}}
 
@@ -140,7 +141,7 @@
                     <form action="/detail/{{game._id}}/comment" method="POST">
                       <label class="form-label-custom d-block">Tu valoración</label> 
                       <div class="rating-input d-flex flex-row-reverse justify-content-end"> 
-                        <input type="radio" name="rating" id="star5" value="5"> 
+                        <input type="radio" name="rating" id="star5" value="5" required> 
                           <label for="star5">★</label> 
                         <input type="radio" name="rating" id="star4" value="4"> 
                           <label for="star4">★</label> 
@@ -154,12 +155,12 @@
                     
                       <div class="mb-3">
                         <label for="userName" class="form-label-custom d-block">Tu nombre</label>
-                        <input type="text" class="form-control" id="userName" name="userName" placeholder="Escribe tu nombre">
+                        <input type="text" class="form-control" id="userName" name="userName" placeholder="Escribe tu nombre" required>
                       </div>
                     
                       <div class="mb-3">
                         <label for="reviewText" class="form-label-custom d-block">Tu comentario</label>
-                        <textarea class="form-control" id="reviewText" name="reviewText" rows="4" placeholder="Comparte tu experiencia con este juego..."></textarea>
+                        <textarea class="form-control" id="reviewText" name="reviewText" rows="4" placeholder="Comparte tu experiencia con este juego..." required></textarea>
                       </div>
                     
                       <button type="submit" class="btn-submit-review">Publicar opinión</button>
