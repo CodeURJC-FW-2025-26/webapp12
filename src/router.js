@@ -116,6 +116,8 @@ router.get('/detail/:id/deleteVideogame', async (req, res) => {
 router.post('/detail/:id/comment', async (req, res) => {
     const { userName, reviewText, rating } = req.body;
 
+    const game = await videogame.getVideogame(req.params.id);
+
     const newComment = {
         _id: new ObjectId(),
         user: userName,
@@ -126,7 +128,7 @@ router.post('/detail/:id/comment', async (req, res) => {
 
     await videogame.addComment(req.params.id, newComment);
 
-    res.redirect('/detail/' + req.params.id);
+    res.render('uploadComment', { game });
 });
 
 router.get('/detail/:id/comment/:commentId/delete', async (req, res) => {
