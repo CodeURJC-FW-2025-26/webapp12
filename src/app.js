@@ -33,7 +33,21 @@ app.get('/detail', (req, res)=>{
 });
 
 app.get('/create', (req, res)=>{
-    res.render('create');
+
+  const allGenres = [
+    'RPG', 'Shooter', 'Creativo', 'Estrategia', 'Bélico',
+    'Acción', 'Carreras', 'MOBA', 'Sandbox', 'Mundo Abierto', 'Simulación', 'Supervivencia'
+  ];
+
+  const genresWithFlags = allGenres.map(genre => ({
+    name: genre,
+    checked: '' // Ninguna marcada en modo creación
+  }));
+
+  res.render('create', {
+    genresWithFlags
+  });
+
 });
 
 app.get('/deleteVideogame', (req, res)=>{

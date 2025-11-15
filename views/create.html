@@ -44,134 +44,89 @@
 
 
 
-    <section class="py-5 bg-dark text-light">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-sm 12 col-md-10 col-lg-8">
-            <form action="/post/new" method="POST" enctype="multipart/form-data">       
-              <label for="inputName" class="form-label">Nombre</label>
-              <input type="text" class="form-control" id="inputName" name="name" required>
-              <!-- Description -->
-              <div class="mb-3">
-                <label for="inputDescription" class="form-label">Descripción</label>
-                <textarea class="form-control" id="inputDescription" name="description" required>
-                </textarea>
-              <!-- Price -->
-              <div class="mb-3">
-                <label for="inputPrice" class="form-label">Precio</label>
-                <input type="number" class="form-control" id="inputPrice" name="price" required>
-              <!-- Category -->
-              <div class="mb-3">
-                  <label class="form-label">Selecciona el genero o generos del videojuego:</label>
-                  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-2">
-                    <div class="col">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="genres[]" value="rpg" id="rpg">
-                        <label class="form-check-label" for="rpg">RPG</label>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="genres[]" value="shooter" id="shooter">
-                        <label class="form-check-label" for="shooter">Shooter</label>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="genres[]" value="platform" id="platform">
-                        <label class="form-check-label" for="platform">Plataformas</label>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="genres[]" value="strategy" id="strategy">
-                        <label class="form-check-label" for="strategy">Estrategia</label>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="genres[]" value="war" id="war">
-                        <label class="form-check-label" for="war">Bélico</label>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="genres[]" value="action" id="action">
-                        <label class="form-check-label" for="action">Acción</label>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="genres[]" value="racing" id="racing">
-                        <label class="form-check-label" for="racing">Carreras</label>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="genres[]" value="moba" id="moba">
-                        <label class="form-check-label" for="moba">MOBA</label>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="genres[]" value="sandbox" id="sandbox">
-                        <label class="form-check-label" for="sandbox">Sandbox</label>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="genres[]" value="openworld" id="openworld">
-                        <label class="form-check-label" for="openworld">Open World</label>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="genres[]" value="simulationld" id="simulation">
-                        <label class="form-check-label" for="simulation">Simulación</label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                          <!-- Platforms -->
-              <div class="mb-3">
-                <label for="inputCategory" class="form-label">Plataforma</label>
-                <select class="form-select" id="inputPlatform" name="platform" required>
-                  <option value="">Selecciona una plataforma</option>
-                  <option value="Pc">Pc</option>
-                  <option value="XBox_seriesX">Xbox Series Xbox</option>
-                  <option value="PlayStation5">PlayStation5</option>
-                  <option value="NintentoSwitch">NintendoSwitch</option>
-                </select>
-              <!-- Year -->
-              <div class="mb-3">
-                <label for="inputYear" class="form-label">Año</label>
-                <input type="number" class="form-control" id="inputYear" name="year" required>
+<section class="py-5 bg-dark text-light">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10 col-lg-8">
+        <form method="POST" action="/create" enctype="multipart/form-data">
+          <!-- Nombre -->
+          <label for="inputName" class="form-label">Nombre</label>
+          <input type="text" class="form-control" id="inputName" name="title" value="{{title}}" required>
 
-              <!-- Developer -->
-              <div class="mb-3">
-                <label for="inputDeveloper" class="form-label">Estudio</label>
-                <input type="text" class="form-control" id="inputStudio" name="developer" required>
-              <!-- Video -->
-              <div class="mb-3">
-                <label for="video" class="form-label">URL del trailer del juego</label>
-                <input type="text" class="form-control" id="inputTrailer" name="trailer" required>
-              </div>
-              <!-- Imagen -->
-              <div class="mb-3">
-                <label for="image" class="form-label">Portada del juego</label>
-                <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
-              </div>
-              <!-- Buttons -->
-              <div class="d-flex gap-2">
-                <a href="index.html" class="btn btn-secondary">Cancelar</a>
-                <button type="reset" class="btn btn-warning">Resetear</button>
-                <button type="submit" class="btn btn-gradient"><a class="text-decoration-none text-reset">Enviar</a></button>
-              </div>
-            </form>
+          <!-- Descripción -->
+          <div class="mb-3">
+            <label for="inputDescription" class="form-label">Descripción</label>
+            <textarea class="form-control" id="inputDescription" name="description" required>{{description}}</textarea>
           </div>
-        </div>
+
+          <!-- Precio -->
+          <div class="mb-3">
+            <label for="inputPrice" class="form-label">Precio</label>
+            <input type="number" class="form-control" id="inputPrice" name="price" value="{{price}}" required>
+          </div>
+
+          <!-- Géneros -->
+          <div class="mb-3">
+            <label class="form-label">Selecciona el género o géneros del videojuego:</label>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-2">
+              {{#genresWithFlags}}
+              <div class="col">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="genres[]" value="{{name}}" id="{{name}}" {{checked}}>
+                  <label class="form-check-label" for="{{name}}">{{name}}</label>
+                </div>
+              </div>
+              {{/genresWithFlags}}
+            </div>
+          </div>
+
+          <!-- Plataforma -->
+          <div class="mb-3">
+            <label for="inputPlatform" class="form-label">Plataforma</label>
+            <select class="form-select" id="inputPlatform" name="platform" required>
+              <option value="">Selecciona una plataforma</option>
+              <option value="Pc" {{#isPC}}selected{{/isPC}}>PC</option>
+              <option value="XBox_seriesX" {{#isXbox}}selected{{/isXbox}}>Xbox Series X</option>
+              <option value="PlayStation5" {{#isPS5}}selected{{/isPS5}}>PS5</option>
+              <option value="NintendoSwitch" {{#isSwitch}}selected{{/isSwitch}}>Nintendo Switch</option>
+            </select>
+          </div>
+
+          <!-- Año -->
+          <div class="mb-3">
+            <label for="inputYear" class="form-label">Año</label>
+            <input type="number" class="form-control" id="inputYear" name="year" value="{{year}}" required>
+          </div>
+
+          <!-- Estudio -->
+          <div class="mb-3">
+            <label for="inputStudio" class="form-label">Estudio</label>
+            <input type="text" class="form-control" id="inputStudio" name="developer" value="{{developer}}" required>
+          </div>
+
+          <!-- Trailer -->
+          <div class="mb-3">
+            <label for="inputTrailer" class="form-label">URL del trailer del juego</label>
+            <input type="text" class="form-control" id="inputTrailer" name="trailer" value="{{trailer}}" required>
+          </div>
+
+          <!-- Imagen -->
+          <div class="mb-3">
+            <label for="image" class="form-label">Portada del juego</label>
+            <input type="file" class="form-control" id="image" name="image" accept="image/*">
+          </div>
+
+          <!-- Botones -->
+          <div class="d-flex gap-2">
+            <a href="/index" class="btn btn-secondary">Cancelar</a>
+            <button type="reset" class="btn btn-warning">Resetear</button>
+            <button type="submit" class="btn btn-gradient">Enviar</button>
+          </div>
+        </form>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
 
     <!-- FOOTER -->
     <footer class="b-gradient text-dark pt-5 pb-4 mt-0">

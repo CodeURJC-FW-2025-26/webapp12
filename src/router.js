@@ -26,7 +26,7 @@ const upload = multer({ dest: videogame.UPLOADS_FOLDER })
 });*/
 
 
-router.post('/post/new', upload.single('image'), async (req, res) => {
+router.post('/create', upload.single('image'), async (req, res) => {
     const videogameData = {
         title: req.body.title,
         description: req.body.description,
@@ -41,15 +41,44 @@ router.post('/post/new', upload.single('image'), async (req, res) => {
         comments: []
     };
 
-    
-
     const result = await videogame.addVideogame(videogameData);
-
     console.log('Insertado en MongoDB:', result);
 
     res.render('uploadVideogame', { _id: result.insertedId.toString() });
+});
 
 
+
+router.get('/edit/:id', async (req, res) => {
+  const game = await videogame.getVideogame(req.params.id);
+  if (!game) return res.status(404).send('Videojuego no encontrado');
+
+  // Todas las categorías posibles
+  const allGenres = [
+    'RPG', 'Shooter', 'Creativo', 'Estrategia', 'Bélico',
+    'Acción', 'Carreras', 'MOBA', 'Sandbox', 'Mundo Abierto', 'Simulación', 'Supervivencia'
+  ];
+
+  // Array con las categorías seleccionadas del juego
+  const selectedGenres = game.categories || [];
+
+  // Generamos un array con flags para Mustache
+  const genresWithFlags = allGenres.map(genre => ({
+    name: genre,
+    checked: selectedGenres.includes(genre) ? 'checked' : ''
+  }));
+
+  // Normalizamos la plataforma para evitar problemas de mayúsculas
+
+
+  res.render('create', {
+    ...game,
+    genresWithFlags,
+    isPC: game.platform === 'PC',
+    isXbox: game.platform === 'xbox_seriesx',
+    isPS5: game.platform === 'PS5',
+    isSwitch: game.platform === 'nintendoswitch'
+  });
 });
 
 
