@@ -71,7 +71,7 @@ router.get('/detail/:id', async (req, res) => {
       });
     }
   
-    res.render('detail', game);
+    res.render('detail', { game });
   });
   
 
@@ -103,6 +103,13 @@ router.post('/detail/:id/comment', async (req, res) => {
     res.redirect('/detail/' + req.params.id);
 });
 
+router.get('/detail/:id/comment/:commentId/delete', async (req, res) => {
+    const { id, commentId } = req.params;
+
+    await videogame.deleteComment(id, commentId);
+
+    res.redirect('/detail/' + id);
+});
 
 router.get('/post/:id/image', async (req, res) => {
 

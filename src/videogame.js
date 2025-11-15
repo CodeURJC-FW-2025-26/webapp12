@@ -69,3 +69,10 @@ export async function addComment(id, comment) {
         { $push: { comments: comment } }
     );
 }
+
+export async function deleteComment(gameId, commentId) {
+    return await videogames.updateOne(
+        { _id: new ObjectId(gameId) },
+        { $pull: { comments: { _id: new ObjectId(commentId) } } }
+    );
+}

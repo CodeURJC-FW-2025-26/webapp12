@@ -4,7 +4,7 @@
 <section class="bg-dark text-light">
     <div class="game-title">
       <div class="container">
-        <h1>{{title}}</h1>
+        <h1>{{game.title}}</h1>
       </div>
     </div>
 
@@ -13,11 +13,11 @@
         <div class="col-8 col-md-6 col-lg-4 mb-4 mx-auto">
           <div class="game-cover">
             <img
-              src="/uploads/{{imageFilename}}"
+              src="/uploads/{{game.imageFilename}}"
               alt="Videogame image"
               class="img-fluid"
             />
-            <h2 class="game-price">{{price}}€</h2>
+            <h2 class="game-price">{{game.price}}€</h2>
           </div>
         </div>
       
@@ -28,18 +28,18 @@
             <div class="info-item">
               <div class="info-label">Descripción</div>
               <div class="info-value">
-                {{description}}
+                {{game.description}}
               </div>
             </div>
       
             <div class="info-item">
               <div class="info-label">Plataforma</div>
-              <div class="info-value">{{platform}}</div>
+              <div class="info-value">{{game.platform}}</div>
             </div>
       
             <div class="info-item">
               <div class="info-label">Año de lanzamiento</div>
-              <div class="info-value">{{year}}</div>
+              <div class="info-value">{{game.year}}</div>
             </div>
       
             <div class="info-item">
@@ -51,15 +51,15 @@
       
             <div class="info-item">
               <div class="info-label">Desarrollador</div>
-              <div class="info-value">{{developer}}</div>
+              <div class="info-value">{{game.developer}}</div>
             </div>
       
             <div class="info-item">
               <div class="info-label">Categoría</div>
               <p class="card-text">
-                {{#categories}}
+                {{#game.categories}}
                 <span class="badge text-bg-secondary me-1">{{.}}</span>
-                {{/categories}}
+                {{/game.categories}}
             </p>
             </div>
           </div>
@@ -72,7 +72,7 @@
             <div class="card-item">
               <p>Esta opción eliminará el videojuego de forma permanente.</p>
               <button class="btn-modif btn-delete" title="Eliminar">
-                <a href="/detail/{{_id}}/deleteVideogame"><i class="bi bi-trash"></i></a>
+                <a href="/detail/{{game._id}}/deleteVideogame"><i class="bi bi-trash"></i></a>
               </button>
             </div>
             <div class="card-item">
@@ -107,7 +107,7 @@
 
                 <h3>Opiniones de usuarios</h3>
 
-                {{#comments}}
+                {{#game.comments}}
                 <div class="review-item">
                     <div class="review-header d-flex justify-content-between mb-2">
                         <span class="reviewer-name">{{user}}</span>
@@ -118,17 +118,17 @@
                         {{text}}
                     </p>
                     <button class="btn btn-link text-danger p-0 ms-3" title="Eliminar comentario">
-                      <i class="bi bi-trash"></i>
+                      <a href="/detail/{{game._id}}/comment/{{_id}}/delete" class="text-danger"><i class="bi bi-trash"></i></a>
                   </button>
                   <button class="btn btn-link text-warning p-0 ms-3" title="Modificar comentario">
                     <i class="bi bi-pencil"></i>
                   </button>
                 </div>
-                {{/comments}}
+                {{/game.comments}}
 
-                {{^comments}}
+                {{^game.comments}}
                 <p>No hay comentarios todavía. ¡Sé el primero!</p>
-                {{/comments}}
+                {{/game.comments}}
 
                 <div class="divLoadMore">
                   <button class="btn-load-more">+ Ver más comentarios</button>
@@ -137,7 +137,7 @@
                 <div class="container my-4">
                   <div class="add-review-section">
                     <h4 class="mb-4 text-light">Añade tu opinión</h4>
-                    <form action="/detail/{{_id}}/comment" method="POST">
+                    <form action="/detail/{{game._id}}/comment" method="POST">
                       <label class="form-label-custom d-block">Tu valoración</label> 
                       <div class="rating-input d-flex flex-row-reverse justify-content-end"> 
                         <input type="radio" name="rating" id="star5" value="5"> 
@@ -173,7 +173,7 @@
         <!-- Other games with same platform -->
         <div class="col-lg-3 mb-4">
           <div class="related-games">
-              <h3>Juegos relacionados - PS5</h3>
+              <h3>Juegos relacionados - {{game.platform}}</h3>
 
               <div class="related-game-card d-block">
                 <img src="Images/minecraft.jpeg" class="card-img-top" alt="...">
