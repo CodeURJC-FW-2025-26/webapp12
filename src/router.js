@@ -96,7 +96,18 @@ router.get('/detail/:id', async (req, res) => {
     game.averageStars = comments.length ? (sum/comments.length).toFixed(1) : 0;
     game.averageStarsVisual = '★'.repeat(Math.round(game.averageStars))+'☆'.repeat(5-Math.round(game.averageStars));
 
-    res.render('detail', { game });
+
+    /// Show games with same platform
+    const allGames = await videogame.getVideogames();
+
+    const relatedGames = allGames
+        .filter(g => g.platform === game.platform && g._id.toString() !== game._id.toString())
+        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        .slice(0, 3);
+
+    res.render('detail', { game, relatedGames });
+
+
 });
 
   
