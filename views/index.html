@@ -15,7 +15,7 @@
                     <p class="lead mb-4">Explora los mejores títulos y descubre tu favorito.</p>
                     <a href="#catalogo"
                         class="scroll-down d-flex flex-column align-items-center text-decoration-none text-light">
-                        <img src="Images/arrow.png" alt="Flecha abajo" class="arrow" />
+                        <img src="/Images/arrow.png" alt="Flecha abajo" class="arrow" />
                     </a>
                 </div>
             </div>
@@ -175,20 +175,18 @@
                 <div class="decor-bar mt-2"></div><br>
                 <div class="card-body">
                     <div class="d-flex flex-wrap gap-2">
-                        <span class="badge bg-primary">Sandbox</span>
-                        <span class="badge bg-success">Creativo</span>
-                        <span class="badge bg-warning text-dark">MOBA</span>
-                        <span class="badge bg-info text-dark">Estrategia</span>
-                        <span class="badge bg-secondary">Supervivencia</span>
-                        <span class="badge bg-danger">Shooter</span>
-                        <span class="badge bg-gradient">Acción</span>
-                        <span class="badge bg-light text-dark">Mundo Abierto</span>
-                        <span class="badge bg-success">RPG</span>
-                        <span class="badge bg-primary">Carreras</span>
-                        <span class="badge bg-warning text-dark">Simulación</span>
-                        <span class="badge bg-danger">Bélico</span>
+                        {{#allCategories}}
+                        <a href="/category/{{.}}" class="badge bg-primary text-light text-decoration-none">
+                            {{.}}
+                        </a>
+                        {{/allCategories}}
+
+                        {{^allCategories}}
+                        <p>No hay categorías registradas.</p>
+                        {{/allCategories}}
                     </div>
-                </div><br><br>
+                </div>
+                <br><br>
 
 
             <h4 class="fw-bold text-start">Contenido Sugerido</h4>

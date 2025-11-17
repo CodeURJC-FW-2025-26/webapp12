@@ -220,6 +220,59 @@ router.get('/post/:id/image', async (req, res) => {
 });
 
 
+router.get('/category/:cat', async (req, res) => {
+  const selectedCategory = req.params.cat;
+  const page = parseInt(req.query.page) || 1;
+  const limit = 6;
+
+  // Filtrar videojuegos por categoría
+  let videogames = await videogame.getVideogames();
+  videogames = videogames.filter(v => v.categories?.includes(selectedCategory));
+
+  const totalVideogames = videogames.length;
+  const totalPages = Math.ceil(totalVideogames / limit);
+
+  const startIndex = (page - 1) * limit;
+  const endIndex = startIndex + limit;
+  const videogamesAct = videogames.slice(startIndex, endIndex);
+
+  const pages = [];
+  for (let i = 1; i <= totalPages; i++) {
+    pages.push({
+      number: i,
+      isActive: i === page
+    });
+  }
+
+  // Juego sugerido aleatorio
+  const allVideogames = await videogame.getVideogames();
+  let suggestedGame = null;
+  if (allVideogames.length > 0) {
+    suggestedGame = allVideogames[Math.floor(Math.random() * allVideogames.length)];
+  }
+
+  // Obtener categorías reales
+  const categorySet = new Set();
+  allVideogames.forEach(g => g.categories?.forEach(c => categorySet.add(c)));
+  const allCategories = Array.from(categorySet).sort();
+
+  res.render('index', {
+    videogamesAct,
+    suggestedGame,
+    currentPage: page,
+    totalPages,
+    hasPrev: page > 1,
+    hasNext: page < totalPages,
+    prevPage: page - 1,
+    nextPage: page + 1,
+    pages,
+    allCategories,
+    selectedCategory
+  });
+});
+
+
+
 router.get('/', async (req, res) => {
     const query = req.query.q?.trim() || "";
     const page = parseInt(req.query.page) || 1;
@@ -255,16 +308,24 @@ router.get('/', async (req, res) => {
         suggestedGame = allVideogames[randomIndex];
     }
 
-    res.render('index', {
-        videogamesAct,
-        suggestedGame,
-        currentPage: page,
-        totalPages,
-        hasPrev: page > 1,
-        hasNext: page < totalPages,
-        prevPage: page - 1,
-        nextPage: page + 1,
-        pages
-    });
+    //categories filter all get categories
+    const categorySet = new Set();
+    videogames.forEach(g => g.categories?.forEach(c => categorySet.add(c)));
+    const allCategories = Array.from(categorySet).sort();
+
+
+  res.render('index', {
+    videogamesAct,
+    suggestedGame,
+    currentPage: page,
+    totalPages,
+    hasPrev: page > 1,
+    hasNext: page < totalPages,
+    prevPage: page - 1,
+    nextPage: page + 1,
+    pages,
+    allCategories
+  });
+
 });
 
