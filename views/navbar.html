@@ -52,13 +52,13 @@
         <div class="collapse navbar-collapse" id="navbarContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item mx-2">
-              <a class="nav-link active" href="/"
+              <a class="nav-link " href="/"
                 ><i class="bi bi-house"></i> Inicio</a
               >
             </li>
 
             <li class="nav-item mx-2">
-              <a class="nav-link active" href="/create"
+              <a class="nav-link " href="/create"
                 ><i class="bi bi-controller"></i> Añadir Videojuego</a
               >
             </li>
@@ -76,5 +76,14 @@
         </div>
       </div>
     </nav>
+
+
+    <script>
+      document.querySelectorAll('nav a').forEach(link => {
+        if (link.href === window.location.href) {
+          link.classList.add('active');
+        }
+      });
+    </script>
   </body>
 </html>
