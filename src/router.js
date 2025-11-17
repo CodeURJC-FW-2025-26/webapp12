@@ -112,6 +112,13 @@ router.get('/detail/:id', async (req, res) => {
     const game = await videogame.getVideogame(req.params.id);
     if (!game) return res.status(404).send('Videojuego no encontrado');
 
+
+    // Format trailer URL to embed format
+    if (game.trailer) {
+        game.trailerEmbed = formatTrailerUrl(game.trailer);
+    }
+
+
     const comments = game.comments || [];
     comments.sort((a,b) => new Date(b.date) - new Date(a.date));
     let sum = 0;
@@ -132,6 +139,21 @@ router.get('/detail/:id', async (req, res) => {
         .slice(0, 3);
 
     res.render('detail', { game, relatedGames });
+
+
+    // Function to convert URL to embed format
+    function formatTrailerUrl(url) {
+        if (url.includes('youtu.be')) {
+            const videoId = url.split('youtu.be/')[1].split('?')[0];
+            return `https://www.youtube.com/embed/${videoId}`;
+        }
+        if (url.includes('youtube.com/watch')) {
+            const videoId = new URL(url).searchParams.get('v');
+            return `https://www.youtube.com/embed/${videoId}`;
+        }
+        return url; // If it's already in embed format or not YouTube
+    }
+
 
 
 });

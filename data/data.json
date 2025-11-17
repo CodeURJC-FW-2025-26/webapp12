@@ -7,6 +7,7 @@
         "platform": "PS5",
         "year": "2024",
         "developer": "Microsoft",
+        "trailer": "https://www.youtube.com/embed/Q3kfF3XNzw8",
         "categories": [
             "Acción",
             "Mundo Abierto"
@@ -40,6 +41,7 @@
         "platform": "PS5",
         "year": "2024",
         "developer": "Microsoft",
+        "trailer": "https://www.youtube.com/watch?v=MmB9b5njVbA",
         "categories": [
             "Sandbox",
             "Supervivencia"
@@ -73,6 +75,7 @@
         "platform": "PS5",
         "year": "2022",
         "developer": "FromSoftware",
+        "trailer": "https://youtu.be/K_03kFqWfqs?si=bwz7FO8dlu41a725",
         "categories": [
             "RPG",
             "Mundo Abierto"
@@ -106,6 +109,7 @@
         "platform": "PS5",
         "year": "2023",
         "developer": "Activision",
+        "trailer": "https://www.youtube.com/watch?v=coiTJbr9m04",
         "categories": [
             "Shooter",
             "Bélico"
@@ -139,6 +143,7 @@
         "platform": "PC",
         "year": "2009",
         "developer": "Riot Games",
+        "trailer": "https://youtu.be/aR-KAldshAE?si=EazdwtmAZsVhhkKX",
         "categories": [
             "MOBA",
             "Estrategia"
@@ -172,6 +177,7 @@
         "platform": "PS5",
         "year": "2022",
         "developer": "Polyphony Digital",
+        "trailer": "https://youtu.be/oz-O74SmTSQ?si=H9grCB19ZYp6nqhV",
         "categories": [
             "Simulación",
             "Carreras"
@@ -205,6 +211,7 @@
         "platform": "PS5",
         "year": "2021",
         "developer": "Studio Wildcard",
+        "trailer": "https://youtu.be/FW9vsrPWujI?si=CCbsowTn17PWdcyJ",
         "categories": [
             "Supervivencia",
             "Mundo Abierto"
@@ -238,6 +245,7 @@
         "platform": "PC",
         "year": "2021",
         "developer": "Relic Entertainment",
+        "trailer": "https://www.youtube.com/watch?v=QFlVNtGJVDU",
         "categories": [
             "Estrategia",
             "Bélico"
@@ -271,6 +279,7 @@
         "platform": "PS5",
         "year": "2022",
         "developer": "Hello Games",
+        "trailer": "https://youtu.be/SsX2hK6yBPU?si=s75-xa68xe-xi0M0",
         "categories": [
             "Sandbox",
             "Exploración",
