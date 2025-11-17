@@ -136,7 +136,7 @@
                     <form action="/detail/{{game._id}}/comment" method="POST">
                       <label class="form-label-custom d-block">Tu valoración</label> 
                       <div class="rating-input d-flex flex-row-reverse justify-content-end"> 
-                        <input type="radio" name="rating" id="star5" value="5" required> 
+                        <input type="radio" name="rating" id="star5" value="5"> 
                           <label for="star5">★</label> 
                         <input type="radio" name="rating" id="star4" value="4"> 
                           <label for="star4">★</label> 
@@ -172,7 +172,7 @@
     <h3>Juegos relacionados - {{game.platform}}</h3>
 
     {{#relatedGames}}
-    <a href="/detail/{{_id}}" class="related-game-card d-block">
+    <a href="/detail/{{_id}}" class="related-game-card d-block text-decoration-none text-light">
       <img src="/uploads/{{imageFilename}}" class="card-img-top" alt="{{title}}">
       <div class="related-game-title">{{title}}</div>
       <div class="related-game-price">{{price}}€</div>
@@ -180,7 +180,7 @@
     {{/relatedGames}}
 
     {{^relatedGames}}
-    <p>No hay juegos relacionados.</p>
+    <p>No hay juegos relacionados con {{game.platform}}.</p>
     {{/relatedGames}}
   </div>
 </div>
