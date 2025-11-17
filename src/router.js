@@ -10,30 +10,43 @@ export default router;
 
 const upload = multer({ dest: videogame.UPLOADS_FOLDER })
 
-/*router.post('/post/new', upload.single('image'), async (req, res) => {
-
-    let videogame = {
-        user: req.body.user,
-        title: req.body.title,
-        text: req.body.text,
-        imageFilename: req.file?.filename
-    };
-
-    await videogame.addVideogame(videogame);
-
-    res.render('saved_Videogame', { _id: videogame._id.toString() });
-
-});*/
-
 
 router.post('/create', upload.single('image'), async (req, res) => {
-  // Buscar si ya existe un videojuego con el mismo título
-  const existingGame = await videogame.getVideogameByTitle(req.body.title);
+  // Collect validation errors
+  const errors = [];
+  const title = req.body.title?.trim() || '';
+  const description = req.body.description?.trim() || '';
+  const gameId = req.body.id || null; // Hidden input for edit mode
 
-  // Preparar datos comunes
+  // Validate: title must start with a capital letter
+  if (!/^[A-ZÁÉÍÓÚÑ]/.test(title)) {
+    errors.push('El nombre debe comenzar con mayúscula.');
+  }
+
+  // Validate: description length between 20 and 350 characters
+  if (description.length < 20 || description.length > 350) {
+    errors.push('La descripción debe tener entre 20 y 350 caracteres.');
+  }
+
+  // Check if title already exists in DB
+  const existingGame = await videogame.getVideogameByTitle(title);
+  if (existingGame && (!gameId || existingGame._id.toString() !== gameId)) {
+    // Only error if it's a different game
+    errors.push('El nombre ya existe en la base de datos.');
+  }
+
+  // If there are validation errors, render error page
+  if (errors.length > 0) {
+    return res.status(400).render('errorWhenUpload', {
+      nombre: title || 'Sin título',
+      errores: errors
+    });
+  }
+
+  // Prepare data for insert or update
   const videogameData = {
-    title: req.body.title,
-    description: req.body.description,
+    title,
+    description,
     price: req.body.price,
     platform: req.body.platform,
     year: req.body.year,
@@ -43,19 +56,18 @@ router.post('/create', upload.single('image'), async (req, res) => {
     trailer: req.body.trailer
   };
 
-  if (existingGame) {
-    // Actualizar el videojuego existente
-    await videogame.updateVideogame(existingGame._id, videogameData);
-    console.log('Actualizado en MongoDB:', existingGame._id);
-    return res.render('uploadVideogame', { _id: existingGame._id.toString() });
+  if (gameId) {
+    // Update existing game
+    await videogame.updateVideogame(gameId, videogameData);
+    console.log('Updated in MongoDB:', gameId);
+    return res.render('uploadVideogame', { _id: gameId });
   }
 
-  // Si no existe, crear uno nuevo
+  // Insert new game
   videogameData.createdAt = new Date();
   videogameData.comments = [];
-
   const result = await videogame.addVideogame(videogameData);
-  console.log('Insertado en MongoDB:', result);
+  console.log('Inserted into MongoDB:', result);
   res.render('uploadVideogame', { _id: result.insertedId.toString() });
 });
 
