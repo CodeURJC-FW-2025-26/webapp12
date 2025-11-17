@@ -114,6 +114,12 @@
           <div class="mb-3">
             <label for="image" class="form-label">Portada del juego</label>
             <input type="file" class="form-control" id="image" name="image" accept="image/*">
+
+            {{#imageFilename}}
+              <small class="text-muted">Imagen actual: {{imageFilename}}</small>
+            {{/imageFilename}}
+
+            <input type="hidden" name="existingImage" value="{{imageFilename}}">
           </div>
 
           <!-- Botones -->

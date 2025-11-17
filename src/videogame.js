@@ -88,3 +88,15 @@ export async function editComment(gameId, commentId, newText, newStars) {
         }
     );
 }
+
+
+export async function getVideogameByTitle(title) {
+  return db.collection('videogames').findOne({ title });
+}
+
+export async function updateVideogame(id, data) {
+  return db.collection('videogames').updateOne(
+    { _id: new ObjectId(id) },
+    { $set: data }
+  );
+}

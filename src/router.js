@@ -27,24 +27,36 @@ const upload = multer({ dest: videogame.UPLOADS_FOLDER })
 
 
 router.post('/create', upload.single('image'), async (req, res) => {
-    const videogameData = {
-        title: req.body.title,
-        description: req.body.description,
-        price: req.body.price,
-        platform: req.body.platform,
-        year: req.body.year,
-        developer: req.body.developer,
-        categories: Array.isArray(req.body.genres) ? req.body.genres : [req.body.genres],
-        imageFilename: req.file?.filename || null,
-        trailer: req.body.trailer,
-        createdAt: new Date(),
-        comments: []
-    };
+  // Buscar si ya existe un videojuego con el mismo título
+  const existingGame = await videogame.getVideogameByTitle(req.body.title);
 
-    const result = await videogame.addVideogame(videogameData);
-    console.log('Insertado en MongoDB:', result);
+  // Preparar datos comunes
+  const videogameData = {
+    title: req.body.title,
+    description: req.body.description,
+    price: req.body.price,
+    platform: req.body.platform,
+    year: req.body.year,
+    developer: req.body.developer,
+    categories: Array.isArray(req.body.genres) ? req.body.genres : [req.body.genres],
+    imageFilename: req.file ? req.file.filename : req.body.existingImage || null,
+    trailer: req.body.trailer
+  };
 
-    res.render('uploadVideogame', { _id: result.insertedId.toString() });
+  if (existingGame) {
+    // Actualizar el videojuego existente
+    await videogame.updateVideogame(existingGame._id, videogameData);
+    console.log('Actualizado en MongoDB:', existingGame._id);
+    return res.render('uploadVideogame', { _id: existingGame._id.toString() });
+  }
+
+  // Si no existe, crear uno nuevo
+  videogameData.createdAt = new Date();
+  videogameData.comments = [];
+
+  const result = await videogame.addVideogame(videogameData);
+  console.log('Insertado en MongoDB:', result);
+  res.render('uploadVideogame', { _id: result.insertedId.toString() });
 });
 
 
@@ -67,13 +79,15 @@ router.get('/edit/:id', async (req, res) => {
     name: genre,
     checked: selectedGenres.includes(genre) ? 'checked' : ''
   }));
-
-  // Normalizamos la plataforma para evitar problemas de mayúsculas
+  
+  // Generamos la URL para la imagen si existe
+  const imageUrl = game.imageFilename ? `/uploads/${game.imageFilename}` : null;
 
 
   res.render('create', {
     ...game,
     genresWithFlags,
+    imageUrl,
     isPC: game.platform === 'PC',
     isXbox: game.platform === 'xbox_seriesx',
     isPS5: game.platform === 'PS5',
