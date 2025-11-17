@@ -66,6 +66,10 @@ footer a.text-dark:hover {
   background: linear-gradient(90deg, #00c6ff, #00ff87);
 }
 
+.badge-gradient {
+  background: linear-gradient(90deg, #00c6ff, #00ff87);
+}
+
 .b-gradient {
   background: linear-gradient(90deg, #00c6ff, #00ff87);
 }
