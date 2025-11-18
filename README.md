@@ -59,7 +59,11 @@ The web application must offer one or more of the following features:
   Video games will also be categorized by its platform as Pc, Xbox series x, PlayStation 5, and Nintendo Switch.
   Product categories can be displayed in the top or side menu.
 
-## Participation
+
+
+
+
+## Participation P1
 
 **Pablo Villamayor**
 
@@ -108,3 +112,25 @@ También he colaborado ayudando en la realización del `README.md`.
 | 5  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/632b0206a2de62e07c29587a6ca5786007118e83 |
   
 -Los ficheros en los que más he participado ha sido: index.html, style.css, y parcialmente en el readme.md.
+
+
+## Participation P2
+
+**Pablo Villamayor**
+
+
+**Neville Gil**
+En esta segunda parte todos hemos tocado todos los archivos pero yo me he centrado más en la parte de busquedas, etiquetas y todo lo relacionado con la página principal así como algunas cosas de las demás páginas. También modificando el router y app asi como introducir los datos en el json. También la creación de las plantillas footer y navbar.
+
+| Nº | Commits más relevantes |
+|----|------------------|
+| 1  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/31e5a7e2270b83812be197397991f503ef57444f |
+| 2  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/0c3eddf485eaadc54664e6809d9b09635e8e82f1 |
+| 3  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/c0571d1dcefa4a9cb313008e0ba8ac318aafc03e |
+| 4  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/6eb2a79915719544fa2d2571bf913c7e183d8ee2 |
+| 5  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/3a3975b2f9b54eb8c03f119ce1e5913b2ed1b739 |
+  
+-Los ficheros en los que más he participado ha sido: index.html router.js y app.js
+
+**Lucca Manfredotti**
+
