@@ -187,21 +187,42 @@ router.get('/detail/:id/deleteVideogame', async (req, res) => {
 });
 
 router.post('/detail/:id/comment', async (req, res) => {
-    const { userName, reviewText, rating } = req.body;
+  const { userName, reviewText, rating } = req.body;
 
-    const game = await videogame.getVideogame(req.params.id);
+  const game = await videogame.getVideogame(req.params.id);
 
-    const newComment = {
-        _id: new ObjectId(),
-        user: userName,
-        text: reviewText,
-        stars: parseInt(rating),
-        date: new Date().toISOString().split('T')[0]
-    };
+  // Validación del nombre de usuario
+  const name = (userName || '').trim();
+  const errors = [];
+  // 5-20, empieza por letra (incluye acentos), permite espacios; permitido: letras, números, espacio, _ . -
+  const nameRegex = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ][A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9._\- ]{4,19}$/;
+  if (name.length < 5) errors.push('El nombre debe tener al menos 5 caracteres.');
+  if (name.length > 30) errors.push('El nombre no puede superar los 30 caracteres.');
+  if (!nameRegex.test(name)) {
+    errors.push('El nombre debe empezar por letra y solo puede contener letras, números, espacios, "_", "-" y ".".');
+  }
+  if (/\s{2,}/.test(name)) {
+    errors.push('No se permiten espacios múltiples consecutivos.');
+  }
+  if (/[._-]{2}/.test(name)) {
+    errors.push('No se permiten dos símbolos seguidos (., _, -).');
+  }
 
-    await videogame.addComment(req.params.id, newComment);
+  if (errors.length > 0) {
+    return res.status(400).render('errorComment', { game, userName: name || 'Nombre no válido', errores: errors });
+  }
 
-    res.render('uploadComment', { game });
+  const newComment = {
+    _id: new ObjectId(),
+    user: name,
+    text: (reviewText || '').trim(),
+    stars: Math.max(0, Math.min(5, parseInt(rating) || 0)),
+    date: new Date().toISOString().split('T')[0]
+  };
+
+  await videogame.addComment(req.params.id, newComment);
+
+  res.render('uploadComment', { game });
 });
 
 router.get('/detail/:id/comment/:commentId/delete', async (req, res) => {
