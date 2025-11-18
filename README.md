@@ -120,6 +120,7 @@ También he colaborado ayudando en la realización del `README.md`.
 
 
 **Neville Gil**
+
 En esta segunda parte todos hemos tocado todos los archivos pero yo me he centrado más en la parte de busquedas, etiquetas y todo lo relacionado con la página principal así como algunas cosas de las demás páginas. También modificando el router y app asi como introducir los datos en el json. También la creación de las plantillas footer y navbar.
 
 | Nº | Commits más relevantes |
@@ -134,3 +135,16 @@ En esta segunda parte todos hemos tocado todos los archivos pero yo me he centra
 
 **Lucca Manfredotti**
 
+En el desarrollo de esta segunda práctica del catálogo de videojuegos donde más he trabajado ha sido en relacion a `detail.html` realizando `editComment.html` para poder editar el formulario de la entidad secundaria, también en `videogame.js` añadiendo funciones para obtener datos o eliminar los mismos, otro archivo en el que he trabajado mucho es `router.js` donde se cogen las rutas para realizar peticiones a la base de datos obteniendo todos los detalles para mostrar en `detail.html`. En resumen he trabajado con los datos de los videojuegos cargando detalles y los comentarios de los mismos pudiendo borrar, editar o añadir nuevos.
+
+También he colaborado ayudando en la realización del `README.md`.
+
+| Nº | Commits más relevantes |
+|----|------------------|
+| 1  |  |
+| 2  |  |
+| 3  |  |
+| 4  |  |
+| 5  |  |
+  
+-Los ficheros en los que más he participado ha sido: index.html, style.css, y parcialmente en el readme.md.
