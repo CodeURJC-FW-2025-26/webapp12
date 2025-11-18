@@ -15,8 +15,22 @@ router.post('/create', upload.single('image'), async (req, res) => {
   // Collect validation errors
   const errors = [];
   const title = req.body.title?.trim() || '';
+  const trailer = req.body.trailer.trim() || '';
   const description = req.body.description?.trim() || '';
+  const year = req.body.year;
   const gameId = req.body.id || null; // Hidden input for edit mode
+
+
+  //Validate year
+  const actualYear = new Date().getFullYear();
+  if(year<1950 && year> actualYear+1){
+    error.push('El año no puede ser inferior a 1950 ni superior al año que viene')
+  }
+
+  // Validate trailer
+  if(!/^https?:\/\/(www\.)?(youtube\.com|youtu\.be)/.test(trailer)){
+    errors.push('El trailer debe ser una URL de youtube')
+  }
 
   // Validate: title must start with a capital letter
   if (!/^[A-ZÁÉÍÓÚÑ]/.test(title)) {
