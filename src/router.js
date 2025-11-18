@@ -256,7 +256,7 @@ router.get('/post/:id/image', async (req, res) => {
 });
 
 
-router.get('/:cat', async (req, res) => {
+router.get('category/:cat', async (req, res) => {
   const selectedCategory = req.params.cat;
   const page = parseInt(req.query.page) || 1;
   const limit = 6;
