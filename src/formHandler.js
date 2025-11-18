@@ -13,7 +13,7 @@ document.getElementById('gameForm').addEventListener('submit', async (e) => {
     formData.append('categories', JSON.stringify(categories));
 
     try {
-        const response = await fetch('/post/new', {
+        const response = await fetch('/videogame/new', {
             method: 'POST',
             body: formData
         });

@@ -369,12 +369,11 @@ router.post('/detail/:id/comment/:commentId/edit', async (req, res) => {
 });
 
 
-router.get('/post/:id/image', async (req, res) => {
+router.get('/game/:id/image', async (req, res) => {
 
-    let post = await videogame.getVideogame(req.params.id);
+    let game = await videogame.getVideogame(req.params.id);
 
-    res.download(videogame.UPLOADS_FOLDER + '/' + post.imageFilename);
-
+    res.download(videogame.UPLOADS_FOLDER + '/' + game.imageFilename);
 });
 
 

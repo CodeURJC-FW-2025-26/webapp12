@@ -9,12 +9,12 @@ let dataFile = "data.json";
 
 const dataString = await fs.readFile(DATA_FOLDER + "/" + dataFile, "utf8");
 
-const posts = JSON.parse(dataString);
+const games = JSON.parse(dataString);
 
 // Add id to each comment
-for (let post of posts) {
-  if (post.comments && Array.isArray(post.comments)) {
-    post.comments = post.comments.map((comment) => ({
+for (let game of games) {
+  if (game.comments && Array.isArray(game.comments)) {
+    game.comments = game.comments.map((comment) => ({
       _id: new ObjectId(),
       ...comment,
     }));
@@ -22,8 +22,8 @@ for (let post of posts) {
 }
 
 await videogame.deleteVideogames();
-for (let post of posts) {
-  await videogame.addVideogame(post);
+for (let game of games) {
+  await videogame.addVideogame(game);
 }
 
 await fs.rm(UPLOADS_FOLDER, { recursive: true, force: true });

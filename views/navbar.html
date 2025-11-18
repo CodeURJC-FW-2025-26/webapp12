@@ -55,7 +55,7 @@
             </a>
             <ul class="dropdown-menu">
               {{#allCategories}}
-              <li><a class="dropdown-item" href="/category/{{.}}">{{.}}</a></li>
+              <li><a class="dropdown-item" href="/category/{{.}}#catalogo">{{.}}</a></li>
               {{/allCategories}}
               {{^allCategories}}
               <li><a class="dropdown-item" href="/#catalogo">Ver todas las categorías</a></li>
@@ -78,11 +78,12 @@
 
 
     <script>
-      document.querySelectorAll('nav a').forEach(link => {
-        if (link.href === window.location.href) {
-          link.classList.add('active');
-        }
-      });
+      // Activa solo según la página: '/' -> Inicio, '/create' -> Añadir Videojuego
+      const path = window.location.pathname;
+      const home = document.querySelector('nav a.nav-link[href="/"]');
+      const create = document.querySelector('nav a.nav-link[href="/create"]');
+      if (path === '/' && home) home.classList.add('active');
+      if (path === '/create' && create) create.classList.add('active');
     </script>
   </body>
 </html>

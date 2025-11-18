@@ -18,9 +18,9 @@ await videogames.createIndex(
 
 export const UPLOADS_FOLDER = './uploads';
 
-export async function addVideogame(post) {
+export async function addVideogame(game) {
 
-    return await videogames.insertOne(post);
+    return await videogames.insertOne(game);
 
 }
 
