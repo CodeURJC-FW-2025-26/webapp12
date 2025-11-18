@@ -4,6 +4,8 @@ import bodyParser from 'body-parser';
 
 import router from './router.js';
 import './load_data.js';
+import * as videogame from './videogame.js'; // ← AÑADE ESTA LÍNEA
+
 
 const app = express();
 
@@ -20,6 +22,26 @@ app.set('views', './views');
 
 // Middleware para formularios
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(async (req, res, next) => {
+  try {
+    const allVideogames = await videogame.getVideogames();
+    const categorySet = new Set();
+    allVideogames.forEach(g => {
+      if (g.categories) {
+        g.categories.forEach(c => categorySet.add(c));
+      }
+    });
+    const allCategories = Array.from(categorySet).sort();
+
+    // Hacer allCategories disponible para TODAS las vistas
+    res.locals.allCategories = allCategories;
+  } catch (error) {
+    console.error('Error obteniendo categorías:', error);
+    res.locals.allCategories = [];
+  }
+  next();
+});
 
 // Rutas
 app.use('/', router);
