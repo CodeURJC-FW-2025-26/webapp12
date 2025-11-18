@@ -50,18 +50,6 @@ app.get('/create', (req, res)=>{
 
 });
 
-app.get('/deleteVideogame', (req, res)=>{
-    res.render('deleteVideogame');
-});
-
-app.get('/uploadVideogame', (req, res)=>{
-    res.render('uploadVideogame');
-});
-
-app.get('/modifyComment', (req, res)=>{
-    res.render('modifyComment');
-});
-
 
 
 // Iniciar servidor

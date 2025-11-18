@@ -49,11 +49,23 @@ router.post('/create', upload.single('image'), async (req, res) => {
     errors.push('El nombre ya existe en la base de datos.');
   }
 
-  // If there are validation errors, render error page
+  // If there are validation errors, render unified confirmOrError view with errors
   if (errors.length > 0) {
-    return res.status(400).render('errorWhenUpload', {
-      nombre: title || 'Sin título',
-      errores: errors
+    return res.status(400).render('confirmOrError', {
+      pageTitle: 'Error al añadir videojuego',
+      heroTitle: 'Error al añadir videojuego',
+      iconClass: 'bi-x-circle-fill',
+      iconColor: 'text-danger',
+      heading: 'No se pudo añadir el videojuego',
+      infoLabel: 'Videojuego:',
+      infoValue: title || 'Sin título',
+      message: 'Revisa los datos del formulario e inténtalo de nuevo.',
+      hasErrors: true,
+      errors: errors,
+      actions: [
+        { href: '/', label: 'Volver al inicio', icon: 'bi-house' },
+        { href: '/create', label: 'Volver al formulario', icon: 'bi-plus-circle', outline: true }
+      ]
     });
   }
 
@@ -74,7 +86,20 @@ router.post('/create', upload.single('image'), async (req, res) => {
     // Update existing game
     await videogame.updateVideogame(gameId, videogameData);
     console.log('Updated in MongoDB:', gameId);
-    return res.render('uploadVideogame', { _id: gameId });
+    return res.render('confirmOrError', {
+      pageTitle: 'Videojuego guardado',
+      heroTitle: 'Página de videojuego guardado',
+      iconClass: 'bi-check-circle-fill',
+      iconColor: 'text-success',
+      heading: '¡Videojuego guardado correctamente!',
+      infoLabel: 'Videojuego:',
+      infoValue: title,
+      message: 'El videojuego ha sido actualizado correctamente.',
+      actions: [
+        { href: '/', label: 'Volver al inicio', icon: 'bi-house' },
+        { href: `/detail/${gameId}`, label: 'Ver detalles', icon: 'bi-plus-circle', outline: true }
+      ]
+    });
   }
 
   // Insert new game
@@ -82,7 +107,20 @@ router.post('/create', upload.single('image'), async (req, res) => {
   videogameData.comments = [];
   const result = await videogame.addVideogame(videogameData);
   console.log('Inserted into MongoDB:', result);
-  res.render('uploadVideogame', { _id: result.insertedId.toString() });
+  res.render('confirmOrError', {
+    pageTitle: 'Videojuego añadido',
+    heroTitle: 'Página de videojuego añadido',
+    iconClass: 'bi-check-circle-fill',
+    iconColor: 'text-success',
+    heading: '¡Videojuego añadido correctamente!',
+    infoLabel: 'Videojuego:',
+    infoValue: title,
+    message: 'El videojuego ha sido agregado exitosamente al catálogo.',
+    actions: [
+      { href: '/', label: 'Volver al inicio', icon: 'bi-house' },
+      { href: `/detail/${result.insertedId.toString()}`, label: 'Ver detalles', icon: 'bi-plus-circle', outline: true }
+    ]
+  });
 });
 
 
@@ -175,15 +213,24 @@ router.get('/detail/:id', async (req, res) => {
   
 
 router.get('/detail/:id/deleteVideogame', async (req, res) => {
-
     let idGame = await videogame.deleteVideogame(req.params.id);
-
     if (idGame && idGame.imageFilename) {
         await fs.rm(videogame.UPLOADS_FOLDER + '/' + idGame.imageFilename);
     }
-
-    res.render('deleteVideogame', idGame);
-
+    res.render('confirmOrError', {
+      pageTitle: 'Videojuego eliminado',
+      heroTitle: 'Página de videojuego eliminado',
+      iconClass: 'bi-check-circle-fill',
+      iconColor: 'text-success',
+      heading: '¡Videojuego eliminado correctamente!',
+      infoLabel: 'Videojuego:',
+      infoValue: idGame?.title || '',
+      message: 'El videojuego ha sido eliminado del catálogo.',
+      actions: [
+        { href: '/', label: 'Volver al inicio', icon: 'bi-house' },
+        { href: '/create', label: 'Añadir nuevo videojuego', icon: 'bi-plus-circle', outline: true }
+      ]
+    });
 });
 
 router.post('/detail/:id/comment', async (req, res) => {
@@ -209,7 +256,22 @@ router.post('/detail/:id/comment', async (req, res) => {
   }
 
   if (errors.length > 0) {
-    return res.status(400).render('errorComment', { game, userName: name || 'Nombre no válido', errores: errors });
+    return res.status(400).render('confirmOrError', {
+      pageTitle: 'Error al publicar comentario',
+      heroTitle: 'Error al publicar comentario',
+      iconClass: 'bi-x-circle-fill',
+      iconColor: 'text-danger',
+      heading: 'No se pudo publicar tu comentario',
+      infoLabel: 'Videojuego:',
+      infoValue: game.title,
+      message: `Nombre introducido: ${name || 'Nombre no válido'}`,
+      hasErrors: true,
+      errors: errors,
+      actions: [
+        { href: '/', label: 'Volver al inicio', icon: 'bi-house' },
+        { href: `/detail/${game._id}`, label: 'Ver detalles', icon: 'bi-plus-circle', outline: true }
+      ]
+    });
   }
 
   const newComment = {
@@ -220,9 +282,22 @@ router.post('/detail/:id/comment', async (req, res) => {
     date: new Date().toISOString().split('T')[0]
   };
 
-  await videogame.addComment(req.params.id, newComment);
+    await videogame.addComment(req.params.id, newComment);
 
-  res.render('uploadComment', { game });
+    res.render('confirmOrError', {
+      pageTitle: 'Comentario añadido',
+      heroTitle: 'Página de comentario añadido',
+      iconClass: 'bi-check-circle-fill',
+      iconColor: 'text-success',
+      heading: '¡Comentario añadido correctamente!',
+      infoLabel: 'Videojuego:',
+      infoValue: game.title,
+      message: `El comentario ha sido añadido exitosamente en el videojuego ${game.title}.`,
+      actions: [
+        { href: '/', label: 'Volver al inicio', icon: 'bi-house' },
+        { href: `/detail/${game._id}`, label: 'Ver detalles', icon: 'bi-plus-circle', outline: true }
+      ]
+    });
 });
 
 router.get('/detail/:id/comment/:commentId/delete', async (req, res) => {
@@ -231,7 +306,20 @@ router.get('/detail/:id/comment/:commentId/delete', async (req, res) => {
 
     await videogame.deleteComment(id, commentId);
 
-    res.render('deleteComment', { game });
+    res.render('confirmOrError', {
+      pageTitle: 'Comentario eliminado',
+      heroTitle: 'Página de comentario eliminado',
+      iconClass: 'bi-check-circle-fill',
+      iconColor: 'text-success',
+      heading: '¡Comentario eliminado correctamente!',
+      infoLabel: 'Videojuego:',
+      infoValue: game.title,
+      message: `El comentario ha sido eliminado exitosamente del videojuego ${game.title}.`,
+      actions: [
+        { href: '/', label: 'Volver al inicio', icon: 'bi-house' },
+        { href: `/detail/${game._id}`, label: 'Ver detalles', icon: 'bi-plus-circle', outline: true }
+      ]
+    });
 });
 
 router.get('/detail/:id/comment/:commentId/edit', async (req, res) => {
@@ -264,7 +352,20 @@ router.post('/detail/:id/comment/:commentId/edit', async (req, res) => {
 
     await videogame.editComment(req.params.id, req.params.commentId, reviewText, stars);
 
-    res.render('modifyComment', { game });
+    res.render('confirmOrError', {
+      pageTitle: 'Comentario modificado',
+      heroTitle: 'Página de comentario modificado',
+      iconClass: 'bi-check-circle-fill',
+      iconColor: 'text-success',
+      heading: '¡Comentario modificado correctamente!',
+      infoLabel: 'Videojuego:',
+      infoValue: game.title,
+      message: `El comentario ha sido modificado exitosamente del videojuego ${game.title}.`,
+      actions: [
+        { href: '/', label: 'Volver al inicio', icon: 'bi-house' },
+        { href: `/detail/${game._id}`, label: 'Ver detalles', icon: 'bi-plus-circle', outline: true }
+      ]
+    });
 });
 
 
