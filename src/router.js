@@ -129,22 +129,22 @@ router.get('/edit/:id', async (req, res) => {
   const game = await videogame.getVideogame(req.params.id);
   if (!game) return res.status(404).send('Videojuego no encontrado');
 
-  // Todas las categorías posibles
+  // All possible categories (fixed set for form rendering)
   const allGenres = [
     'RPG', 'Shooter', 'Creativo', 'Estrategia', 'Bélico',
     'Acción', 'Carreras', 'MOBA', 'Sandbox', 'Mundo Abierto', 'Simulación', 'Supervivencia'
   ];
 
-  // Array con las categorías seleccionadas del juego
+  // Categories selected for this game
   const selectedGenres = game.categories || [];
 
-  // Generamos un array con flags para Mustache
+  // Build array with 'checked' flag for Mustache template
   const genresWithFlags = allGenres.map(genre => ({
     name: genre,
     checked: selectedGenres.includes(genre) ? 'checked' : ''
   }));
   
-  // Generamos la URL para la imagen si existe
+  // Build current image URL if an image exists
   const imageUrl = game.imageFilename ? `/uploads/${game.imageFilename}` : null;
 
 
@@ -238,10 +238,10 @@ router.post('/detail/:id/comment', async (req, res) => {
 
   const game = await videogame.getVideogame(req.params.id);
 
-  // Validación del nombre de usuario
+  // Username validation
   const name = (userName || '').trim();
   const errors = [];
-  // 5-20, empieza por letra (incluye acentos), permite espacios; permitido: letras, números, espacio, _ . -
+  // Rules: 5-20 chars, starts with letter (accents allowed), then letters/numbers/space/_.- ; no double spaces or double symbols
   const nameRegex = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ][A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9._\- ]{4,19}$/;
   if (name.length < 5) errors.push('El nombre debe tener al menos 5 caracteres.');
   if (name.length > 30) errors.push('El nombre no puede superar los 30 caracteres.');

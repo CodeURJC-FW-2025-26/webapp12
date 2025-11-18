@@ -19,23 +19,23 @@
             <input type="hidden" name="id" value="{{_id}}">
           {{/_id}}
 
-          <!-- Nombre -->
+          <!-- Title -->
           <label for="inputName" class="form-label">Nombre</label>
           <input type="text" class="form-control" id="inputName" name="title" value="{{title}}" required>
 
-          <!-- Descripción -->
+          <!-- Description -->
           <div class="mb-3">
             <label for="inputDescription" class="form-label">Descripción</label>
             <textarea class="form-control" id="inputDescription" name="description" required>{{description}}</textarea>
           </div>
 
-          <!-- Precio -->
+          <!-- Price -->
           <div class="mb-3">
             <label for="inputPrice" class="form-label">Precio</label>
             <input type="number" class="form-control" id="inputPrice" name="price" value="{{price}}" required>
           </div>
 
-          <!-- Géneros -->
+          <!-- Genres (multiple selection) -->
           <div class="mb-3">
             <label class="form-label">Selecciona el género o géneros del videojuego:</label>
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-2">
@@ -50,7 +50,7 @@
             </div>
           </div>
 
-          <!-- Plataforma -->
+          <!-- Platform -->
           <div class="mb-3">
             <label for="inputPlatform" class="form-label">Plataforma</label>
             <select class="form-select" id="inputPlatform" name="platform" required>
@@ -62,25 +62,25 @@
             </select>
           </div>
 
-          <!-- Año -->
+          <!-- Release year -->
           <div class="mb-3">
             <label for="inputYear" class="form-label">Año</label>
             <input type="number" class="form-control" id="inputYear" name="year" value="{{year}}" required>
           </div>
 
-          <!-- Estudio -->
+          <!-- Studio / Developer -->
           <div class="mb-3">
             <label for="inputStudio" class="form-label">Estudio</label>
             <input type="text" class="form-control" id="inputStudio" name="developer" value="{{developer}}" required>
           </div>
 
-          <!-- Trailer -->
+          <!-- Trailer URL (YouTube) -->
           <div class="mb-3">
             <label for="inputTrailer" class="form-label">URL del trailer del juego</label>
             <input type="text" class="form-control" id="inputTrailer" name="trailer" value="{{trailer}}" required>
           </div>
 
-          <!-- Imagen -->
+          <!-- Image upload -->
           <div class="mb-3">
             <label for="image" class="form-label">Portada del juego</label>
             <input type="file" class="form-control" id="image" name="image" accept="image/*">
@@ -92,7 +92,7 @@
             <input type="hidden" name="existingImage" value="{{imageFilename}}">
           </div>
 
-          <!-- Botones -->
+          <!-- Action buttons -->
           <div class="d-flex gap-2">
             <a href="/" class="btn btn-secondary">Cancelar</a>
             <button type="reset" class="btn btn-warning">Resetear</button>

@@ -3,13 +3,13 @@ document.getElementById('gameForm').addEventListener('submit', async (e) => {
 
     const formData = new FormData(e.target);
 
-    // Recoger categorías seleccionadas
+    // Collect selected categories
     const categories = [];
     e.target.querySelectorAll('input[name="categories"]:checked').forEach(cb => {
         categories.push(cb.value);
     });
 
-    // Añadir categorías al FormData como JSON
+    // Append categories as JSON string
     formData.append('categories', JSON.stringify(categories));
 
     try {

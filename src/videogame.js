@@ -4,10 +4,9 @@ import { MongoClient, ObjectId } from 'mongodb';
 const router = express.Router();
 export default router;
 
+// MongoDB client and collection setup
 const client = new MongoClient('mongodb://localhost:27017');
-
 await client.connect();
-
 const db = client.db('videogame');
 const videogames = db.collection('videogames');
 
@@ -16,34 +15,38 @@ await videogames.createIndex(
     { name: "text_search_index" }
   );
 
+// Folder where uploaded images are stored
 export const UPLOADS_FOLDER = './uploads';
 
+// Create a new videogame document
 export async function addVideogame(game) {
 
     return await videogames.insertOne(game);
 
 }
 
+// Delete one videogame by id 
 export async function deleteVideogame(id) {
     
     return await videogames.findOneAndDelete({ _id: new ObjectId(id) });
   }
 
-export async function deleteVideogames(){
-
+// Delete all videogames
+export async function deleteVideogames() {
     return await videogames.deleteMany();
 }
 
-export async function getVideogames(){
-
+// Get all videogames
+export async function getVideogames() {
     return await videogames.find().toArray();
 }
 
-export async function getVideogame(id){
-
+// Get a single videogame by id
+export async function getVideogame(id) {
     return await videogames.findOne({ _id: new ObjectId(id) });
 }
 
+// Search videogames using text index first, fallback to regex on title
 export async function searchVideogames(searchBar) {
     if (!searchBar || searchBar.trim() === "") {
         return await videogames.find().toArray();
@@ -63,6 +66,7 @@ export async function searchVideogames(searchBar) {
         .toArray();
 }
 
+// Append a new comment to a videogame
 export async function addComment(id, comment) {
     return await videogames.updateOne(
         { _id: new ObjectId(id) },
@@ -70,6 +74,7 @@ export async function addComment(id, comment) {
     );
 }
 
+// Remove a comment by its id from a videogame
 export async function deleteComment(gameId, commentId) {
     return await videogames.updateOne(
         { _id: new ObjectId(gameId) },
@@ -77,6 +82,7 @@ export async function deleteComment(gameId, commentId) {
     );
 }
 
+// Update text and stars of a specific comment
 export async function editComment(gameId, commentId, newText, newStars) {
     return await videogames.updateOne(
         { _id: new ObjectId(gameId), "comments._id": new ObjectId(commentId) },
@@ -90,10 +96,12 @@ export async function editComment(gameId, commentId, newText, newStars) {
 }
 
 
+// Find a videogame by exact title
 export async function getVideogameByTitle(title) {
   return db.collection('videogames').findOne({ title });
 }
 
+// Update videogame fields by id
 export async function updateVideogame(id, data) {
   return db.collection('videogames').updateOne(
     { _id: new ObjectId(id) },
