@@ -118,6 +118,18 @@ También he colaborado ayudando en la realización del `README.md`.
 
 **Pablo Villamayor**
 
+En esta segunda parte todos hemos tocado todos los archivos pero yo he estado trabajando sobre todo en las funcionalidades del formulario para crear o editar entidades principales asi como la validacion en backend de este mismo formulario, ademas de ayudar en la creacion de las paginas web intermedias que ayudan a la hora de mostrar errores de validacion de los formularios.
+
+| Nº | Commits más relevantes |
+|----|------------------|
+| 1  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/0330b253f2128defc860b03af7accafc1a893415 |
+| 2  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/cabb24aa7a619b503e712227f85da70fc8840557 |
+| 3  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/786186be3f0197365c31974ea82b6037ec40b9a2 |
+| 4  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/2ac717a55396e9084e2fb0048d76ee9268c9538a |
+| 5  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/de84e3a6e92291ace022e6403d11984c302ca8c6 |
+  
+-Los ficheros en los que más he participado ha sido: create.html router.js y app.js
+
 
 **Neville Gil**
 
