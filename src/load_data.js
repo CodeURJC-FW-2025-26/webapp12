@@ -21,6 +21,7 @@ for (let game of games) {
   }
 }
 
+// Clear existing data and load demo data
 await videogame.deleteVideogames();
 for (let game of games) {
   await videogame.addVideogame(game);

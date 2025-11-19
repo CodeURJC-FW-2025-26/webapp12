@@ -46,7 +46,7 @@ app.use(async (req, res, next) => {
 // Mount main router
 app.use('/', router);
 
-// Basic direct routes (fallback examples)
+// Basic direct routes 
 app.get('/', (req, res) => res.render('index'));
 app.get('/detail', (req, res) => res.render('detail'));
 

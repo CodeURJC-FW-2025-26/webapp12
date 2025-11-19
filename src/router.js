@@ -300,6 +300,7 @@ router.post('/detail/:id/comment', async (req, res) => {
     });
 });
 
+// Delete comments
 router.get('/detail/:id/comment/:commentId/delete', async (req, res) => {
     const { id, commentId } = req.params;
     const game = await videogame.getVideogame(req.params.id);
@@ -322,6 +323,8 @@ router.get('/detail/:id/comment/:commentId/delete', async (req, res) => {
     });
 });
 
+
+// Get stars for each comment in edit
 router.get('/detail/:id/comment/:commentId/edit', async (req, res) => {
     const game = await videogame.getVideogame(req.params.id);
     if (!game) return res.status(404).send('Videojuego no encontrado');
@@ -329,7 +332,7 @@ router.get('/detail/:id/comment/:commentId/edit', async (req, res) => {
     const comment = game.comments.find(c => c._id.toString() === req.params.commentId);
     if (!comment) return res.status(404).send('Comentario no encontrado');
 
-    // Preparamos un objeto para cada estrella para mostrar "checked"
+    // Prepare an object for each star to show "checked"
     comment.starsChecked = {
         1: comment.stars === 1 ? 'checked' : '',
         2: comment.stars === 2 ? 'checked' : '',
@@ -341,7 +344,7 @@ router.get('/detail/:id/comment/:commentId/edit', async (req, res) => {
     res.render('editComment', { game, comment });
 });
 
-
+// Edit comments validation
 router.post('/detail/:id/comment/:commentId/edit', async (req, res) => {
 
     const game = await videogame.getVideogame(req.params.id);
@@ -369,6 +372,7 @@ router.post('/detail/:id/comment/:commentId/edit', async (req, res) => {
 });
 
 
+// Get image for a game
 router.get('/game/:id/image', async (req, res) => {
 
     let game = await videogame.getVideogame(req.params.id);
@@ -377,12 +381,12 @@ router.get('/game/:id/image', async (req, res) => {
 });
 
 
+// Get videogames by category
 router.get('/category/:cat', async (req, res) => {
   const selectedCategory = req.params.cat;
   const page = parseInt(req.query.page) || 1;
   const limit = 6;
 
-  // Filtrar videojuegos por categoría
   let videogames = await videogame.getVideogames();
   videogames = videogames.filter(v => v.categories?.includes(selectedCategory));
 
@@ -401,14 +405,14 @@ router.get('/category/:cat', async (req, res) => {
     });
   }
 
-  // Juego sugerido aleatorio
+  // Game suggested random
   const allVideogames = await videogame.getVideogames();
   let suggestedGame = null;
   if (allVideogames.length > 0) {
     suggestedGame = allVideogames[Math.floor(Math.random() * allVideogames.length)];
   }
 
-  // Obtener categorías reales
+  // Get real categories
   const categorySet = new Set();
   allVideogames.forEach(g => g.categories?.forEach(c => categorySet.add(c)));
   const allCategories = Array.from(categorySet).sort();
@@ -433,9 +437,9 @@ router.get('/category/:cat', async (req, res) => {
 router.get('/', async (req, res) => {
     const query = req.query.q?.trim() || "";
     const page = parseInt(req.query.page) || 1;
-    const limit = 6; // cantidad de videojuegos por página
+    const limit = 6; // number of videogames per page
 
-    // Obtener videojuegos
+    // Get videogames
     let videogames = query === ""
         ? await videogame.getVideogames()
         : await videogame.searchVideogames(query);
@@ -443,12 +447,12 @@ router.get('/', async (req, res) => {
     const totalVideogames = videogames.length;
     const totalPages = Math.ceil(totalVideogames / limit);
 
-    // Recortar los resultados según la página actual
+    // Get videogames for current page
     const startIndex = (page - 1) * limit;
     const endIndex = startIndex + limit;
     const videogamesAct = videogames.slice(startIndex, endIndex);
 
-    // Generar lista de páginas (ej: [1,2,3,4,...])
+    // Generate list of pages (ex., [1,2,3,4,...])
     const pages = [];
     for (let i = 1; i <= totalPages; i++) {
         pages.push({
@@ -457,7 +461,7 @@ router.get('/', async (req, res) => {
         });
     }
 
-    // Juego sugerido aleatorio
+    // Game suggested random
     const allVideogames = await videogame.getVideogames();
     let suggestedGame = null;
     if (allVideogames.length > 0) {
