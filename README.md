@@ -113,6 +113,8 @@ También he colaborado ayudando en la realización del `README.md`.
   
 -Los ficheros en los que más he participado ha sido: detail.html, style.css, y parcialmente en el readme.md.
 
+##VIDEO PRÁCTICA 2##
+https://urjc-my.sharepoint.com/:v:/r/personal/n_gil_2024_alumnos_urjc_es/Documents/VID-20251119-WA0001.mp4?csf=1&web=1&e=qwncWq&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D
 
 ## Instrucciones de Ejecución P2
 
