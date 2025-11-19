@@ -114,6 +114,54 @@ También he colaborado ayudando en la realización del `README.md`.
 -Los ficheros en los que más he participado ha sido: detail.html, style.css, y parcialmente en el readme.md.
 
 
+## Instrucciones de Ejecución P2
+
+Este proyecto es una aplicación web diseñada para gestionar un catálogo de videojuegos. Permite crear nuevos títulos, editar información existente, eliminar entradas y consultar los detalles de cualquier videojuego del sistema. Además, incorpora funcionalidades como la subida de imágenes, la inserción y gestión de comentarios de los usuarios, un sistema de valoraciones mediante estrellas, un buscador integrado y filtros por categorías.
+
+La aplicación está desarrollada con Node.js, utilizando Express como framework de servidor y Mustache como motor de plantillas. MongoDB se emplea como base de datos principal, y Multer se encarga del manejo de las imágenes subidas por el usuario. Todo está organizado de forma modular para facilitar su mantenimiento y evolución.
+
+**Para ejecutar correctamente la aplicación, es necesario tener instaladas las siguientes herramientas:**
+
+Node.js, en su versión 1.106.1
+
+npm, el gestor de paquetes de Node.js, que se instala automáticamente junto con él.
+
+MongoDB, Community Edition instalada localmente (la versión 6.0).
+La aplicación realiza consultas, inserciones, actualizaciones y borrados directamente en la base de datos, por lo que es imprescindible contar con una instancia funcional.
+
+**Instrucciones**
+Cuando descargas un proyecto Node.js, normalmente incluye un archivo llamado package.json.
+Este archivo contiene una lista de las dependencias o librerías que necesita la aplicación.
+
+npm install
+Leer el archivo package.json
+Descargar todas las librerías necesarias
+
+Para refrescar automaticamente
+Instalar nodemon globalmente -> npm install -g nodemon
+
+npm run watch
+El modo “watch” sirve para que tu aplicación Node.js se reinicie sola cuando detecta cambios, permitiendo un desarrollo más rápido y cómodo.
+
+**Ficheros**
+app.js —> Archivo principal de la aplicación
+Este es el punto de entrada del servidor. Su responsabilidad es poner en marcha la aplicación web y definir la configuración general.
+
+router.js —> Archivo de rutas y lógica
+Este archivo define todas las rutas del sitio web y la lógica asociada a ellas.
+Es el encargado de responder a las peticiones del usuario.
+
+videogame.js —> Acceso a la base de datos y funciones
+
+load_data.js —> Carga de datos iniciales
+
+public/ —> Archivos estáticos
+
+views/ —> Plantillas Mustache (HTML dinámico)
+
+uploads/ — >Imágenes subidas
+Carpeta donde Multer almacena los archivos subidos por los usuarios:
+
 ## Participation P2
 
 **Pablo Villamayor**
