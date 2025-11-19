@@ -130,6 +130,7 @@ MongoDB, Community Edition instalada localmente (la versión 6.0).
 La aplicación realiza consultas, inserciones, actualizaciones y borrados directamente en la base de datos, por lo que es imprescindible contar con una instancia funcional.
 
 **Instrucciones**
+
 Cuando descargas un proyecto Node.js, normalmente incluye un archivo llamado package.json.
 Este archivo contiene una lista de las dependencias o librerías que necesita la aplicación.
 
@@ -144,6 +145,7 @@ npm run watch
 El modo “watch” sirve para que tu aplicación Node.js se reinicie sola cuando detecta cambios, permitiendo un desarrollo más rápido y cómodo.
 
 **Ficheros**
+
 app.js —> Archivo principal de la aplicación
 Este es el punto de entrada del servidor. Su responsabilidad es poner en marcha la aplicación web y definir la configuración general.
 
