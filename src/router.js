@@ -14,40 +14,55 @@ const upload = multer({ dest: videogame.UPLOADS_FOLDER })
 router.post('/create', upload.single('image'), async (req, res) => {
   // Collect validation errors
   const errors = [];
-  const title = req.body.title?.trim() || '';
-  const trailer = req.body.trailer.trim() || '';
-  const description = req.body.description?.trim() || '';
-  const year = req.body.year;
   const gameId = req.body.id || null; // Hidden input for edit mode
-
-
-  //Validate year
-  const actualYear = new Date().getFullYear();
-  if(year<1950 && year> actualYear+1){
-    error.push('El año no puede ser inferior a 1950 ni superior al año que viene')
-  }
-
-  // Validate trailer
-  if(!/^https?:\/\/(www\.)?(youtube\.com|youtu\.be)/.test(trailer)){
-    errors.push('El trailer debe ser una URL de youtube')
-  }
-
-  // Validate: title must start with a capital letter
-  if (!/^[A-ZÁÉÍÓÚÑ]/.test(title)) {
-    errors.push('El nombre debe comenzar con mayúscula.');
-  }
-
-  // Validate: description length between 20 and 350 characters
-  if (description.length < 20 || description.length > 350) {
-    errors.push('La descripción debe tener entre 20 y 350 caracteres.');
-  }
+    // Prepare data for insert or update
+  const videogameData = {
+    title: req.body.title,
+    description: req.body.description,
+    price: req.body.price,
+    platform: req.body.platform,
+    year: req.body.year,
+    developer: req.body.developer,
+    categories: Array.isArray(req.body.genres) ? req.body.genres : [req.body.genres],
+    imageFilename: req.file ? req.file.filename : req.body.existingImage || null,
+    trailer: req.body.trailer
+  };
 
   // Check if title already exists in DB
-  const existingGame = await videogame.getVideogameByTitle(title);
-  if (existingGame && (!gameId || existingGame._id.toString() !== gameId)) {
+  const existingGame = await videogame.getVideogameByTitle(videogameData.title);
+  if (existingGame && (!gameId || existingGame._id.toString() !== gameId.toString())) {
     // Only error if it's a different game
     errors.push('El nombre ya existe en la base de datos.');
   }
+  // Validate: title must start with a capital letter
+  if (!videogameData.title || typeof videogameData.title !== "string" || !/^[A-ZÁÉÍÓÚÑ]/.test(videogameData.title)) {
+    errors.push('El nombre debe comenzar con mayúscula.');
+  }
+  // Validate: description length between 20 and 350 characters
+  if (videogameData.description.length < 20 || videogameData.description.length > 350) {
+    errors.push('La descripción debe tener entre 20 y 350 caracteres.');
+  }
+
+  // Validate Price
+  if(!videogameData.price || isNaN(Number(videogameData.price))){
+    errors.push('El precio debe ser un numero valido');
+  }
+  // Validate year
+  const actualYear = new Date().getFullYear();
+  const yearNum = parseInt(videogameData.year, 10);
+  if (!videogameData.year || isNaN(yearNum) || yearNum < 1950 || yearNum > actualYear + 1) {
+    errors.push('El año no puede ser inferior a 1950 ni superior al año que viene');
+  }
+  // Validate Studio
+  if (!videogameData.developer || typeof videogameData.developer !== "string") {
+    errors.push('El Estudio debe ser un nombre escrito con letras');
+  }
+  // Validate trailer
+  if (!videogameData.trailer || typeof videogameData.trailer !== "string" || !/^https?:\/\/(www\.)?(youtube\.com|youtu\.be)/.test(videogameData.trailer)) {
+    errors.push('El trailer debe ser una URL de YouTube');
+  }
+
+
 
   // If there are validation errors, render unified confirmOrError view with errors
   if (errors.length > 0) {
@@ -58,7 +73,7 @@ router.post('/create', upload.single('image'), async (req, res) => {
       iconColor: 'text-danger',
       heading: 'No se pudo añadir el videojuego',
       infoLabel: 'Videojuego:',
-      infoValue: title || 'Sin título',
+      infoValue: videogameData.title || 'Sin título',
       message: 'Revisa los datos del formulario e inténtalo de nuevo.',
       hasErrors: true,
       errors: errors,
@@ -69,18 +84,7 @@ router.post('/create', upload.single('image'), async (req, res) => {
     });
   }
 
-  // Prepare data for insert or update
-  const videogameData = {
-    title,
-    description,
-    price: req.body.price,
-    platform: req.body.platform,
-    year: req.body.year,
-    developer: req.body.developer,
-    categories: Array.isArray(req.body.genres) ? req.body.genres : [req.body.genres],
-    imageFilename: req.file ? req.file.filename : req.body.existingImage || null,
-    trailer: req.body.trailer
-  };
+
 
   if (gameId) {
     // Update existing game
@@ -93,7 +97,7 @@ router.post('/create', upload.single('image'), async (req, res) => {
       iconColor: 'text-success',
       heading: '¡Videojuego guardado correctamente!',
       infoLabel: 'Videojuego:',
-      infoValue: title,
+      infoValue: videogameData.title,
       message: 'El videojuego ha sido actualizado correctamente.',
       actions: [
         { href: '/', label: 'Volver al inicio', icon: 'bi-house' },
@@ -114,7 +118,7 @@ router.post('/create', upload.single('image'), async (req, res) => {
     iconColor: 'text-success',
     heading: '¡Videojuego añadido correctamente!',
     infoLabel: 'Videojuego:',
-    infoValue: title,
+    infoValue: videogameData.title,
     message: 'El videojuego ha sido agregado exitosamente al catálogo.',
     actions: [
       { href: '/', label: 'Volver al inicio', icon: 'bi-house' },
