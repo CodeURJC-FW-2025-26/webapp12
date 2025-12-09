@@ -494,3 +494,18 @@ router.get('/', async (req, res) => {
 
 });
 
+
+router.get("/videogames", async (req, res) => {
+  const from = parseInt(req.query.from) || 0;
+  const to = parseInt(req.query.to) || 6;
+
+  const all = await videogame.getVideogames();
+  all.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+  const result = all.slice(from, to);
+
+  res.render("videogames", {
+    videogamesAct: result
+  });
+});
+

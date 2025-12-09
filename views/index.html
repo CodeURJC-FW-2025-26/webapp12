@@ -97,71 +97,39 @@
 
                 <br>
 
-                <div class="row g-4">
+                <div class="row g-4" id="videogamesContainer">
 
 
                     <!-- Card 1 -->
            
-                {{#videogamesAct}}
-                <div class="col-md-6 col-lg-4">
-                    <div class="card d-flex flex-column justify-content-between">
-                        <img src="/uploads/{{imageFilename}}" class="card-img-top" alt="{{title}}">
-                        <div class="card-body card-body2 d-flex flex-column">
-                            <h5 class="card-title">{{title}}</h5>
-                            <h6 class="fw-bold text-success mb-3">{{price}} €</h6>
-                            <p class="card-text">
-                                {{#categories}}
-                                <span class="badge text-bg-secondary me-1">{{.}}</span>
-                                {{/categories}}
-                            </p>
-                            <a href="/detail/{{_id}}" class="btn btn-gradient mt-auto">Más Información</a>
+                    {{#videogamesAct}}
+                    <div id="videogamescard" class="col-md-6 col-lg-4">
+                        <div class="card d-flex flex-column justify-content-between">
+                            <img src="/uploads/{{imageFilename}}" class="card-img-top" alt="{{title}}">
+                            <div class="card-body card-body2 d-flex flex-column">
+                                <h5 class="card-title">{{title}}</h5>
+                                <h6 class="fw-bold text-success mb-3">{{price}} €</h6>
+                                <p class="card-text">
+                                    {{#categories}}
+                                    <span class="badge text-bg-secondary me-1">{{.}}</span>
+                                    {{/categories}}
+                                </p>
+                                <a href="/detail/{{_id}}" class="btn btn-gradient mt-auto">Más Información</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                {{/videogamesAct}}
-                     {{^videogamesAct}}
-                        <p>No hay videojuegos disponibles todavía en la web.</p>
                     {{/videogamesAct}}
+                        {{^videogamesAct}}
+                            <p>No hay videojuegos disponibles todavía en la web.</p>
+                        {{/videogamesAct}}
 
 
-                   
+                </div>
 
-
-
-                <nav aria-label="Page navigation">
-                    <ul class="pagination justify-content-center">
-                
-                        {{#hasPrev}}
-                        <li class="page-item">
-                            <a class="page-link" href="?page={{prevPage}}">Anterior</a>
-                        </li>
-                        {{/hasPrev}}
-                        {{^hasPrev}}
-                        
-
-                        {{/hasPrev}}
-                
-                        {{#totalPages}}
-                        {{#pages}}
-                        <li class="page-item {{#isActive}}active{{/isActive}} ">
-                            <a class="page-link" href="?page={{number}}">{{number}}</a>
-                        </li>
-                        {{/pages}}
-                        {{/totalPages}}
-                
-                        {{#hasNext}}
-                        <li class="page-item">
-                            <a class="page-link" href="?page={{nextPage}}">Siguiente</a>
-                        </li>
-                        {{/hasNext}}
-                        {{^hasNext}}
-                        
-                        {{/hasNext}}
-                    </ul>
-                    <p class="text-center mt-2">Página {{currentPage}} de {{totalPages}}</p>
-                </nav>
-
-
+                <div class="text-center mt-4">
+                    <button id="loadMoreBtn" class="btn btn-gradient" onclick="loadMore()">
+                        <i class="bi bi-plus-circle"></i> Ver Más Videojuegos
+                    </button>
                 </div>
             </div>
 
