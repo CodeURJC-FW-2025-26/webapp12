@@ -390,10 +390,23 @@ router.get('/category/:cat', async (req, res) => {
   const selectedCategory = req.params.cat;
   const page = parseInt(req.query.page) || 1;
   const limit = 6;
+  const from = parseInt(req.query.from) || 0;
+  const to = parseInt(req.query.to) || 6;
 
+  // Get all games and filter by category
   let videogames = await videogame.getVideogames();
   videogames = videogames.filter(v => v.categories?.includes(selectedCategory));
 
+  // If it's an AJAX request for infinite scroll (has 'from' parameter)
+  if (req.query.from !== undefined) {
+    videogames.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    const result = videogames.slice(from, to);
+    return res.render("videogames", {
+      videogamesAct: result
+    });
+  }
+
+  // Normal page load - render full page with pagination
   const totalVideogames = videogames.length;
   const totalPages = Math.ceil(totalVideogames / limit);
 
@@ -401,6 +414,7 @@ router.get('/category/:cat', async (req, res) => {
   const endIndex = startIndex + limit;
   const videogamesAct = videogames.slice(startIndex, endIndex);
 
+  // Generate page numbers for pagination
   const pages = [];
   for (let i = 1; i <= totalPages; i++) {
     pages.push({
@@ -409,14 +423,14 @@ router.get('/category/:cat', async (req, res) => {
     });
   }
 
-  // Game suggested random
+  // Get random suggested game
   const allVideogames = await videogame.getVideogames();
   let suggestedGame = null;
   if (allVideogames.length > 0) {
     suggestedGame = allVideogames[Math.floor(Math.random() * allVideogames.length)];
   }
 
-  // Get real categories
+  // Extract all unique categories for filter sidebar
   const categorySet = new Set();
   allVideogames.forEach(g => g.categories?.forEach(c => categorySet.add(c)));
   const allCategories = Array.from(categorySet).sort();
@@ -439,45 +453,55 @@ router.get('/category/:cat', async (req, res) => {
 
 
 router.get('/', async (req, res) => {
-    const query = req.query.q?.trim() || "";
-    const page = parseInt(req.query.page) || 1;
-    const limit = 6; // number of videogames per page
+  const query = req.query.q?.trim() || "";
+  const page = parseInt(req.query.page) || 1;
+  const limit = 6;
+  const from = parseInt(req.query.from) || 0;
+  const to = parseInt(req.query.to) || 6;
 
-    // Get videogames
-    let videogames = query === ""
-        ? await videogame.getVideogames()
-        : await videogame.searchVideogames(query);
+  // Get videogames based on search query
+  let videogames = query === ""
+    ? await videogame.getVideogames()
+    : await videogame.searchVideogames(query);
 
-    const totalVideogames = videogames.length;
-    const totalPages = Math.ceil(totalVideogames / limit);
+  // If it's an AJAX request for infinite scroll (has 'from' parameter)
+  if (req.query.from !== undefined) {
+    videogames.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    const result = videogames.slice(from, to);
+    return res.render("videogames", {
+      videogamesAct: result
+    });
+  }
 
-    // Get videogames for current page
-    const startIndex = (page - 1) * limit;
-    const endIndex = startIndex + limit;
-    const videogamesAct = videogames.slice(startIndex, endIndex);
+  // Normal page load - render full page with pagination
+  const totalVideogames = videogames.length;
+  const totalPages = Math.ceil(totalVideogames / limit);
 
-    // Generate list of pages (ex., [1,2,3,4,...])
-    const pages = [];
-    for (let i = 1; i <= totalPages; i++) {
-        pages.push({
-            number: i,
-            isActive: i === page
-        });
-    }
+  const startIndex = (page - 1) * limit;
+  const endIndex = startIndex + limit;
+  const videogamesAct = videogames.slice(startIndex, endIndex);
 
-    // Game suggested random
-    const allVideogames = await videogame.getVideogames();
-    let suggestedGame = null;
-    if (allVideogames.length > 0) {
-        const randomIndex = Math.floor(Math.random() * allVideogames.length);
-        suggestedGame = allVideogames[randomIndex];
-    }
+  // Generate page numbers for pagination
+  const pages = [];
+  for (let i = 1; i <= totalPages; i++) {
+    pages.push({
+      number: i,
+      isActive: i === page
+    });
+  }
 
-    //categories filter all get categories
-    const categorySet = new Set();
-    videogames.forEach(g => g.categories?.forEach(c => categorySet.add(c)));
-    const allCategories = Array.from(categorySet).sort();
+  // Get random suggested game
+  const allVideogames = await videogame.getVideogames();
+  let suggestedGame = null;
+  if (allVideogames.length > 0) {
+    const randomIndex = Math.floor(Math.random() * allVideogames.length);
+    suggestedGame = allVideogames[randomIndex];
+  }
 
+  // Extract all unique categories for filter sidebar
+  const categorySet = new Set();
+  videogames.forEach(g => g.categories?.forEach(c => categorySet.add(c)));
+  const allCategories = Array.from(categorySet).sort();
 
   res.render('index', {
     videogamesAct,
@@ -491,7 +515,6 @@ router.get('/', async (req, res) => {
     pages,
     allCategories
   });
-
 });
 
 
