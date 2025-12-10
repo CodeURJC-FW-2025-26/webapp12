@@ -1,5 +1,12 @@
 const NUM_RESULTS = 6;
 let loadMoreRequests = 0;
+let isLoading = false;
+cargando=true;
+
+if (cargando) return;
+cargando = true;
+
+showSpinner(); 
 
 async function loadMore() {
     const from = (loadMoreRequests + 1) * NUM_RESULTS;
@@ -25,3 +32,14 @@ if (!pathname.includes('/category/') && !search.includes('q=')) {
     });
 }
 
+
+
+function showSpinner() {
+    let spinner = document.getElementById('loadingSpinner');
+    if (spinner) spinner.style.display = 'block';
+}
+
+function hideSpinner() {
+    let spinner = document.getElementById('loadingSpinner');
+    if (spinner) spinner.style.display = 'none';
+}
