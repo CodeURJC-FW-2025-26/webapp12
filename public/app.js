@@ -1,24 +1,43 @@
 const NUM_RESULTS = 6;
 let loadMoreRequests = 0;
-let isLoading = false;
-cargando=true;
-
-if (cargando) return;
-cargando = true;
-
-showSpinner(); 
+let cargando = false;
 
 async function loadMore() {
+    if (cargando) return;
+    cargando = true;
+
+    // Mostrar spinner ANTES de cargar
+    const spinner = document.getElementById('loadingSpinner');
+    if (spinner) spinner.style.display = 'flex';
+
     const from = (loadMoreRequests + 1) * NUM_RESULTS;
     const to = from + NUM_RESULTS;
 
-    const response = await fetch(`/videogames?from=${from}&to=${to}`);
-    const newGames = await response.text();
+    try {
+        const response = await fetch(`/videogames?from=${from}&to=${to}`);
+        const newGames = await response.text();
 
-    const container = document.getElementById("videogamesContainer");
-    container.innerHTML += newGames;
+        // Verificar si hay contenido nuevo
+        if (newGames.trim() === '') {
+            // No hay más contenido - ELIMINAR spinner del HTML
+            if (spinner) spinner.remove();
+            return;
+        }
 
-    loadMoreRequests++;
+        const container = document.getElementById("videogamesContainer");
+        container.innerHTML += newGames;
+
+        loadMoreRequests++;
+
+    } catch (error) {
+        console.error('Error:', error);
+    } finally {
+        // Ocultar spinner DESPUÉS de cargar
+        if (spinner && spinner.parentNode) {
+            spinner.style.display = 'none';
+        }
+        cargando = false;
+    }
 }
 
 const pathname = window.location.pathname;
@@ -30,16 +49,4 @@ if (!pathname.includes('/category/') && !search.includes('q=')) {
             loadMore();
         }
     });
-}
-
-
-
-function showSpinner() {
-    let spinner = document.getElementById('loadingSpinner');
-    if (spinner) spinner.style.display = 'block';
-}
-
-function hideSpinner() {
-    let spinner = document.getElementById('loadingSpinner');
-    if (spinner) spinner.style.display = 'none';
 }
