@@ -1,4 +1,3 @@
-
 const NUM_RESULTS = 6;
 let loadMoreRequests = 0;
 
@@ -15,13 +14,14 @@ async function loadMore() {
     loadMoreRequests++;
 }
 
-// Infinite scroll - se activa al bajar
-window.addEventListener('scroll', function () {
-    // Si estamos cerca del final (100px)
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
-        loadMore();
-    }
-});
+const pathname = window.location.pathname;
+const search = window.location.search;
 
-// También mantener el botón funcional
-window.loadMore = loadMore;
+if (!pathname.includes('/category/') && !search.includes('q=')) {
+    window.addEventListener('scroll', function () {
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
+            loadMore();
+        }
+    });
+}
+
