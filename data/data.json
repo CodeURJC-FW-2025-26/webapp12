@@ -285,7 +285,237 @@
             "Exploración",
             "Supervivencia"
         ],
-        "comments": [
-        ]
+        "comments": []
+    },
+    {
+        "title": "Cyberpunk 2077",
+        "description": "RPG futurista de mundo abierto ambientado en la ciudad distópica de Night City.",
+        "imageFilename": "cyberpunk2077.jpg",
+        "price": "35",
+        "platform": "PS5",
+        "year": "2023",
+        "developer": "CD Projekt Red",
+        "trailer": "https://www.youtube.com/watch?v=8X2kIfS6fb8",
+        "categories": [
+            "RPG",
+            "Mundo Abierto"
+        ],
+        "comments": []
+    },
+    {
+        "title": "The Last of Us Part II",
+        "description": "Aventura narrativa intensa centrada en supervivencia, sigilo y drama emocional.",
+        "imageFilename": "tlou2.jpg",
+        "price": "30",
+        "platform": "PS5",
+        "year": "2021",
+        "developer": "Naughty Dog",
+        "trailer": "https://www.youtube.com/watch?v=vhII1qlcZ4E",
+        "categories": [
+            "Acción",
+            "Supervivencia"
+        ],
+        "comments": []
+    },
+    {
+        "title": "Horizon Forbidden West",
+        "description": "Aventura de mundo abierto con combate táctico y máquinas colosales.",
+        "imageFilename": "horizonfw.jpg",
+        "price": "50",
+        "platform": "PS5",
+        "year": "2022",
+        "developer": "Guerrilla Games",
+        "trailer": "https://www.youtube.com/watch?v=Lq594XmpPBg",
+        "categories": [
+            "Aventura",
+            "Mundo Abierto"
+        ],
+        "comments": []
+    },
+    {
+        "title": "God of War Ragnarök",
+        "description": "Acción y aventura épica basada en mitología nórdica con narrativa cinematográfica.",
+        "imageFilename": "gowragnarok.jpg",
+        "price": "60",
+        "platform": "PS5",
+        "year": "2022",
+        "developer": "Santa Monica Studio",
+        "trailer": "https://www.youtube.com/watch?v=EE-4GvjKcfs",
+        "categories": [
+            "Acción",
+            "Aventura"
+        ],
+        "comments": []
+    },
+    {
+        "title": "Fortnite",
+        "description": "Shooter Battle Royale multijugador con construcción y temporadas temáticas.",
+        "imageFilename": "fortnite.jpg",
+        "price": "0",
+        "platform": "PS5",
+        "year": "2017",
+        "developer": "Epic Games",
+        "trailer": "https://www.youtube.com/watch?v=2gUtfBmw86Y",
+        "categories": [
+            "Shooter"
+        ],
+        "comments": []
+    },
+    {
+        "title": "The Legend of Zelda: Breath of the Wild",
+        "description": "Aventura de mundo abierto con libertad total para explorar y resolver puzles.",
+        "imageFilename": "zelda_botw.jpg",
+        "price": "50",
+        "platform": "Nintendo Switch",
+        "year": "2017",
+        "developer": "Nintendo",
+        "trailer": "https://www.youtube.com/watch?v=zw47_q9wbBE",
+        "categories": [
+            "Aventura",
+            "Mundo Abierto"
+        ],
+        "comments": []
+    },
+    {
+        "title": "Red Dead Redemption 2",
+        "description": "Aventura western de mundo abierto con narrativa profunda y detalle inmersivo.",
+        "imageFilename": "reddead2.jpg",
+        "price": "40",
+        "platform": "PS5",
+        "year": "2018",
+        "developer": "Rockstar Games",
+        "trailer": "https://www.youtube.com/watch?v=eaW0tYpxyp0",
+        "categories": [
+            "Aventura",
+            "Mundo Abierto"
+        ],
+        "comments": []
+    },
+    {
+        "title": "Halo Infinite",
+        "description": "Shooter en primera persona con campaña y multijugador en un anillo Halo.",
+        "imageFilename": "halo_infinite.jpg",
+        "price": "35",
+        "platform": "Xbox Series X",
+        "year": "2021",
+        "developer": "343 Industries",
+        "trailer": "https://www.youtube.com/watch?v=PyMlV5_HRWk",
+        "categories": [
+            "Shooter"
+        ],
+        "comments": []
+    },
+    {
+        "title": "FIFA 23",
+        "description": "Simulador de fútbol con licencias reales y modo carrera mejorado.",
+        "imageFilename": "fifa23.jpg",
+        "price": "55",
+        "platform": "PS5",
+        "year": "2022",
+        "developer": "EA Sports",
+        "trailer": "https://www.youtube.com/watch?v=o3V-GvvzjE4",
+        "categories": [
+            "Simulación"
+        ],
+        "comments": []
+    },
+    {
+        "title": "Resident Evil 4 Remake",
+        "description": "Terror y acción en tercera persona con gráficos renovados y jugabilidad mejorada.",
+        "imageFilename": "re4_remake.jpg",
+        "price": "45",
+        "platform": "PS5",
+        "year": "2023",
+        "developer": "Capcom",
+        "trailer": "https://www.youtube.com/watch?v=9iy6gHDqA6E",
+        "categories": [
+            "Acción"
+        ],
+        "comments": []
+    },
+    {
+        "title": "Super Mario Odyssey",
+        "description": "Aventura plataformera con niveles creativos y captura de enemigos.",
+        "imageFilename": "mario_odyssey.jpg",
+        "price": "50",
+        "platform": "Nintendo Switch",
+        "year": "2017",
+        "developer": "Nintendo",
+        "trailer": "https://www.youtube.com/watch?v=5kcdRBHM7kM",
+        "categories": [
+            "Aventura"
+        ],
+        "comments": []
+    },
+    {
+        "title": "Overwatch 2",
+        "description": "Shooter por equipos con héroes únicos y partidas rápidas y dinámicas.",
+        "imageFilename": "overwatch2.jpg",
+        "price": "0",
+        "platform": "PC",
+        "year": "2022",
+        "developer": "Blizzard",
+        "trailer": "https://www.youtube.com/watch?v=GKXS_YA9s7E",
+        "categories": [
+            "Shooter"
+        ],
+        "comments": []
+    },
+    {
+        "title": "Death Stranding",
+        "description": "Aventura única de entrega y conexión en un mundo posapocalíptico.",
+        "imageFilename": "death_stranding.jpg",
+        "price": "30",
+        "platform": "PS5",
+        "year": "2019",
+        "developer": "Kojima Productions",
+        "trailer": "https://www.youtube.com/watch?v=tCI396HyhbQ",
+        "categories": [
+            "Aventura"
+        ],
+        "comments": []
+    },
+    {
+        "title": "Street Fighter 6",
+        "description": "Juego de lucha clásico con nuevos personajes y modos innovadores.",
+        "imageFilename": "streetfighter6.jpg",
+        "price": "50",
+        "platform": "PS5",
+        "year": "2023",
+        "developer": "Capcom",
+        "trailer": "https://www.youtube.com/watch?v=GjjX_zTfOlw",
+        "categories": [
+            "Lucha"
+        ],
+        "comments": []
+    },
+    {
+        "title": "Assassin's Creed Valhalla",
+        "description": "RPG de acción en la era vikinga con exploración y combates brutales.",
+        "imageFilename": "ac_valhalla.jpg",
+        "price": "35",
+        "platform": "PS5",
+        "year": "2020",
+        "developer": "Ubisoft",
+        "trailer": "https://www.youtube.com/watch?v=ssrNcwxALS4",
+        "categories": [
+            "RPG",
+            "Mundo Abierto"
+        ],
+        "comments": []
+    },
+    {
+        "title": "Animal Crossing: New Horizons",
+        "description": "Simulación relajante donde creas tu propia isla paradisíaca.",
+        "imageFilename": "animal_crossing.jpg",
+        "price": "45",
+        "platform": "Nintendo Switch",
+        "year": "2020",
+        "developer": "Nintendo",
+        "trailer": "https://www.youtube.com/watch?v=_3YNL0OWio0",
+        "categories": [
+            "Simulación"
+        ],
+        "comments": []
     }
 ]
