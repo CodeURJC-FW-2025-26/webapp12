@@ -366,6 +366,17 @@ background: linear-gradient(to right, #00c853, #2196f3);
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
+/* Error box shown above a field during live validation */
+.error-box {
+  background: #fff5f5;
+  border: 1px solid #f5c2c7;
+  color: #842029;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
 /* Related games */
 
 .related-game-card {

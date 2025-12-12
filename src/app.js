@@ -21,6 +21,7 @@ app.set('views', './views');
 
 // Middleware to forms
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // Populate categories for all views (navigation usage)
 app.use(async (req, res, next) => {

@@ -10,6 +10,61 @@ export default router;
 
 const upload = multer({ dest: videogame.UPLOADS_FOLDER })
 
+// Endpoint para validar los datos del formulario desde el cliente (AJAX)
+router.post('/create/validate', async (req, res) => {
+  const errors = [];
+  const gameId = req.body.id || null;
+  const videogameData = {
+    title: req.body.title,
+    description: req.body.description || '',
+    price: req.body.price,
+    platform: req.body.platform,
+    year: req.body.year,
+    developer: req.body.developer,
+    categories: Array.isArray(req.body.genres) ? req.body.genres : (req.body.genres ? [req.body.genres] : []),
+    imageFilename: req.body.existingImage || null,
+    trailer: req.body.trailer
+  };
+
+  // Check if title already exists in DB
+  const existingGame = await videogame.getVideogameByTitle(videogameData.title);
+  if (existingGame && (!gameId || existingGame._id.toString() !== gameId.toString())) {
+    errors.push('El nombre ya existe en la base de datos.');
+  }
+  // Validate: title must start with a capital letter
+  if (!videogameData.title || typeof videogameData.title !== "string" || !/^[A-ZÁÉÍÓÚÑ]/.test(videogameData.title)) {
+    errors.push('El nombre debe comenzar con mayúscula.');
+  }
+  // Validate: description length between 20 and 350 characters
+  if ((videogameData.description || '').length < 20 || (videogameData.description || '').length > 350) {
+    errors.push('La descripción debe tener entre 20 y 350 caracteres.');
+  }
+
+  // Validate Price
+  if(!videogameData.price || isNaN(Number(videogameData.price))){
+    errors.push('El precio debe ser un numero valido');
+  }
+  // Validate year
+  const actualYear = new Date().getFullYear();
+  const yearNum = parseInt(videogameData.year, 10);
+  if (!videogameData.year || isNaN(yearNum) || yearNum < 1950 || yearNum > actualYear + 1) {
+    errors.push('El año no puede ser inferior a 1950 ni superior al año que viene');
+  }
+  // Validate Studio
+  if (!videogameData.developer || typeof videogameData.developer !== "string") {
+    errors.push('El Estudio debe ser un nombre escrito con letras');
+  }
+  // Validate trailer
+  if (!videogameData.trailer || typeof videogameData.trailer !== "string" || !/^https?:\/\/(www\.)?(youtube\.com|youtu\.be)/.test(videogameData.trailer)) {
+    errors.push('El trailer debe ser una URL de YouTube');
+  }
+
+  if (errors.length > 0) {
+    return res.status(400).json({ ok: false, errors });
+  }
+
+  return res.json({ ok: true });
+});
 
 router.post('/create', upload.single('image'), async (req, res) => {
   // Collect validation errors
