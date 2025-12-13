@@ -27,8 +27,8 @@ export async function addVideogame(game) {
 
 // Delete one videogame by id 
 export async function deleteVideogame(id) {
-    
-    return await videogames.findOneAndDelete({ _id: new ObjectId(id) });
+    const result = await videogames.findOneAndDelete({ _id: new ObjectId(id) });
+    return result.value; // return the deleted document (or null)
   }
 
 // Delete all videogames

@@ -10,7 +10,7 @@ export default router;
 
 const upload = multer({ dest: videogame.UPLOADS_FOLDER })
 
-// Endpoint para validar los datos del formulario desde el cliente (AJAX)
+// Endpoint to validate the data from the form in client (AJAX)
 router.post('/create/validate', async (req, res) => {
   const errors = [];
   const gameId = req.body.id || null;
