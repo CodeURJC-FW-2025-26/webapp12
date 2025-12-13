@@ -248,3 +248,178 @@ if (document.readyState === 'loading') {
 } else {
     initCreateValidation();
 }
+
+
+
+
+
+
+
+
+
+// Validation for comment form on detail page
+function initCommentValidation() {
+    const form = document.querySelector('form[action*="/comment"]');
+    if (!form) return;
+
+    const userName = document.getElementById('userName');
+    const reviewText = document.getElementById('reviewText');
+    const ratingInputs = form.querySelectorAll('input[name="rating"]');
+
+    if (!userName || !reviewText) return;
+
+    // Create error elements
+    const userNameError = document.createElement('div');
+    userNameError.className = 'text-danger small mt-1';
+    userNameError.style.display = 'none';
+    userName.parentNode.appendChild(userNameError);
+
+    const reviewTextError = document.createElement('div');
+    reviewTextError.className = 'text-danger small mt-1';
+    reviewTextError.style.display = 'none';
+    reviewText.parentNode.appendChild(reviewTextError);
+
+    const ratingError = document.createElement('div');
+    ratingError.className = 'text-danger small mt-2';
+    ratingError.style.display = 'none';
+    ratingInputs[0].closest('.rating-input').parentNode.appendChild(ratingError);
+
+    // Character counter
+    const charCounter = document.createElement('div');
+    charCounter.className = 'text-muted small mt-1';
+    charCounter.textContent = '0/500';
+    reviewText.parentNode.appendChild(charCounter);
+
+    // Validation functions
+    function validateUserName(value) {
+        const name = value.trim();
+        if (name.length < 5) return 'El nombre debe tener al menos 5 caracteres.';
+        if (name.length > 30) return 'El nombre no puede superar los 30 caracteres.';
+
+        const nameRegex = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ][A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9._\- ]{4,19}$/;
+        if (!nameRegex.test(name)) return 'Formato de nombre no válido.';
+        return '';
+    }
+
+    function validateReviewText(value) {
+        const text = value.trim();
+        if (text.length === 0) return 'El comentario es obligatorio.';
+        if (text.length < 10) return 'El comentario debe tener al menos 10 caracteres.'; // MINIMO 10
+        if (text.length > 500) return 'El comentario no puede superar 500 caracteres.';
+        return '';
+    }
+
+    function validateRating() {
+        let checked = false;
+        ratingInputs.forEach(input => { if (input.checked) checked = true; });
+        return checked ? '' : 'Debes seleccionar una valoración.';
+    }
+
+    // Show/hide errors
+    function showError(element, message) {
+        if (message) {
+            element.textContent = message;
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+
+    // Update field style
+    function updateFieldStyle(field, hasError) {
+        if (hasError) {
+            field.classList.add('is-invalid');
+        } else {
+            field.classList.remove('is-invalid');
+        }
+    }
+
+    // Event listeners
+    userName.addEventListener('input', () => {
+        showError(userNameError, '');
+        updateFieldStyle(userName, false);
+    });
+
+    userName.addEventListener('blur', () => {
+        const error = validateUserName(userName.value);
+        showError(userNameError, error);
+        updateFieldStyle(userName, !!error);
+    });
+
+    reviewText.addEventListener('input', () => {
+        showError(reviewTextError, '');
+        updateFieldStyle(reviewText, false);
+        charCounter.textContent = `${reviewText.value.length}/500`;
+    });
+
+    reviewText.addEventListener('blur', () => {
+        const error = validateReviewText(reviewText.value);
+        showError(reviewTextError, error);
+        updateFieldStyle(reviewText, !!error);
+    });
+
+    ratingInputs.forEach(input => {
+        input.addEventListener('change', () => {
+            showError(ratingError, '');
+        });
+    });
+
+    // Form submit
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // Clear previous errors
+        showError(userNameError, '');
+        showError(reviewTextError, '');
+        showError(ratingError, '');
+
+        // Validate locally
+        const userNameErr = validateUserName(userName.value);
+        const reviewTextErr = validateReviewText(reviewText.value);
+        const ratingErr = validateRating();
+
+        if (userNameErr || reviewTextErr || ratingErr) {
+            showError(userNameError, userNameErr);
+            showError(reviewTextError, reviewTextErr);
+            showError(ratingError, ratingErr);
+            return;
+        }
+
+        // AJAX validation
+        const data = {
+            userName: userName.value,
+            reviewText: reviewText.value,
+            rating: Array.from(ratingInputs).find(r => r.checked)?.value || 0
+        };
+
+        try {
+            const res = await fetch('/detail/comment/validate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            const result = await res.json();
+
+            if (result.ok) {
+                form.submit();
+            } else {
+                result.errors?.forEach(err => {
+                    if (err.includes('nombre')) showError(userNameError, err);
+                    else if (err.includes('comentario')) showError(reviewTextError, err);
+                    else showError(ratingError, err);
+                });
+            }
+        } catch {
+            showError(reviewTextError, 'Error de conexión. Intenta de nuevo.');
+        }
+    });
+
+    // Initialize character counter
+    charCounter.textContent = `${reviewText.value.length}/500`;
+}
+
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    initCommentValidation();
+});

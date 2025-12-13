@@ -382,6 +382,47 @@ router.get('/detail/:id/comment/:commentId/delete', async (req, res) => {
     });
 });
 
+// Añade esto en router.js, después del endpoint /create/validate
+router.post('/detail/comment/validate', async (req, res) => {
+  const errors = [];
+  const { userName, reviewText } = req.body;
+
+  // Validación del nombre de usuario (las mismas reglas que en la validación normal)
+  const name = (userName || '').trim();
+  const nameRegex = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ][A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9._\- ]{4,19}$/;
+
+  if (name.length < 5) {
+    errors.push('El nombre debe tener al menos 5 caracteres.');
+  }
+  if (name.length > 30) {
+    errors.push('El nombre no puede superar los 30 caracteres.');
+  }
+  if (!nameRegex.test(name)) {
+    errors.push('El nombre debe empezar por letra y solo puede contener letras, números, espacios, "_", "-" y ".".');
+  }
+  if (/\s{2,}/.test(name)) {
+    errors.push('No se permiten espacios múltiples consecutivos.');
+  }
+  if (/[._-]{2}/.test(name)) {
+    errors.push('No se permiten dos símbolos seguidos (., _, -).');
+  }
+
+  // Validación del comentario
+  if (!reviewText || reviewText.trim().length === 0) {
+    errors.push('El comentario es obligatorio.');
+  }
+  if (reviewText && reviewText.length > 500) {
+    errors.push('El comentario no puede superar los 500 caracteres.');
+  }
+
+  if (errors.length > 0) {
+    return res.status(400).json({ ok: false, errors });
+  }
+
+  return res.json({ ok: true });
+});
+
+
 
 // Get stars for each comment in edit
 router.get('/detail/:id/comment/:commentId/edit', async (req, res) => {
@@ -586,4 +627,5 @@ router.get("/videogames", async (req, res) => {
     videogamesAct: result
   });
 });
+
 
