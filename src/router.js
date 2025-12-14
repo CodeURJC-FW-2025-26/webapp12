@@ -272,24 +272,19 @@ router.get('/detail/:id', async (req, res) => {
   
 
 router.get('/detail/:id/deleteVideogame', async (req, res) => {
-    let idGame = await videogame.deleteVideogame(req.params.id);
-    if (idGame && idGame.imageFilename) {
-        await fs.rm(videogame.UPLOADS_FOLDER + '/' + idGame.imageFilename);
+    try {
+      const deleted = await videogame.deleteVideogame(req.params.id);
+      // Make delete idempotent: if not found, still respond OK
+      if (!deleted) {
+        return res.status(200).send('OK');
+      }
+      if (deleted.imageFilename) {
+        try { await fs.rm(videogame.UPLOADS_FOLDER + '/' + deleted.imageFilename); } catch {}
+      }
+      return res.status(200).send('OK');
+    } catch (err) {
+      return res.status(500).send('Error del servidor al borrar');
     }
-    res.render('confirmOrError', {
-      pageTitle: 'Videojuego eliminado',
-      heroTitle: 'Página de videojuego eliminado',
-      iconClass: 'bi-check-circle-fill',
-      iconColor: 'text-success',
-      heading: '¡Videojuego eliminado correctamente!',
-      infoLabel: 'Videojuego:',
-      infoValue: idGame?.title || '',
-      message: 'El videojuego ha sido eliminado del catálogo.',
-      actions: [
-        { href: '/', label: 'Volver al inicio', icon: 'bi-house' },
-        { href: '/create', label: 'Añadir nuevo videojuego', icon: 'bi-plus-circle', outline: true }
-      ]
-    });
 });
 
 router.post('/detail/:id/comment', async (req, res) => {

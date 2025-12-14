@@ -248,3 +248,78 @@ if (document.readyState === 'loading') {
 } else {
     initCreateValidation();
 }
+
+// ---- Detail page: AJAX delete with spinner + delayed redirect ----
+function initDetailDelete() {
+    const btn = document.getElementById('btnDeleteGame');
+    if (!btn) return;
+
+    const deleteUrl = btn.dataset.deleteUrl || (function(){
+        // If template did not set data-delete-url, infer from URL
+        const id = (window.location.pathname.split('/').pop());
+        return `/detail/${id}/deleteVideogame`;
+    })();
+
+    // Create processing overlay
+    const overlay = document.createElement('div');
+    overlay.style.position = 'fixed';
+    overlay.style.inset = '0';
+    overlay.style.background = 'rgba(0,0,0,0.6)';
+    overlay.style.display = 'none';
+    overlay.style.zIndex = '1050';
+    overlay.style.alignItems = 'center';
+    overlay.style.justifyContent = 'center';
+    overlay.innerHTML = '<div class="text-center text-light"><div class="spinner-border text-light" role="status"></div><div class="mt-3">Procesando borrado...</div></div>';
+    document.body.appendChild(overlay);
+
+    // Optionally use native alert for error feedback
+    const useNativeErrorDialog = true;
+
+    function showOverlay(show){ overlay.style.display = show ? 'flex' : 'none'; }
+
+    let locked = false;
+    btn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        if (locked) return; // prevent double clicks
+        const ok = window.confirm('¿Seguro que quieres borrar este videojuego?');
+        if (!ok) return;
+        locked = true;
+        try {
+            showOverlay(true);
+            const res = await fetch(deleteUrl, { method: 'GET', headers: { 'X-Requested-With': 'XMLHttpRequest' } });
+            // Success (200): redirect to home after short delay
+            if (res.ok) {
+                setTimeout(() => {
+                    showOverlay(false);
+                    window.location.href = '/';
+                }, 800);
+                return;
+            }
+            // Error: show native alert with server message, do not redirect
+            const msg = await res.text().catch(() => 'Error del servidor al borrar');
+            showOverlay(false);
+            if (useNativeErrorDialog) {
+                alert(msg || 'Error del servidor al borrar');
+            } else {
+                // fallback to console if native not desired
+                console.error('Delete error:', msg);
+            }
+            locked = false;
+        } catch (err) {
+            showOverlay(false);
+            const msg = 'Error de red: ' + (err?.message || 'desconocido');
+            if (useNativeErrorDialog) {
+                alert(msg);
+            } else { 
+                console.error(msg);
+            }
+            locked = false;
+        }
+    });
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initDetailDelete);
+} else {
+    initDetailDelete();
+}
