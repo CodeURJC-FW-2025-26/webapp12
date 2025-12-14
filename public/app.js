@@ -323,3 +323,224 @@ if (document.readyState === 'loading') {
 } else {
     initDetailDelete();
 }
+
+// ============================================
+// Comentarios: validación, modal de edición y borrado
+// ============================================
+function initCommentValidation() {
+    const form = document.querySelector('form[action*="/comment"]');
+    if (!form) return;
+
+    const userName = document.getElementById('userName');
+    const reviewText = document.getElementById('reviewText');
+    const ratingInputs = form.querySelectorAll('input[name="rating"]');
+    const submitBtn = form.querySelector('button[type="submit"]');
+
+    if (!userName || !reviewText || !submitBtn) return;
+
+    // Modal de éxito
+    if (!document.getElementById('commentSuccessModal')) {
+        const modalHTML = `
+        <div class="modal fade" id="commentSuccessModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content bg-dark text-light">
+                    <div class="modal-header border-success">
+                        <h5 class="modal-title text-success">
+                            <i class="bi bi-check-circle-fill me-2"></i>¡Comentario añadido!
+                        </h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Tu comentario se ha añadido correctamente.</p>
+                    </div>
+                    <div class="modal-footer border-success">
+                        <button type="button" class="btn btn-success" id="reloadPageBtn">Ver comentarios</button>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+        document.getElementById('reloadPageBtn')?.addEventListener('click', function () {
+            window.location.reload();
+        });
+    }
+
+    // Errores
+    const userNameError = document.createElement('div');
+    userNameError.className = 'text-danger small mt-1';
+    userNameError.style.display = 'none';
+    userName.parentNode.appendChild(userNameError);
+
+    const reviewTextError = document.createElement('div');
+    reviewTextError.className = 'text-danger small mt-1';
+    reviewTextError.style.display = 'none';
+    reviewText.parentNode.appendChild(reviewTextError);
+
+    const ratingError = document.createElement('div');
+    ratingError.className = 'text-danger small mt-2';
+    ratingError.style.display = 'none';
+    if (ratingInputs.length > 0) {
+        const ratingContainer = ratingInputs[0].parentNode;
+        if (ratingContainer) ratingContainer.parentNode.appendChild(ratingError);
+    }
+
+    // Contador de caracteres
+    const charCounter = document.createElement('div');
+    charCounter.className = 'text-muted small mt-1';
+    charCounter.textContent = '0/500';
+    reviewText.parentNode.appendChild(charCounter);
+
+    // Listeners
+    userName.addEventListener('input', () => { userNameError.style.display = 'none'; });
+    userName.addEventListener('blur', () => {
+        const name = userName.value.trim();
+        if (name.length < 5) { userNameError.textContent = 'El nombre debe tener al menos 5 caracteres'; userNameError.style.display = 'block'; }
+        else if (name.length > 30) { userNameError.textContent = 'El nombre no puede superar los 30 caracteres'; userNameError.style.display = 'block'; }
+    });
+    reviewText.addEventListener('input', () => {
+        reviewTextError.style.display = 'none';
+        charCounter.textContent = `${reviewText.value.length}/500`;
+        if (reviewText.value.length > 500) { charCounter.classList.add('text-danger'); charCounter.classList.remove('text-muted'); }
+        else { charCounter.classList.remove('text-danger'); charCounter.classList.add('text-muted'); }
+    });
+    reviewText.addEventListener('blur', () => {
+        const text = reviewText.value.trim();
+        if (text.length < 10) { reviewTextError.textContent = 'El comentario debe tener al menos 10 caracteres'; reviewTextError.style.display = 'block'; }
+        else if (text.length > 500) { reviewTextError.textContent = 'El comentario no puede superar 500 caracteres'; reviewTextError.style.display = 'block'; }
+    });
+    ratingInputs.forEach(input => input.addEventListener('change', () => { ratingError.style.display = 'none'; }));
+
+    // Submit
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        let hasErrors = false;
+        const name = userName.value.trim();
+        if (name.length < 5) { userNameError.textContent = 'El nombre debe tener al menos 5 caracteres'; userNameError.style.display = 'block'; hasErrors = true; }
+        else if (name.length > 30) { userNameError.textContent = 'El nombre no puede superar los 30 caracteres'; userNameError.style.display = 'block'; hasErrors = true; }
+        const text = reviewText.value.trim();
+        if (text.length < 10) { reviewTextError.textContent = 'El comentario debe tener al menos 10 caracteres'; reviewTextError.style.display = 'block'; hasErrors = true; }
+        else if (text.length > 500) { reviewTextError.textContent = 'El comentario no puede superar 500 caracteres'; reviewTextError.style.display = 'block'; hasErrors = true; }
+        let ratingSelected = Array.from(ratingInputs).some(r => r.checked);
+        if (!ratingSelected) { ratingError.textContent = 'Debes seleccionar una valoración'; ratingError.style.display = 'block'; hasErrors = true; }
+        if (hasErrors) return;
+
+        const originalBtnText = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Enviando...';
+        try {
+            const params = new URLSearchParams();
+            params.append('userName', userName.value);
+            params.append('reviewText', reviewText.value);
+            params.append('rating', Array.from(ratingInputs).find(r => r.checked)?.value || '5');
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: params,
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' }
+            });
+            const jsonData = await response.json();
+            if (jsonData.success) {
+                const successModal = new bootstrap.Modal(document.getElementById('commentSuccessModal'));
+                successModal.show();
+                userName.value = '';
+                reviewText.value = '';
+                ratingInputs.forEach(input => input.checked = false);
+                charCounter.textContent = '0/500';
+            } else {
+                alert('Error: ' + (jsonData.errors?.join(', ') || 'Error desconocido'));
+            }
+        } catch (error) {
+            alert('Error: No se pudo enviar el comentario');
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnText;
+        }
+    });
+
+    // Inicializar contador
+    charCounter.textContent = `${reviewText.value.length}/500`;
+}
+
+// Utilidades de comentarios
+function openEditModal(gameId, commentId, userName, commentText, stars) {
+    document.getElementById('editGameId').value = gameId;
+    document.getElementById('editCommentId').value = commentId;
+    document.getElementById('editCommentText').value = commentText;
+    document.getElementById('editCharCounter').textContent = `${commentText.length}/500`;
+    const ratingInputs = document.querySelectorAll('input[name="editRating"]');
+    ratingInputs.forEach(input => { input.checked = parseInt(input.value) === stars; });
+    const editModal = new bootstrap.Modal(document.getElementById('editCommentModal'));
+    editModal.show();
+}
+
+async function saveEditedComment() {
+    const gameId = document.getElementById('editGameId').value;
+    const commentId = document.getElementById('editCommentId').value;
+    const commentText = document.getElementById('editCommentText').value.trim();
+    const ratingInput = document.querySelector('input[name="editRating"]:checked');
+    const stars = ratingInput ? ratingInput.value : '0';
+    if (!commentText || commentText.length < 10) { alert('El comentario debe tener al menos 10 caracteres'); return; }
+    if (commentText.length > 500) { alert('El comentario no puede superar 500 caracteres'); return; }
+    if (!ratingInput) { alert('Debes seleccionar una valoración'); return; }
+    const saveBtn = document.getElementById('saveEditBtn');
+    const originalText = saveBtn.innerHTML;
+    saveBtn.disabled = true;
+    saveBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Guardando...';
+    try {
+        const params = new URLSearchParams();
+        params.append('reviewText', commentText);
+        params.append(`rating-${commentId}`, stars);
+        const response = await fetch(`/detail/${gameId}/comment/${commentId}/edit`, {
+            method: 'POST',
+            body: params,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' }
+        });
+        if (response.ok) {
+            updateCommentInPage(commentId, commentText, parseInt(stars));
+            const editModal = bootstrap.Modal.getInstance(document.getElementById('editCommentModal'));
+            editModal.hide();
+            alert('¡Comentario actualizado correctamente!');
+        } else {
+            const errorData = await response.json();
+            alert('Error: ' + (errorData.errors?.join(', ') || 'Error al guardar'));
+        }
+    } catch (error) {
+        alert('Error de conexión: ' + error.message);
+    } finally {
+        saveBtn.disabled = false;
+        saveBtn.innerHTML = originalText;
+    }
+}
+
+function updateCommentInPage(commentId, newText, newStars) {
+    const commentTextElement = document.getElementById(`comment-text-${commentId}`);
+    if (commentTextElement) commentTextElement.textContent = newText;
+    const starContainer = document.querySelector(`#comment-${commentId} .star-rating`);
+    if (starContainer) {
+        let starsVisual = '';
+        for (let i = 0; i < 5; i++) starsVisual += i < newStars ? '★' : '☆';
+        starContainer.textContent = starsVisual;
+    }
+}
+
+async function deleteComment(gameId, commentId) {
+    if (!confirm('¿Estás seguro de que quieres eliminar este comentario?')) return;
+    try {
+        const response = await fetch(`/detail/${gameId}/comment/${commentId}/delete`, {
+            method: 'GET',
+            headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' }
+        });
+        if (response.ok) {
+            const commentElement = document.getElementById(`comment-${commentId}`);
+            if (commentElement) { commentElement.remove(); alert('Comentario eliminado correctamente'); }
+        } else {
+            alert('Error al eliminar el comentario');
+        }
+    } catch (error) {
+        alert('Error de conexión');
+    }
+}
+
+// Inicialización general adicional
+document.addEventListener('DOMContentLoaded', () => {
+    if (document.querySelector('form[action*="/comment"]')) initCommentValidation();
+});
