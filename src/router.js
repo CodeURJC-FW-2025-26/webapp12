@@ -287,71 +287,92 @@ router.get('/detail/:id/deleteVideogame', async (req, res) => {
     }
 });
 
+// En router.js - MODIFICA EL ENDPOINT PARA SIEMPRE DEVOLVER JSON
 router.post('/detail/:id/comment', async (req, res) => {
-  const { userName, reviewText, rating } = req.body;
+  const { userName, reviewText, rating, _ajax } = req.body;
+  const gameId = req.params.id;
 
-  const game = await videogame.getVideogame(req.params.id);
+  console.log('=== NUEVO COMENTARIO ===');
+  console.log('Game ID:', gameId);
+  console.log('Datos:', { userName, reviewText, rating, _ajax });
 
-  // Username validation
-  const name = (userName || '').trim();
-  const errors = [];
-  // Rules: 5-20 chars, starts with letter (accents allowed), then letters/numbers/space/_.- ; no double spaces or double symbols
-  const nameRegex = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ][A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9._\- ]{4,19}$/;
-  if (name.length < 5) errors.push('El nombre debe tener al menos 5 caracteres.');
-  if (name.length > 30) errors.push('El nombre no puede superar los 30 caracteres.');
-  if (!nameRegex.test(name)) {
-    errors.push('El nombre debe empezar por letra y solo puede contener letras, números, espacios, "_", "-" y ".".');
-  }
-  if (/\s{2,}/.test(name)) {
-    errors.push('No se permiten espacios múltiples consecutivos.');
-  }
-  if (/[._-]{2}/.test(name)) {
-    errors.push('No se permiten dos símbolos seguidos (., _, -).');
-  }
+  // Para depuración - siempre mostrar en consola
+  console.log('Headers recibidos:', JSON.stringify(req.headers, null, 2));
+  console.log('X-Requested-With:', req.headers['x-requested-with']);
 
-  if (errors.length > 0) {
-    return res.status(400).render('confirmOrError', {
-      pageTitle: 'Error al publicar comentario',
-      heroTitle: 'Error al publicar comentario',
-      iconClass: 'bi-x-circle-fill',
-      iconColor: 'text-danger',
-      heading: 'No se pudo publicar tu comentario',
-      infoLabel: 'Videojuego:',
-      infoValue: game.title,
-      message: `Nombre introducido: ${name || 'Nombre no válido'}`,
-      hasErrors: true,
-      errors: errors,
-      actions: [
-        { href: '/', label: 'Volver al inicio', icon: 'bi-house' },
-        { href: `/detail/${game._id}`, label: 'Ver detalles', icon: 'bi-plus-circle', outline: true }
-      ]
+  try {
+    const game = await videogame.getVideogame(gameId);
+    if (!game) {
+      return res.status(404).json({
+        success: false,
+        errors: ['Videojuego no encontrado']
+      });
+    }
+
+    // Validación del nombre de usuario
+    const name = (userName || '').trim();
+    const errors = [];
+
+    const nameRegex = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ][A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9._\- ]{4,19}$/;
+
+    if (name.length < 5) errors.push('El nombre debe tener al menos 5 caracteres.');
+    if (name.length > 30) errors.push('El nombre no puede superar los 30 caracteres.');
+    if (!nameRegex.test(name)) {
+      errors.push('El nombre debe empezar por letra y solo puede contener letras, números, espacios, "_", "-" y ".".');
+    }
+    if (/\s{2,}/.test(name)) {
+      errors.push('No se permiten espacios múltiples consecutivos.');
+    }
+    if (/[._-]{2}/.test(name)) {
+      errors.push('No se permiten dos símbolos seguidos (., _, -).');
+    }
+
+    // Validación del comentario
+    if (!reviewText || reviewText.trim().length === 0) {
+      errors.push('El comentario es obligatorio.');
+    } else if (reviewText.trim().length < 10) {
+      errors.push('El comentario debe tener al menos 10 caracteres.');
+    } else if (reviewText.length > 500) {
+      errors.push('El comentario no puede superar los 500 caracteres.');
+    }
+
+    // Si hay errores de validación
+    if (errors.length > 0) {
+      console.log('Errores de validación encontrados:', errors);
+      return res.status(400).json({
+        success: false,
+        errors: errors
+      });
+    }
+
+    const newComment = {
+      _id: new ObjectId(),
+      user: name,
+      text: (reviewText || '').trim(),
+      stars: Math.max(0, Math.min(5, parseInt(rating) || 0)),
+      date: new Date().toISOString().split('T')[0]
+    };
+
+    console.log('Guardando nuevo comentario:', newComment);
+    await videogame.addComment(gameId, newComment);
+
+    // SIEMPRE devolver JSON
+    console.log('Devolviendo respuesta JSON de éxito');
+    return res.json({
+      success: true,
+      message: '¡Comentario añadido correctamente!',
+      comment: newComment,
+      gameTitle: game.title
+    });
+
+  } catch (error) {
+    console.error('ERROR en servidor:', error);
+    console.error('Stack trace:', error.stack);
+    return res.status(500).json({
+      success: false,
+      errors: ['Error interno del servidor: ' + error.message]
     });
   }
-
-  const newComment = {
-    _id: new ObjectId(),
-    user: name,
-    text: (reviewText || '').trim(),
-    stars: Math.max(0, Math.min(5, parseInt(rating) || 0)),
-    date: new Date().toISOString().split('T')[0]
-  };
-
-    await videogame.addComment(req.params.id, newComment);
-
-    res.render('confirmOrError', {
-      pageTitle: 'Comentario añadido',
-      heroTitle: 'Página de comentario añadido',
-      iconClass: 'bi-check-circle-fill',
-      iconColor: 'text-success',
-      heading: '¡Comentario añadido correctamente!',
-      infoLabel: 'Videojuego:',
-      infoValue: game.title,
-      message: `El comentario ha sido añadido exitosamente en el videojuego ${game.title}.`,
-      actions: [
-        { href: '/', label: 'Volver al inicio', icon: 'bi-house' },
-        { href: `/detail/${game._id}`, label: 'Ver detalles', icon: 'bi-plus-circle', outline: true }
-      ]
-    });
 });
 
 // Delete comments
@@ -376,6 +397,47 @@ router.get('/detail/:id/comment/:commentId/delete', async (req, res) => {
       ]
     });
 });
+
+// Añade esto en router.js, después del endpoint /create/validate
+router.post('/detail/comment/validate', async (req, res) => {
+  const errors = [];
+  const { userName, reviewText } = req.body;
+
+  // Validación del nombre de usuario (las mismas reglas que en la validación normal)
+  const name = (userName || '').trim();
+  const nameRegex = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ][A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9._\- ]{4,19}$/;
+
+  if (name.length < 5) {
+    errors.push('El nombre debe tener al menos 5 caracteres.');
+  }
+  if (name.length > 30) {
+    errors.push('El nombre no puede superar los 30 caracteres.');
+  }
+  if (!nameRegex.test(name)) {
+    errors.push('El nombre debe empezar por letra y solo puede contener letras, números, espacios, "_", "-" y ".".');
+  }
+  if (/\s{2,}/.test(name)) {
+    errors.push('No se permiten espacios múltiples consecutivos.');
+  }
+  if (/[._-]{2}/.test(name)) {
+    errors.push('No se permiten dos símbolos seguidos (., _, -).');
+  }
+
+  // Validación del comentario
+  if (!reviewText || reviewText.trim().length === 0) {
+    errors.push('El comentario es obligatorio.');
+  }
+  if (reviewText && reviewText.length > 500) {
+    errors.push('El comentario no puede superar los 500 caracteres.');
+  }
+
+  if (errors.length > 0) {
+    return res.status(400).json({ ok: false, errors });
+  }
+
+  return res.json({ ok: true });
+});
+
 
 
 // Get stars for each comment in edit
@@ -581,4 +643,5 @@ router.get("/videogames", async (req, res) => {
     videogamesAct: result
   });
 });
+
 

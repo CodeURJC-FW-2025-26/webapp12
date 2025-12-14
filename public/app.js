@@ -310,7 +310,7 @@ function initDetailDelete() {
             const msg = 'Error de red: ' + (err?.message || 'desconocido');
             if (useNativeErrorDialog) {
                 alert(msg);
-            } else { 
+            } else {
                 console.error(msg);
             }
             locked = false;

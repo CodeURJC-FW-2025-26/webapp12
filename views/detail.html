@@ -102,25 +102,30 @@
 
                 <h3>Opiniones de usuarios</h3>
 
-                {{#game.comments}}
-                <div class="review-item">
-                    <div class="review-header d-flex justify-content-between mb-2">
-                        <span class="reviewer-name">{{user}}</span>
-                        <span class="review-date">{{date}}</span>
-                    </div>
-                    <div class="star-rating star3">{{stars_visual}}</div>
-                    <p>
-                        {{text}}
-                    </p>
-                    <button class="btn btn-link text-danger p-0 ms-3" title="Eliminar comentario">
-                      <a href="/detail/{{game._id}}/comment/{{_id}}/delete" class="text-danger"><i class="bi bi-trash"></i></a>
-                  </button>
-                  <button class="btn btn-link text-warning p-0 ms-3" title="Modificar comentario">
-                    <a href="/detail/{{game._id}}/comment/{{_id}}/edit" class="text-warning"><i class="bi bi-pencil"></i></a>
-                  </button>
-                  
-                </div>
-                {{/game.comments}}
+<!-- En tu detail.html, modifica la parte de comentarios así: -->
+{{#game.comments}}
+<div class="review-item" id="comment-{{_id}}">
+  <div class="review-header d-flex justify-content-between mb-2">
+    <span class="reviewer-name">{{user}}</span>
+    <span class="review-date">{{date}}</span>
+  </div>
+  <div class="star-rating star3">{{stars_visual}}</div>
+  <p id="comment-text-{{_id}}">
+    {{text}}
+  </p>
+  <div class="comment-actions">
+    <button class="btn btn-link text-danger p-0 me-2" onclick="deleteComment('{{game._id}}', '{{_id}}')"
+      title="Eliminar comentario">
+      <i class="bi bi-trash"></i>
+    </button>
+    <button class="btn btn-link text-warning p-0"
+      onclick="openEditModal('{{game._id}}', '{{_id}}', '{{user}}', '{{text}}', {{stars}})"
+      title="Modificar comentario">
+      <i class="bi bi-pencil"></i>
+    </button>
+  </div>
+</div>
+{{/game.comments}}
 
                 {{^game.comments}}
                 <p>No hay comentarios todavía. ¡Sé el primero!</p>
