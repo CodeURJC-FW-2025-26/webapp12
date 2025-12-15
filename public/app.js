@@ -119,11 +119,59 @@ function initCreateValidation() {
         return '';
     }
 
-    // Attach live validation
+    // Debounced remote uniqueness check for title
+    let titleCheckTimer = null;
+    const TITLE_CHECK_DELAY = 600;
+
+    async function performTitleCheck(title) {
+        // Only check if local validator passes
+        const local = validateTitle(title);
+        if (local) return;
+
+        // show transient checking indicator
+        showError('title', 'Comprobando título...');
+
+        const idEl = form.querySelector('[name="id"]');
+        const payload = { id: idEl ? idEl.value || null : null, title };
+        try {
+            const res = await fetch('/create/validate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const json = await res.json().catch(() => ({}));
+            if (res.ok && json.ok) {
+                clearError('title');
+                return;
+            }
+
+            // Map server errors to field when possible
+            const errors = json.errors || [];
+            // Only surface errors that clearly map to title; ignore others (they may be unrelated because we sent minimal payload)
+            const first = errors[0] || '';
+            const mapped = mapServerErrorToField(first);
+            if (mapped === 'title') {
+                showError('title', first || 'El título ya existe');
+            } else {
+                // remove transient checking message if no title-specific error
+                clearError('title');
+            }
+        } catch (err) {
+            console.error('Title uniqueness check failed', err);
+            // keep local state; remove checking message
+            clearError('title');
+        }
+    }
+
+    // Attach live validation + debounced remote check
     els.title && els.title.addEventListener('input', (e) => {
         clearError('title');
-        const msg = validateTitle(e.target.value.trim());
-        if (msg) showError('title', msg);
+        const value = e.target.value.trim();
+        const msg = validateTitle(value);
+        if (msg) { showError('title', msg); return; }
+
+        if (titleCheckTimer) clearTimeout(titleCheckTimer);
+        titleCheckTimer = setTimeout(() => performTitleCheck(value), TITLE_CHECK_DELAY);
     });
     els.description && els.description.addEventListener('input', (e) => {
         clearError('description');
@@ -215,10 +263,10 @@ function initCreateValidation() {
             });
 
             if (resp.ok) {
-                const json = await resp.json();
+                const json = await resp.json().catch(() => ({}));
                 if (json.ok) {
-                    // No errors on server: submit the actual form (so files upload correctly)
-                    form.submit();
+                    // No errors on server: submit via AJAX so we can navigate to detail without full reload
+                    await ajaxSubmitForm(form);
                     return;
                 }
             }
@@ -818,3 +866,139 @@ document.addEventListener('DOMContentLoaded', () => {
     // Ensure average rating is set on load
     updateAggregateRating();
 });
+
+// Submit the create form via AJAX (supports files) and load detail page without full reload
+async function ajaxSubmitForm(form) {
+    try {
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalBtn = submitBtn ? submitBtn.innerHTML : null;
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Creando...';
+        }
+
+        const fd = new FormData(form);
+        const res = await fetch(form.action, {
+            method: form.method || 'POST',
+            body: fd,
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        });
+
+        const contentType = res.headers.get('content-type') || '';
+
+        // If server returned JSON with redirect or id, follow it to get HTML
+        if (contentType.includes('application/json')) {
+            const j = await res.json().catch(() => ({}));
+            // Expecting something like { ok: true, redirect: '/detail/123' } or { ok: true, id: 123 }
+            const redirect = j.redirect || (j.id ? `/detail/${j.id}` : null);
+            if (redirect) {
+                const htmlResp = await fetch(redirect, { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
+                const html = await htmlResp.text();
+                applyFetchedHTML(html, redirect);
+                return;
+            }
+            // If no redirect, but server returned an HTML fragment in a field
+            if (j.html) {
+                applyFetchedHTML(j.html, window.location.pathname);
+                return;
+            }
+            // Fallback: if server signalled creation but no redirect, reload location to be safe
+            if (j.ok) {
+                window.location.href = '/';
+                return;
+            }
+        }
+
+        // If server returned HTML (e.g., redirected to detail or confirm page), try to detect detail link and inject it
+        if (contentType.includes('text/html')) {
+            const html = await res.text();
+            // Try to parse returned HTML and detect a direct detail link (or meta refresh)
+            try {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                // 1) Look for anchor to /detail/
+                const link = doc.querySelector('a[href*="/detail/"]');
+                if (link && link.href) {
+                    const href = link.getAttribute('href');
+                    const abs = new URL(href, window.location.origin).pathname + new URL(href, window.location.origin).search;
+                    const htmlResp = await fetch(abs, { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
+                    const html2 = await htmlResp.text();
+                    applyFetchedHTML(html2, abs);
+                    return;
+                }
+                // 2) Look for meta refresh
+                const meta = doc.querySelector('meta[http-equiv="refresh"]');
+                if (meta) {
+                    const content = meta.getAttribute('content') || '';
+                    const m = content.match(/url=(.+)$/i);
+                    if (m && m[1]) {
+                        const abs = new URL(m[1].trim(), window.location.origin).pathname;
+                        const htmlResp = await fetch(abs, { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
+                        const html2 = await htmlResp.text();
+                        applyFetchedHTML(html2, abs);
+                        return;
+                    }
+                }
+                // 3) If the returned HTML already looks like the detail page (heuristic: contains an element with class 'overall-rating' or '.videogame-detail'), apply it
+                if (doc.querySelector('.overall-rating') || doc.querySelector('.videogame-detail')) {
+                    const finalUrl = res.url || window.location.href;
+                    applyFetchedHTML(html, finalUrl);
+                    return;
+                }
+            } catch (e) {
+                console.error('Could not parse returned HTML', e);
+            }
+
+            // Fallback: if HTML appears to be a generic confirmation page, try to find a detail link textually
+            const match = html.match(/href=["']([^"']*\/detail\/[^"']*)["']/i);
+            if (match && match[1]) {
+                const abs = new URL(match[1], window.location.origin).pathname + new URL(match[1], window.location.origin).search;
+                const htmlResp = await fetch(abs, { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
+                const html2 = await htmlResp.text();
+                applyFetchedHTML(html2, abs);
+                return;
+            }
+
+            // Otherwise apply HTML as-is (last resort)
+            const finalUrl = res.url || window.location.href;
+            applyFetchedHTML(html, finalUrl);
+            return;
+        }
+
+        // Otherwise, fallback to full navigation
+        window.location.href = form.action;
+    } catch (err) {
+        console.error('AJAX submit failed', err);
+        alert('No se pudo crear el videojuego. Intenta de nuevo.');
+    } finally {
+        const submitBtn = form.querySelector('button[type="submit"]');
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            // restore original text if present
+            // (we can't access original here reliably, so keep generic)
+            submitBtn.innerHTML = 'Crear';
+        }
+    }
+}
+
+function applyFetchedHTML(html, url) {
+    try {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        // Replace body contents and title
+        if (doc.title) document.title = doc.title;
+        document.body.innerHTML = doc.body.innerHTML;
+        if (url) history.pushState({}, '', url);
+
+        // Re-run common initializers present in this script
+        if (typeof initDetailDelete === 'function') initDetailDelete();
+        if (typeof initCommentValidation === 'function') initCommentValidation();
+        if (typeof updateAggregateRating === 'function') updateAggregateRating();
+        // If the new page contains a create form (unlikely), re-init create validation
+        if (document.getElementById('createForm') && typeof initCreateValidation === 'function') initCreateValidation();
+    } catch (err) {
+        console.error('Failed to apply fetched HTML', err);
+        // As a fallback do a full navigation
+        if (url) window.location.href = url;
+    }
+}

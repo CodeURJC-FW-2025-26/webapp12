@@ -24,20 +24,17 @@
           <!-- Title -->
           <label for="inputName" class="form-label">Nombre</label>
           <input type="text" class="form-control" id="inputName" name="title" value="{{title}}" required>
-          <div class="form-text text-danger" id="error-title"></div>
 
           <!-- Description -->
           <div class="mb-3">
             <label for="inputDescription" class="form-label">Descripción</label>
             <textarea class="form-control" id="inputDescription" name="description" required>{{description}}</textarea>
-            <div class="form-text text-danger" id="error-description"></div>
           </div>
 
           <!-- Price -->
           <div class="mb-3">
             <label for="inputPrice" class="form-label">Precio</label>
             <input type="number" class="form-control" id="inputPrice" name="price" value="{{price}}" required>
-            <div class="form-text text-danger" id="error-price"></div>
           </div>
 
           <!-- Genres (multiple selection) -->
@@ -72,21 +69,18 @@
           <div class="mb-3">
             <label for="inputYear" class="form-label">Año</label>
             <input type="number" class="form-control" id="inputYear" name="year" value="{{year}}" required>
-            <div class="form-text text-danger" id="error-year"></div>
           </div>
 
           <!-- Studio / Developer -->
           <div class="mb-3">
             <label for="inputStudio" class="form-label">Estudio</label>
             <input type="text" class="form-control" id="inputStudio" name="developer" value="{{developer}}" required>
-            <div class="form-text text-danger" id="error-developer"></div>
           </div>
 
           <!-- Trailer URL (YouTube) -->
           <div class="mb-3">
             <label for="inputTrailer" class="form-label">URL del trailer del juego</label>
             <input type="text" class="form-control" id="inputTrailer" name="trailer" value="{{trailer}}" required>
-            <div class="form-text text-danger" id="error-trailer"></div>
           </div>
 
           <!-- Image upload -->
