@@ -60,6 +60,50 @@ function initCreateValidation() {
         image: document.getElementById('image')
     };
 
+    // Image preview setup
+    (function setupImagePreview() {
+        const input = els.image;
+        if (!input) return;
+
+        let preview = document.getElementById('imagePreview');
+        if (!preview) {
+            preview = document.createElement('img');
+            preview.id = 'imagePreview';
+            preview.alt = 'Preview';
+            preview.style.display = 'none';
+            preview.style.maxWidth = '220px';
+            preview.style.maxHeight = '220px';
+            preview.style.marginTop = '8px';
+            preview.className = 'img-fluid rounded';
+            input.parentNode.insertBefore(preview, input.nextSibling);
+        }
+
+        let currentObjectUrl = null;
+
+        input.addEventListener('change', (e) => {
+            const file = (e.target.files && e.target.files[0]) || null;
+            if (!file) {
+                if (currentObjectUrl) { URL.revokeObjectURL(currentObjectUrl); currentObjectUrl = null; }
+                preview.src = '';
+                preview.style.display = 'none';
+                clearError('image');
+                return;
+            }
+
+            if (!file.type || !file.type.startsWith('image/')) {
+                showError('image', 'El archivo debe ser una imagen.');
+                preview.style.display = 'none';
+                return;
+            }
+
+            clearError('image');
+            if (currentObjectUrl) { URL.revokeObjectURL(currentObjectUrl); }
+            currentObjectUrl = URL.createObjectURL(file);
+            preview.src = currentObjectUrl;
+            preview.style.display = 'block';
+        });
+    })();
+
     function showError(fieldKey, msg) {
         const el = document.getElementById('error-' + fieldKey);
         if (el) el.textContent = msg || '';
