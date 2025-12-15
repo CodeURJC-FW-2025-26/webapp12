@@ -462,13 +462,138 @@ function initCommentValidation() {
 
 // Utilidades de comentarios
 function openEditModal(gameId, commentId, userName, commentText, stars) {
-    document.getElementById('editGameId').value = gameId;
-    document.getElementById('editCommentId').value = commentId;
-    document.getElementById('editCommentText').value = commentText;
-    document.getElementById('editCharCounter').textContent = `${commentText.length}/500`;
+    // Ensure modal exists (create if missing)
+    if (!document.getElementById('editCommentModal')) {
+        const editModalHTML = `
+        <div class="modal fade" id="editCommentModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content bg-dark text-light">
+                    <div class="modal-header border-warning">
+                        <h5 class="modal-title text-warning">
+                            <i class="bi bi-pencil-fill me-2"></i>Editar comentario
+                        </h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editCommentForm">
+                            <input type="hidden" id="editGameId">
+                            <input type="hidden" id="editCommentId">
+                            <div class="mb-3">
+                                <label class="form-label">Tu valoración</label>
+                                <div class="rating-input d-flex flex-row-reverse justify-content-start">
+                                    <input type="radio" name="editRating" id="editStar5" value="5">
+                                    <label for="editStar5">★</label>
+                                    <input type="radio" name="editRating" id="editStar4" value="4">
+                                    <label for="editStar4">★</label>
+                                    <input type="radio" name="editRating" id="editStar3" value="3">
+                                    <label for="editStar3">★</label>
+                                    <input type="radio" name="editRating" id="editStar2" value="2">
+                                    <label for="editStar2">★</label>
+                                    <input type="radio" name="editRating" id="editStar1" value="1">
+                                    <label for="editStar1">★</label>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="editCommentText" class="form-label">Tu comentario</label>
+                                <textarea class="form-control" id="editCommentText" rows="4" maxlength="500"></textarea>
+                                <div class="text-muted small mt-1" id="editCharCounter">0/500</div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer border-warning">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-warning" id="saveEditBtn">Guardar cambios</button>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+        document.body.insertAdjacentHTML('beforeend', editModalHTML);
+        // Attach counter listener
+        const editCommentTextEl = document.getElementById('editCommentText');
+        const editCharCounterEl = document.getElementById('editCharCounter');
+        if (editCommentTextEl && editCharCounterEl) {
+            editCommentTextEl.addEventListener('input', function () {
+                editCharCounterEl.textContent = `${this.value.length}/500`;
+                // Live hide error while typing
+                const err = document.getElementById('editTextError');
+                if (err) err.style.display = 'none';
+            });
+            // Show validation on blur like initCommentValidation
+            editCommentTextEl.addEventListener('blur', function () {
+                const err = document.getElementById('editTextError');
+                if (!err) return;
+                const text = this.value.trim();
+                if (text.length < 10) { err.textContent = 'El comentario debe tener al menos 10 caracteres'; err.style.display = 'block'; }
+                else if (text.length > 500) { err.textContent = 'El comentario no puede superar 500 caracteres'; err.style.display = 'block'; }
+            });
+        }
+        // Attach live rating preview
+        const ratingInputs = document.querySelectorAll('input[name="editRating"]');
+        ratingInputs.forEach(input => {
+            input.addEventListener('change', () => {
+                const selected = parseInt(document.querySelector('input[name="editRating"]:checked')?.value || '0');
+                // Update stars in the modal header as a small preview (optional)
+                // Or directly update the card preview stars for immediate feedback
+                const starContainer = document.querySelector(`#comment-${commentId} .star-rating`);
+                if (starContainer) {
+                    let starsVisual = '';
+                    for (let i = 0; i < 5; i++) starsVisual += i < selected ? '★' : '☆';
+                    starContainer.textContent = starsVisual;
+                }
+                // Hide rating error when a selection is made
+                const rErr = document.getElementById('editRatingError');
+                if (rErr) rErr.style.display = 'none';
+            });
+        });
+        // Create field error containers (below fields)
+        const editTextErr = document.createElement('div');
+        editTextErr.id = 'editTextError';
+        editTextErr.className = 'text-danger small';
+        editTextErr.style.display = 'none';
+        // Place immediately after the textarea for tighter association
+        editCommentTextEl.insertAdjacentElement('afterend', editTextErr);
+
+        const editRatingErr = document.createElement('div');
+        editRatingErr.id = 'editRatingError';
+        editRatingErr.className = 'text-danger small';
+        editRatingErr.style.display = 'none';
+        const ratingContainer = document.querySelector('#editCommentForm .rating-input');
+        if (ratingContainer) ratingContainer.insertAdjacentElement('afterend', editRatingErr);
+
+        // Attach save handler
+        document.getElementById('saveEditBtn')?.addEventListener('click', saveEditedComment);
+    }
+
+    const editGameIdEl = document.getElementById('editGameId');
+    const editCommentIdEl = document.getElementById('editCommentId');
+    const editCommentTextEl = document.getElementById('editCommentText');
+    const editCharCounterEl = document.getElementById('editCharCounter');
+
+    if (!editGameIdEl || !editCommentIdEl || !editCommentTextEl || !editCharCounterEl) {
+        console.error('Edit modal elements not found');
+        return;
+    }
+
+    editGameIdEl.value = gameId;
+    editCommentIdEl.value = commentId;
+    // Prefer current DOM values to avoid stale data
+    const domTextEl = document.getElementById(`comment-text-${commentId}`);
+    const currentText = domTextEl ? domTextEl.textContent.trim() : commentText;
+    editCommentTextEl.value = currentText;
+    editCharCounterEl.textContent = `${currentText.length}/500`;
+
     const ratingInputs = document.querySelectorAll('input[name="editRating"]');
-    ratingInputs.forEach(input => { input.checked = parseInt(input.value) === stars; });
-    const editModal = new bootstrap.Modal(document.getElementById('editCommentModal'));
+    // Read current stars from DOM if available
+    const starContainer = document.querySelector(`#comment-${commentId} .star-rating`);
+    let currentStars = parseInt(stars);
+    if (starContainer) {
+        const text = starContainer.textContent || '';
+        currentStars = (text.match(/★/g) || []).length || currentStars || 0;
+    }
+    ratingInputs.forEach(input => { input.checked = parseInt(input.value) === parseInt(currentStars); });
+
+    const modalEl = document.getElementById('editCommentModal');
+    const editModal = new bootstrap.Modal(modalEl);
     editModal.show();
 }
 
@@ -478,9 +603,37 @@ async function saveEditedComment() {
     const commentText = document.getElementById('editCommentText').value.trim();
     const ratingInput = document.querySelector('input[name="editRating"]:checked');
     const stars = ratingInput ? ratingInput.value : '0';
-    if (!commentText || commentText.length < 10) { alert('El comentario debe tener al menos 10 caracteres'); return; }
-    if (commentText.length > 500) { alert('El comentario no puede superar 500 caracteres'); return; }
-    if (!ratingInput) { alert('Debes seleccionar una valoración'); return; }
+    // Inline error containers
+    const editTextErr = document.getElementById('editTextError');
+    const editRatingErr = document.getElementById('editRatingError');
+    if (editTextErr) { editTextErr.style.display = 'none'; editTextErr.textContent = ''; }
+    if (editRatingErr) { editRatingErr.style.display = 'none'; editRatingErr.textContent = ''; }
+
+    // Client-side validations like initCommentValidation
+    let hasErrors = false;
+    const popupErrors = [];
+    if (!commentText || commentText.length < 10) {
+        const msg = 'El comentario debe tener al menos 10 caracteres';
+        if (editTextErr) { editTextErr.textContent = msg; editTextErr.style.display = 'block'; }
+        popupErrors.push(msg);
+        hasErrors = true;
+    } else if (commentText.length > 500) {
+        const msg = 'El comentario no puede superar 500 caracteres';
+        if (editTextErr) { editTextErr.textContent = msg; editTextErr.style.display = 'block'; }
+        popupErrors.push(msg);
+        hasErrors = true;
+    }
+    if (!ratingInput) {
+        const msg = 'Debes seleccionar una valoración';
+        if (editRatingErr) { editRatingErr.textContent = msg; editRatingErr.style.display = 'block'; }
+        popupErrors.push(msg);
+        hasErrors = true;
+    }
+    if (hasErrors) {
+        // Show a closable alert so user can keep editing
+        alert(popupErrors.join('\n'));
+        return;
+    }
     const saveBtn = document.getElementById('saveEditBtn');
     const originalText = saveBtn.innerHTML;
     saveBtn.disabled = true;
@@ -495,16 +648,38 @@ async function saveEditedComment() {
             headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' }
         });
         if (response.ok) {
-            updateCommentInPage(commentId, commentText, parseInt(stars));
+            const json = await response.json();
+            updateCommentInPage(commentId, json.comment.text, parseInt(json.comment.stars));
+            // Recompute and update aggregate rating if present
+            updateAggregateRating();
+            // Update modal fields to persisted values (avoid stale on next open)
+            document.getElementById('editCommentText').value = json.comment.text;
+            const ratingInputs = document.querySelectorAll('input[name="editRating"]');
+            ratingInputs.forEach(inp => inp.checked = parseInt(inp.value) === parseInt(json.comment.stars));
             const editModal = bootstrap.Modal.getInstance(document.getElementById('editCommentModal'));
             editModal.hide();
-            alert('¡Comentario actualizado correctamente!');
         } else {
-            const errorData = await response.json();
-            alert('Error: ' + (errorData.errors?.join(', ') || 'Error al guardar'));
+            const errorData = await response.json().catch(() => ({ errors: ['Error al guardar'] }));
+            // Map server errors to inline fields when possible
+            const msgs = errorData.errors || [];
+            msgs.forEach(msg => {
+                const lower = (msg || '').toLowerCase();
+                if (lower.includes('comentario') || lower.includes('texto')) {
+                    if (editTextErr) { editTextErr.textContent = msg; editTextErr.style.display = 'block'; }
+                } else if (lower.includes('valoración') || lower.includes('valoracion') || lower.includes('estrellas') || lower.includes('rating')) {
+                    if (editRatingErr) { editRatingErr.textContent = msg; editRatingErr.style.display = 'block'; }
+                } else {
+                    // Fallback to text area error
+                    if (editTextErr) { editTextErr.textContent = msg; editTextErr.style.display = 'block'; }
+                }
+            });
+            // Also show a closable alert so user can keep editing
+            if (msgs.length) alert(msgs.join('\n'));
         }
     } catch (error) {
-        alert('Error de conexión: ' + error.message);
+        const msg = 'Error de conexión: ' + (error.message || 'desconocido');
+        if (editTextErr) { editTextErr.textContent = msg; editTextErr.style.display = 'block'; }
+        alert(msg);
     } finally {
         saveBtn.disabled = false;
         saveBtn.innerHTML = originalText;
@@ -531,7 +706,7 @@ async function deleteComment(gameId, commentId) {
         });
         if (response.ok) {
             const commentElement = document.getElementById(`comment-${commentId}`);
-            if (commentElement) { commentElement.remove(); alert('Comentario eliminado correctamente'); }
+            if (commentElement) { commentElement.remove(); updateAggregateRating(); alert('Comentario eliminado correctamente'); }
         } else {
             alert('Error al eliminar el comentario');
         }
@@ -540,7 +715,106 @@ async function deleteComment(gameId, commentId) {
     }
 }
 
+// Optional: Update aggregate rating displayed on detail page, if element exists
+function updateAggregateRating() {
+    // Collect stars from all comments
+    const starBlocks = document.querySelectorAll('.comment .star-rating, [id^="comment-"] .star-rating');
+    let total = 0, count = 0;
+    starBlocks.forEach(block => {
+        const starsText = block.textContent || '';
+        const filled = (starsText.match(/★/g) || []).length;
+        if (filled >= 0) { total += filled; count++; }
+    });
+    const avg = count > 0 ? (total / count) : 0;
+
+    // Try multiple targets commonly used for average rating
+    const targets = [
+        document.getElementById('avgRating'),
+        document.getElementById('averageRating'),
+        document.querySelector('[data-avg-rating]'),
+        document.querySelector('#avg-rating'),
+        document.querySelector('.avg-rating')
+    ].filter(Boolean);
+
+    // Update numeric + star text if text container
+    targets.forEach(t => {
+        // If element expects stars-only (has class .star-rating)
+        if (t.classList.contains('star-rating')) {
+            let starsVisual = '';
+            const rounded = Math.round(avg);
+            for (let i = 0; i < 5; i++) starsVisual += i < rounded ? '★' : '☆';
+            t.textContent = starsVisual;
+        } else {
+            t.textContent = `${avg.toFixed(1)} ★`;
+        }
+        // Also set a data attribute for custom templates
+        t.setAttribute('data-avg-rating', avg.toFixed(2));
+    });
+
+    // Update dedicated number and stars blocks if present
+    const avgNumberEl = document.getElementById('avgNumber') || document.querySelector('.avg-number');
+    if (avgNumberEl) avgNumberEl.textContent = avg.toFixed(1);
+
+    const avgStarsEl = document.getElementById('avgStars') || document.querySelector('.avg-stars');
+    if (avgStarsEl) {
+        let visual = '';
+        const rounded = Math.round(avg);
+        for (let i = 0; i < 5; i++) visual += i < rounded ? '★' : '☆';
+        avgStarsEl.textContent = visual;
+    }
+
+    const countEl = document.getElementById('ratingsCount') || document.querySelector('[data-ratings-count]');
+    if (countEl) {
+        // If element contains a phrase, try to replace number only
+        if (countEl.getAttribute('data-ratings-count') !== null) {
+            countEl.setAttribute('data-ratings-count', String(count));
+        }
+        // Common phrase: "Basado en X valoraciones"
+        const baseText = countEl.getAttribute('data-base-text');
+        if (baseText) {
+            countEl.textContent = baseText.replace('{count}', String(count));
+        } else {
+            countEl.textContent = `Basado en ${count} valoraciones`;
+        }
+    }
+
+    // Explicitly update the overall-rating block shown in detail.html
+    const overall = document.querySelector('.overall-rating');
+    if (overall) {
+        const numberEl = overall.querySelector('h2');
+        const starsEl = overall.querySelector('.star-rating.star2');
+        const textEl = overall.querySelector('p');
+        if (numberEl) numberEl.textContent = avg.toFixed(1);
+        if (starsEl) {
+            let visual = '';
+            const rounded = Math.round(avg);
+            for (let i = 0; i < 5; i++) visual += i < rounded ? '★' : '☆';
+            starsEl.textContent = visual;
+        }
+        if (textEl) textEl.textContent = `Basado en ${count} valoraciones`;
+    }
+
+    // Also update the "Información del juego" Valoración row
+    const infoItems = document.querySelectorAll('.game-info .info-item');
+    infoItems.forEach(item => {
+        const label = item.querySelector('.info-label');
+        if (label && label.textContent.trim().toLowerCase() === 'valoración') {
+            const value = item.querySelector('.info-value');
+            if (value) {
+                // Build stars visual
+                let starsVisual = '';
+                const rounded = Math.round(avg);
+                for (let i = 0; i < 5; i++) starsVisual += i < rounded ? '★' : '☆';
+                // Recompose innerHTML to keep structure
+                value.innerHTML = `<span class="star-rating">${starsVisual}</span> ${avg.toFixed(1)}/5`;
+            }
+        }
+    });
+}
+
 // Inicialización general adicional
 document.addEventListener('DOMContentLoaded', () => {
     if (document.querySelector('form[action*="/comment"]')) initCommentValidation();
+    // Ensure average rating is set on load
+    updateAggregateRating();
 });

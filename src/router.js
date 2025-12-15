@@ -462,29 +462,33 @@ router.get('/detail/:id/comment/:commentId/edit', async (req, res) => {
 
 // Edit comments validation
 router.post('/detail/:id/comment/:commentId/edit', async (req, res) => {
+    try {
+      const game = await videogame.getVideogame(req.params.id);
+      if (!game) {
+        return res.status(404).json({ success: false, errors: ['Videojuego no encontrado'] });
+      }
 
-    const game = await videogame.getVideogame(req.params.id);
+      const { reviewText } = req.body;
+      const ratingField = `rating-${req.params.commentId}`;
+      const stars = parseInt(req.body[ratingField]) || 0;
 
-    const { reviewText } = req.body;
-    const ratingField = `rating-${req.params.commentId}`;
-    const stars = parseInt(req.body[ratingField]) || 0;
+      // Validaciones similares a creación
+      const errors = [];
+      const text = (reviewText || '').trim();
+      if (!text || text.length < 10) errors.push('El comentario debe tener al menos 10 caracteres');
+      if (text.length > 500) errors.push('El comentario no puede superar 500 caracteres');
+      if (isNaN(stars) || stars < 1 || stars > 5) errors.push('Debes seleccionar una valoración válida');
+      if (errors.length > 0) {
+        return res.status(400).json({ success: false, errors });
+      }
 
-    await videogame.editComment(req.params.id, req.params.commentId, reviewText, stars);
+      await videogame.editComment(req.params.id, req.params.commentId, text, stars);
 
-    res.render('confirmOrError', {
-      pageTitle: 'Comentario modificado',
-      heroTitle: 'Página de comentario modificado',
-      iconClass: 'bi-check-circle-fill',
-      iconColor: 'text-success',
-      heading: '¡Comentario modificado correctamente!',
-      infoLabel: 'Videojuego:',
-      infoValue: game.title,
-      message: `El comentario ha sido modificado exitosamente del videojuego ${game.title}.`,
-      actions: [
-        { href: '/', label: 'Volver al inicio', icon: 'bi-house' },
-        { href: `/detail/${game._id}`, label: 'Ver detalles', icon: 'bi-plus-circle', outline: true }
-      ]
-    });
+      // Responder JSON para AJAX inline
+      return res.json({ success: true, message: 'Comentario modificado correctamente', comment: { _id: req.params.commentId, text, stars } });
+    } catch (err) {
+      return res.status(500).json({ success: false, errors: ['Error interno al modificar el comentario'] });
+    }
 });
 
 
