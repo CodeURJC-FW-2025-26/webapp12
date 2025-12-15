@@ -212,3 +212,43 @@ También he colaborado ayudando en la realización del `README.md`.
 | 5  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/c9022b5acae877a05e885648ae71745088797253  |
   
 -Los ficheros en los que más he participado ha sido: detail.html, editComment.html, confirmOrError.html y router.js.
+
+## Participation P3
+
+**Pablo Villamayor**
+
+
+
+| Nº | Commits más relevantes |
+|----|------------------|
+| 1  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/0330b253f2128defc860b03af7accafc1a893415 |
+| 2  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/cabb24aa7a619b503e712227f85da70fc8840557 |
+| 3  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/786186be3f0197365c31974ea82b6037ec40b9a2 |
+| 4  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/2ac717a55396e9084e2fb0048d76ee9268c9538a |
+| 5  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/de84e3a6e92291ace022e6403d11984c302ca8c6 |
+  
+
+
+**Neville Gil**
+
+
+| Nº | Commits más relevantes |
+|----|------------------|
+| 1  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/31e5a7e2270b83812be197397991f503ef57444f |
+| 2  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/0c3eddf485eaadc54664e6809d9b09635e8e82f1 |
+| 3  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/c0571d1dcefa4a9cb313008e0ba8ac318aafc03e |
+| 4  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/6eb2a79915719544fa2d2571bf913c7e183d8ee2 |
+| 5  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/3a3975b2f9b54eb8c03f119ce1e5913b2ed1b739 |
+  
+
+**Lucca Manfredotti**
+
+
+| Nº | Commits más relevantes |
+|----|------------------|
+| 1  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/c2c2ff2fae0606f232fcbb3fa415f27f6068db7c  |
+| 2  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/804eec2f698920788c4af8f91a5b8d8fa7a9f0f2  |
+| 3  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/f1ee8480b2ff0bcf35e8837a47b50a031a79a6f4  |
+| 4  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/cbee0f0b6e58f5a0df34eb721996f1a355df0e0f  |
+| 5  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/c9022b5acae877a05e885648ae71745088797253  |
+  
