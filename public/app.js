@@ -122,8 +122,18 @@ function initCreateValidation() {
             box = document.createElement('div');
             box.id = boxId;
             box.className = 'error-box';
-            // insert box before the field element so it appears above
-            fieldEl.parentNode.insertBefore(box, fieldEl);
+            // For the platform field insert the error above its whole row (label + input)
+            if (fieldKey === 'platform') {
+                const fieldRow = fieldEl.parentNode; // likely the form-group / mb-3
+                if (fieldRow && fieldRow.parentNode) {
+                    fieldRow.parentNode.insertBefore(box, fieldRow);
+                } else {
+                    fieldEl.parentNode.insertBefore(box, fieldEl);
+                }
+            } else {
+                // insert box before the field element so it appears above the field
+                fieldEl.parentNode.insertBefore(box, fieldEl);
+            }
         }
         box.textContent = msg;
     }
@@ -243,6 +253,15 @@ function initCreateValidation() {
         if (msg) showError('trailer', msg);
     });
 
+    // Genre checkbox listeners: clear platform error when any genre selected
+    (function setupGenreListeners() {
+        const genreCheckboxes = Array.from(form.querySelectorAll('input[name="genres[]"]'));
+        if (!genreCheckboxes.length) return;
+        genreCheckboxes.forEach(cb => cb.addEventListener('change', () => {
+            if (form.querySelectorAll('input[name="genres[]"]:checked').length > 0) clearError('platform');
+        }));
+    })();
+
     // Map server error messages to fields (simple heuristics)
     function mapServerErrorToField(errorMsg) {
         const msg = (errorMsg || '').toLowerCase();
@@ -293,6 +312,12 @@ function initCreateValidation() {
         if (dev) { localErrors.push(dev); showError('developer', dev); }
         const tr = validateTrailer(payload.trailer);
         if (tr) { localErrors.push(tr); showError('trailer', tr); }
+
+        // Category selection: require at least one genre; show error above Platform
+        if (!genres || genres.length === 0) {
+            localErrors.push('Debes seleccionar al menos una categoría');
+            showError('platform', 'Debes seleccionar al menos una categoría');
+        }
 
         if (localErrors.length > 0) {
             // don't call server if local errors
