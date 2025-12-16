@@ -1,7 +1,8 @@
 {{#videogamesAct}}
 <div class="col-md-6 col-lg-4">
     <div class="card d-flex flex-column justify-content-between">
-        <img src="/uploads/{{imageFilename}}" class="card-img-top" alt="{{title}}">
+        <img src="{{#imageFilename}}/uploads/{{imageFilename}}{{/imageFilename}}{{^imageFilename}}https://www.shutterstock.com/image-vector/missing-picture-page-website-design-600nw-1552421075.jpg{{/imageFilename}}"
+            class="card-img-top" alt="{{title}}">
         <div class="card-body d-flex flex-column">
             <h5 class="card-title">{{title}}</h5>
             <h6 class="fw-bold text-success mb-3">{{price}} €</h6>
@@ -16,6 +17,4 @@
         </div>
     </div>
 </div>
-
-
 {{/videogamesAct}}

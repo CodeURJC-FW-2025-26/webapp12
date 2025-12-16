@@ -1,199 +1,195 @@
 {{> navbar}}
 
-    <!-- Games details -->
+<!-- Games details -->
 <section class="bg-dark text-light">
-    <div class="game-title">
-      <div class="container">
-        <h1>{{game.title}}</h1>
+  <div class="game-title">
+    <div class="container">
+      <h1>{{game.title}}</h1>
+    </div>
+  </div>
+
+  <div class="container mb-5">
+    <div class="row">
+      <div class="col-8 col-md-6 col-lg-4 mb-4 mx-auto">
+        <div class="game-cover">
+          <img
+            src="{{#game.imageFilename}}/uploads/{{game.imageFilename}}{{/game.imageFilename}}{{^game.imageFilename}}https://www.shutterstock.com/image-vector/missing-picture-page-website-design-600nw-1552421075.jpg{{/game.imageFilename}}"
+            alt="Videogame image" class="img-fluid" />
+          <h2 class="game-price">{{game.price}}€</h2>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-5 mb-4">
+        <div class="game-info">
+          <h3>Información del juego</h3>
+
+          <div class="info-item">
+            <div class="info-label">Descripción</div>
+            <div class="info-value">
+              {{game.description}}
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-label">Plataforma</div>
+            <div class="info-value">{{game.platform}}</div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-label">Año de lanzamiento</div>
+            <div class="info-value">{{game.year}}</div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-label">Valoración</div>
+            <div class="info-value">
+              <span class="star-rating">{{game.averageStarsVisual}}</span> {{game.averageStars}}/5
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-label">Desarrollador</div>
+            <div class="info-value">{{game.developer}}</div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-label">Categoría</div>
+            <p class="card-text">
+              {{#game.categories}}
+              <span class="badge text-bg-secondary me-1">{{.}}</span>
+              {{/game.categories}}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-12 col-lg-3 mb-4">
+        <div class="modif-box mx-auto">
+          <h4>MODIFICAR VIDEOJUEGO</h4>
+
+          <div class="card-item">
+            <p>Esta opción eliminará el videojuego de forma permanente.</p>
+            <button id="btnDeleteGame" class="btn-modif btn-delete" title="Eliminar">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+          <div class="card-item">
+            <p>
+              Modifica los datos del videojuego (nombre, precio, categoría, etc.).
+            </p>
+            <a href="/edit/{{game._id}}" class="btn-modif btn-edit" title="Editar">
+              <i class="bi bi-pencil"></i>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="container mb-5">
-      <div class="row">
-        <div class="col-8 col-md-6 col-lg-4 mb-4 mx-auto">
-          <div class="game-cover">
-            <img
-              src="/uploads/{{game.imageFilename}}"
-              alt="Videogame image"
-              class="img-fluid"
-            />
-            <h2 class="game-price">{{game.price}}€</h2>
+    <div class="ratio ratio-16x9">
+      <iframe src="{{game.trailerEmbed}}" allowfullscreen></iframe>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-lg-9 mb-4">
+        <div class="reviews-section">
+          <div class="overall-rating">
+            <h2>{{game.averageStars}}</h2>
+            <div class="star-rating star2">{{game.averageStarsVisual}}</div>
+            <p>Basado en {{game.totalComments}} valoraciones</p>
           </div>
-        </div>
-      
-        <div class="col-12 col-md-6 col-lg-5 mb-4">
-          <div class="game-info">
-            <h3>Información del juego</h3>
-      
-            <div class="info-item">
-              <div class="info-label">Descripción</div>
-              <div class="info-value">
-                {{game.description}}
-              </div>
+
+          <h3>Opiniones de usuarios</h3>
+
+          {{#game.comments}}
+          <div class="review-item" id="comment-{{_id}}">
+            <div class="review-header d-flex justify-content-between mb-2">
+              <span class="reviewer-name">{{user}}</span>
+              <span class="review-date">{{date}}</span>
             </div>
-      
-            <div class="info-item">
-              <div class="info-label">Plataforma</div>
-              <div class="info-value">{{game.platform}}</div>
-            </div>
-      
-            <div class="info-item">
-              <div class="info-label">Año de lanzamiento</div>
-              <div class="info-value">{{game.year}}</div>
-            </div>
-      
-            <div class="info-item">
-              <div class="info-label">Valoración</div>
-              <div class="info-value">
-                <span class="star-rating">{{game.averageStarsVisual}}</span> {{game.averageStars}}/5
-              </div>
-            </div>
-      
-            <div class="info-item">
-              <div class="info-label">Desarrollador</div>
-              <div class="info-value">{{game.developer}}</div>
-            </div>
-      
-            <div class="info-item">
-              <div class="info-label">Categoría</div>
-              <p class="card-text">
-                {{#game.categories}}
-                <span class="badge text-bg-secondary me-1">{{.}}</span>
-                {{/game.categories}}
+            <div class="star-rating star3">{{stars_visual}}</div>
+            <p id="comment-text-{{_id}}">
+              {{text}}
             </p>
-            </div>
-          </div>
-        </div>
-      
-        <div class="col-12 col-md-12 col-lg-3 mb-4">
-          <div class="modif-box mx-auto">
-            <h4>MODIFICAR VIDEOJUEGO</h4>
-      
-            <div class="card-item">
-              <p>Esta opción eliminará el videojuego de forma permanente.</p>
-              <button id="btnDeleteGame" class="btn-modif btn-delete" title="Eliminar">
+            <div class="comment-actions">
+              <button class="btn btn-link text-danger p-0 me-2" onclick="deleteComment('{{game._id}}', '{{_id}}')"
+                title="Eliminar comentario">
                 <i class="bi bi-trash"></i>
               </button>
+              <button class="btn btn-link text-warning p-0"
+                onclick="openEditModal('{{game._id}}', '{{_id}}', '{{user}}', '{{text}}', {{stars}})"
+                title="Modificar comentario">
+                <i class="bi bi-pencil"></i>
+              </button>
             </div>
-              <div class="card-item">
-                <p>
-                  Modifica los datos del videojuego (nombre, precio, categoría, etc.).
-                </p>
-                <a href="/edit/{{game._id}}" class="btn-modif btn-edit" title="Editar">
-                  <i class="bi bi-pencil"></i>
-                </a>
-              </div>
+          </div>
+          {{/game.comments}}
+
+          {{^game.comments}}
+          <p>No hay comentarios todavía. ¡Sé el primero!</p>
+          {{/game.comments}}
+
+
+          <div class="container my-4">
+            <div class="add-review-section">
+              <h4 class="mb-4 text-light">Añade tu opinión</h4>
+              <form action="/detail/{{game._id}}/comment" method="POST">
+                <label class="form-label-custom d-block">Tu valoración</label>
+                <div class="rating-input d-flex flex-row-reverse justify-content-end">
+                  <input type="radio" name="rating" id="star5" value="5">
+                  <label for="star5">★</label>
+                  <input type="radio" name="rating" id="star4" value="4">
+                  <label for="star4">★</label>
+                  <input type="radio" name="rating" id="star3" value="3">
+                  <label for="star3">★</label>
+                  <input type="radio" name="rating" id="star2" value="2">
+                  <label for="star2">★</label>
+                  <input type="radio" name="rating" id="star1" value="1">
+                  <label for="star1">★</label>
+                </div>
+
+                <div class="mb-3">
+                  <label for="userName" class="form-label-custom d-block">Tu nombre</label>
+                  <input type="text" class="form-control" id="userName" name="userName" placeholder="Escribe tu nombre"
+                    required maxlength="30" minlength="5">
+                </div>
+
+                <div class="mb-3">
+                  <label for="reviewText" class="form-label-custom d-block">Tu comentario</label>
+                  <textarea class="form-control" id="reviewText" name="reviewText" rows="4"
+                    placeholder="Comparte tu experiencia con este juego..." maxlength="500"></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit-review">Publicar opinión</button>
+              </form>
+
+            </div>
           </div>
         </div>
       </div>
-      
-      <div class="ratio ratio-16x9">
-        <iframe src="{{game.trailerEmbed}}" allowfullscreen></iframe>
+
+      <!-- Other games with same platform -->
+      <div class="col-lg-3 mb-4">
+        <div class="related-games">
+          <h3>Juegos relacionados - {{game.platform}}</h3>
+
+          {{#relatedGames}}
+          <a href="/detail/{{_id}}" class="related-game-card d-block text-decoration-none text-light">
+            <img
+              src="{{#imageFilename}}/uploads/{{imageFilename}}{{/imageFilename}}{{^imageFilename}}https://www.shutterstock.com/image-vector/missing-picture-page-website-design-600nw-1552421075.jpg{{/imageFilename}}"
+              class="card-img-top" alt="{{title}}">
+            <div class="related-game-title">{{title}}</div>
+            <div class="related-game-price">{{price}}€</div>
+          </a>
+          {{/relatedGames}}
+
+          {{^relatedGames}}
+          <p>No hay juegos relacionados con {{game.platform}}.</p>
+          {{/relatedGames}}
+        </div>
       </div>
 
-      <div class="row mt-4">
-        <div class="col-lg-9 mb-4">
-            <div class="reviews-section">
-                <div class="overall-rating">
-                    <h2>{{game.averageStars}}</h2>
-                    <div class="star-rating star2">{{game.averageStarsVisual}}</div>
-                    <p>Basado en {{game.totalComments}} valoraciones</p>
-                </div>
-
-                <h3>Opiniones de usuarios</h3>
-
-<!-- En tu detail.html, modifica la parte de comentarios así: -->
-{{#game.comments}}
-<div class="review-item" id="comment-{{_id}}">
-  <div class="review-header d-flex justify-content-between mb-2">
-    <span class="reviewer-name">{{user}}</span>
-    <span class="review-date">{{date}}</span>
-  </div>
-  <div class="star-rating star3">{{stars_visual}}</div>
-  <p id="comment-text-{{_id}}">
-    {{text}}
-  </p>
-  <div class="comment-actions">
-    <button class="btn btn-link text-danger p-0 me-2" onclick="deleteComment('{{game._id}}', '{{_id}}')"
-      title="Eliminar comentario">
-      <i class="bi bi-trash"></i>
-    </button>
-    <button class="btn btn-link text-warning p-0"
-      onclick="openEditModal('{{game._id}}', '{{_id}}', '{{user}}', '{{text}}', {{stars}})"
-      title="Modificar comentario">
-      <i class="bi bi-pencil"></i>
-    </button>
-  </div>
-</div>
-{{/game.comments}}
-
-                {{^game.comments}}
-                <p>No hay comentarios todavía. ¡Sé el primero!</p>
-                {{/game.comments}}
-
-                <div class="divLoadMore">
-                  <button class="btn-load-more">+ Ver más comentarios</button>
-                </div>
-
-                <div class="container my-4">
-                  <div class="add-review-section">
-                    <h4 class="mb-4 text-light">Añade tu opinión</h4>
-                    <form action="/detail/{{game._id}}/comment" method="POST">
-                      <label class="form-label-custom d-block">Tu valoración</label> 
-                      <div class="rating-input d-flex flex-row-reverse justify-content-end"> 
-                        <input type="radio" name="rating" id="star5" value="5"> 
-                          <label for="star5">★</label> 
-                        <input type="radio" name="rating" id="star4" value="4"> 
-                          <label for="star4">★</label> 
-                        <input type="radio" name="rating" id="star3" value="3"> 
-                          <label for="star3">★</label> 
-                        <input type="radio" name="rating" id="star2" value="2"> 
-                          <label for="star2">★</label> 
-                        <input type="radio" name="rating" id="star1" value="1"> 
-                          <label for="star1">★</label> 
-                      </div>
-                    
-                        <div class="mb-3">
-                          <label for="userName" class="form-label-custom d-block">Tu nombre</label>
-                          <input type="text" class="form-control" id="userName" name="userName" placeholder="Escribe tu nombre" required maxlength="30" minlength="5">
-                        </div>
-                    
-                      <div class="mb-3">
-                        <label for="reviewText" class="form-label-custom d-block">Tu comentario</label>
-                        <textarea class="form-control" id="reviewText" name="reviewText" rows="4" placeholder="Comparte tu experiencia con este juego..." maxlength="500"></textarea>
-                      </div>
-                    
-                      <button type="submit" class="btn-submit-review">Publicar opinión</button>
-                    </form>
-                    
-                  </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Other games with same platform -->
-<div class="col-lg-3 mb-4">
-  <div class="related-games">
-    <h3>Juegos relacionados - {{game.platform}}</h3>
-
-    {{#relatedGames}}
-    <a href="/detail/{{_id}}" class="related-game-card d-block text-decoration-none text-light">
-      <img src="/uploads/{{imageFilename}}" class="card-img-top" alt="{{title}}">
-      <div class="related-game-title">{{title}}</div>
-      <div class="related-game-price">{{price}}€</div>
-    </a>
-    {{/relatedGames}}
-
-    {{^relatedGames}}
-    <p>No hay juegos relacionados con {{game.platform}}.</p>
-    {{/relatedGames}}
-  </div>
-</div>
-
-
-
-
     </div>
-  </section>
-  
-{{> footer}} 
+  </div>
+</section>
+
+{{> footer}}

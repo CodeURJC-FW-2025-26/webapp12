@@ -105,8 +105,8 @@
                     {{#videogamesAct}}
                     <div id="videogamescard" class="col-md-6 col-lg-4">
                         <div class="card d-flex flex-column justify-content-between">
-                            <img src="/uploads/{{imageFilename}}" class="card-img-top" alt="{{title}}">
-                            <div class="card-body card-body2 d-flex flex-column">
+                        <img src="{{#imageFilename}}/uploads/{{imageFilename}}{{/imageFilename}}{{^imageFilename}}https://www.shutterstock.com/image-vector/missing-picture-page-website-design-600nw-1552421075.jpg{{/imageFilename}}"
+                        class="card-img-top" alt="{{title}}">                            <div class="card-body card-body2 d-flex flex-column">
                                 <h5 class="card-title">{{title}}</h5>
                                 <h6 class="fw-bold text-success mb-3">{{price}} €</h6>
                                 <p class="card-text">
@@ -171,8 +171,9 @@
             
             {{#suggestedGame}}
             <div class="card b-gradient mb-3">
-                <img src="/uploads/{{imageFilename}}" class="card-img-top" alt="{{title}}">
-                <div class="card-body">
+            <img src="{{#imageFilename}}/uploads/{{imageFilename}}{{/imageFilename}}{{^imageFilename}}https://www.shutterstock.com/image-vector/missing-picture-page-website-design-600nw-1552421075.jpg{{/imageFilename}}"
+                class="card-img-top" alt="{{title}}">                
+                    <div class="card-body">
                     <h5 class="card-title">{{title}}</h5>
                     <p class="card-text">{{description}}</p>
                     <a href="/detail/{{_id}}" class="card-text">
