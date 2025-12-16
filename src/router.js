@@ -514,9 +514,7 @@ router.post('/image/delete', async (req, res) => {
       }
     }
 
-    // Remove file from uploads folder (best-effort)
-    try { await fs.rm(videogame.UPLOADS_FOLDER + '/' + filename); } catch (err) { /* ignore */ }
-
+    // Note: File in uploads folder is NOT deleted, only DB reference is removed
     return res.json({ ok: true });
   } catch (err) {
     console.error('Error deleting image:', err);

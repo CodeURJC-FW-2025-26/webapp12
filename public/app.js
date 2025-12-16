@@ -229,12 +229,26 @@ function initCreateValidation() {
                 }
             };
 
-            // Insert button next to small text or after file input
+            // Insert button after dropzone (inside the mb-3 container) or after small text if exists
+            const dropzone = document.getElementById('imageDropzone');
             const small = form.querySelector('small.text-muted');
-            if (small && small.parentNode) small.parentNode.insertBefore(btn, small.nextSibling);
-            else {
+            if (small && small.parentNode) {
+                // If small text exists (server image), insert after its parent container (the mt-2 div)
+                const parentDiv = small.parentNode; // the mt-2 div containing the small and button
+                if (parentDiv && parentDiv.nextSibling) {
+                    parentDiv.parentNode.insertBefore(btn, parentDiv.nextSibling);
+                } else if (parentDiv && parentDiv.parentNode) {
+                    parentDiv.parentNode.appendChild(btn);
+                }
+            } else if (dropzone && dropzone.parentNode) {
+                // Otherwise insert after dropzone (within mb-3 container)
+                const next = dropzone.nextSibling;
+                if (next) dropzone.parentNode.insertBefore(btn, next);
+                else dropzone.parentNode.appendChild(btn);
+            } else {
+                // Fallback: after hidden file input
                 const input = document.getElementById('image');
-                input.parentNode.insertBefore(btn, input.nextSibling);
+                if (input && input.parentNode) input.parentNode.appendChild(btn);
             }
             return btn;
         }
@@ -244,6 +258,12 @@ function initCreateValidation() {
             if (preview) {
                 preview.src = `/uploads/${existingFilename}`;
                 preview.style.display = 'block';
+            }
+            // Hide the placeholder text when editing with existing image
+            const dz = document.getElementById('imageDropzone');
+            if (dz) {
+                const inner = dz.querySelector('div');
+                if (inner) inner.style.display = 'none';
             }
             createDeleteButton(existingFilename);
         }
