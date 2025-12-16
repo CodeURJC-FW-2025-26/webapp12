@@ -453,9 +453,49 @@ function initCreateValidation() {
         return null;
     }
 
+    // Helper: show a closable validation popup (Bootstrap modal)
+    function showValidationPopup(message) {
+        let modalEl = document.getElementById('validationPopupModal');
+        if (!modalEl) {
+            const html = `
+            <div class="modal fade" id="validationPopupModal" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content bg-dark text-light">
+                        <div class="modal-header border-danger">
+                            <h5 class="modal-title text-danger">Error de validación</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p id="validationPopupMessage"></p>
+                        </div>
+                        <div class="modal-footer border-danger">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+            document.body.insertAdjacentHTML('beforeend', html);
+            modalEl = document.getElementById('validationPopupModal');
+        }
+        const msgEl = document.getElementById('validationPopupMessage');
+        if (msgEl) msgEl.textContent = message || '';
+        try {
+            const m = new bootstrap.Modal(modalEl);
+            m.show();
+        } catch (e) {
+            // Fallback to native alert if bootstrap not available
+            alert(message);
+        }
+    }
+
     // On submit: run local validators, then AJAX validate on server for uniqueness and deeper checks
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
+
+        // Determine whether there was an inline title error BEFORE we clear any errors
+        const hadTitleBox = document.getElementById('error-box-title');
+        const hadTitleInline = document.getElementById('error-title');
+        const hadTitleErrorBefore = Boolean((hadTitleBox && hadTitleBox.textContent && hadTitleBox.textContent.trim()) || (hadTitleInline && hadTitleInline.textContent && hadTitleInline.textContent.trim()));
 
         // Clear previous errors
         ['title','description','price','platform','year','developer','trailer'].forEach(clearError);
@@ -522,11 +562,16 @@ function initCreateValidation() {
             // If here, server returned errors or non-OK status
             const data = await resp.json().catch(() => ({ errors: ['Error de validación en el servidor'] }));
             const errors = data.errors || ['Error de validación en el servidor'];
-            // Map errors to fields when possible
+            // Map errors to fields when possible. If server reports a title-duplicate
+            // and there was no title error detected before submit, show a closable popup
+            // so the user can dismiss it and continue editing without losing data.
             errors.forEach(err => {
                 const field = mapServerErrorToField(err);
-                if (field) showError(field, err);
-                else {
+                if (field === 'title' && !hadTitleErrorBefore) {
+                    showValidationPopup(err || 'El título ya existe');
+                } else if (field) {
+                    showError(field, err);
+                } else {
                     // fallback: show in title area
                     showError('title', err);
                 }
