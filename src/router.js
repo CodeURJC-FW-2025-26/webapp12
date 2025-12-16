@@ -500,6 +500,30 @@ router.get('/game/:id/image', async (req, res) => {
     res.download(videogame.UPLOADS_FOLDER + '/' + game.imageFilename);
 });
 
+// Delete an uploaded image file (and clear DB reference when applicable)
+router.post('/image/delete', async (req, res) => {
+  try {
+    const { id, filename } = req.body || {};
+    if (!filename) return res.status(400).json({ ok: false, error: 'No filename provided' });
+
+    // If an id is provided, ensure we only clear the image field when it matches the game's current image
+    if (id) {
+      const game = await videogame.getVideogame(id);
+      if (game && game.imageFilename === filename) {
+        await videogame.updateVideogame(id, { imageFilename: null });
+      }
+    }
+
+    // Remove file from uploads folder (best-effort)
+    try { await fs.rm(videogame.UPLOADS_FOLDER + '/' + filename); } catch (err) { /* ignore */ }
+
+    return res.json({ ok: true });
+  } catch (err) {
+    console.error('Error deleting image:', err);
+    return res.status(500).json({ ok: false, error: 'Server error' });
+  }
+});
+
 
 // Get videogames by category
 router.get('/category/:cat', async (req, res) => {

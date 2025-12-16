@@ -82,13 +82,25 @@
             <input type="text" class="form-control" id="inputTrailer" name="trailer" value="{{trailer}}" required>
           </div>
 
-          <!-- Image upload -->
+          <!-- Image upload (dropzone) -->
           <div class="mb-3">
             <label for="image" class="form-label">Portada del juego</label>
-            <input type="file" class="form-control" id="image" name="image" accept="image/*">
+
+            <div id="imageDropzone" class="border rounded p-3 text-center" style="min-height:120px; display:flex; align-items:center; justify-content:center; cursor:pointer; background:#0b0b0b33;">
+              <div>
+                <p class="mb-0">Arrastra una imagen aquí o haz click para seleccionar</p>
+                <small class="text-muted">Formatos: jpg, png, avif. Máx. recomendado: 2MB</small>
+              </div>
+            </div>
+
+            <!-- Hidden native input used for actual upload -->
+            <input type="file" class="d-none" id="image" name="image" accept="image/*">
 
             {{#imageFilename}}
-              <small class="text-muted">Imagen actual: {{imageFilename}}</small>
+              <div class="mt-2">
+                <small class="text-muted">Imagen actual: {{imageFilename}}</small>
+                <button type="button" id="btnDeleteImage" class="btn btn-sm btn-danger" data-filename="{{imageFilename}}" {{#_id}}data-id="{{_id}}"{{/_id}}>Eliminar imagen</button>
+              </div>
             {{/imageFilename}}
 
             <input type="hidden" name="existingImage" value="{{imageFilename}}">

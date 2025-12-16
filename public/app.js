@@ -71,11 +71,16 @@ function initCreateValidation() {
             preview.id = 'imagePreview';
             preview.alt = 'Preview';
             preview.style.display = 'none';
-            preview.style.maxWidth = '220px';
+            preview.style.width = '100%';
+            preview.style.height = 'auto';
             preview.style.maxHeight = '220px';
+            preview.style.objectFit = 'contain';
             preview.style.marginTop = '8px';
             preview.className = 'img-fluid rounded';
-            input.parentNode.insertBefore(preview, input.nextSibling);
+            // Insert the preview inside the visible dropzone so it appears within the box
+            const dropzone = document.getElementById('imageDropzone');
+            if (dropzone) dropzone.insertBefore(preview, dropzone.firstChild);
+            else input.parentNode.insertBefore(preview, input.nextSibling);
         }
 
         let currentObjectUrl = null;
@@ -86,6 +91,12 @@ function initCreateValidation() {
                 if (currentObjectUrl) { URL.revokeObjectURL(currentObjectUrl); currentObjectUrl = null; }
                 preview.src = '';
                 preview.style.display = 'none';
+                // restore dropzone placeholder text
+                const dz = document.getElementById('imageDropzone');
+                if (dz) {
+                    const inner = dz.querySelector('div');
+                    if (inner) inner.style.display = 'block';
+                }
                 clearError('image');
                 return;
             }
@@ -101,7 +112,155 @@ function initCreateValidation() {
             currentObjectUrl = URL.createObjectURL(file);
             preview.src = currentObjectUrl;
             preview.style.display = 'block';
+            // hide dropzone placeholder text when showing preview
+            const dz = document.getElementById('imageDropzone');
+            if (dz) {
+                const inner = dz.querySelector('div');
+                if (inner) inner.style.display = 'none';
+            }
         });
+
+        // Setup dropzone interactions (click-to-select + drag & drop)
+        const dropzoneEl = document.getElementById('imageDropzone');
+        if (dropzoneEl) {
+            dropzoneEl.addEventListener('click', () => {
+                input.click();
+            });
+
+            dropzoneEl.addEventListener('dragover', (ev) => {
+                ev.preventDefault();
+                dropzoneEl.style.background = '#0b0b0b55';
+            });
+            dropzoneEl.addEventListener('dragleave', (ev) => {
+                ev.preventDefault();
+                dropzoneEl.style.background = '#0b0b0b33';
+            });
+            dropzoneEl.addEventListener('drop', (ev) => {
+                ev.preventDefault();
+                dropzoneEl.style.background = '#0b0b0b33';
+                const file = (ev.dataTransfer && ev.dataTransfer.files && ev.dataTransfer.files[0]) || null;
+                if (!file) return;
+                if (!file.type || !file.type.startsWith('image/')) {
+                    showError('image', 'El archivo debe ser una imagen.');
+                    return;
+                }
+                // Assign file to hidden input using DataTransfer
+                try {
+                    const dt = new DataTransfer();
+                    dt.items.add(file);
+                    input.files = dt.files;
+                    // Trigger change handler
+                    input.dispatchEvent(new Event('change', { bubbles: true }));
+                } catch (err) {
+                    // Fallback: just show preview without setting input.files
+                    if (currentObjectUrl) { URL.revokeObjectURL(currentObjectUrl); }
+                    currentObjectUrl = URL.createObjectURL(file);
+                    preview.src = currentObjectUrl;
+                    preview.style.display = 'block';
+                }
+            });
+        }
+    })();
+
+    // Create or attach delete button; supports server-side image (dataset.filename) or local selected file
+    (function setupDeleteButtonAndInitialPreview() {
+        const existingHidden = form.querySelector('input[name="existingImage"]');
+        const existingFilename = existingHidden ? (existingHidden.value || '').trim() : '';
+        const preview = document.getElementById('imagePreview');
+
+        function createDeleteButton(filename) {
+            let btn = document.getElementById('btnDeleteImage');
+            if (!btn) {
+                btn = document.createElement('button');
+                btn.type = 'button';
+                btn.id = 'btnDeleteImage';
+                btn.className = 'btn btn-sm btn-danger';
+                btn.style.marginTop = '10px';
+                btn.style.display = 'block';
+                btn.textContent = 'Eliminar imagen';
+            }
+
+            // Set dataset.filename (if server-side image) or empty for local-file-only
+            if (filename) btn.dataset.filename = filename; else delete btn.dataset.filename;
+            // If form has id hidden, attach it
+            const idEl = form.querySelector('[name="id"]');
+            if (idEl) btn.dataset.id = idEl.value || '';
+
+            // Ensure event attached once
+            btn.onclick = async function () {
+                const fn = this.dataset.filename;
+                // Server-side deletion (existing image stored on server)
+                if (fn) {
+                    const ok = window.confirm('¿Eliminar la imagen actual? Se borrará del servidor y de la base de datos si corresponde.');
+                    if (!ok) return;
+                    try {
+                        const res = await fetch('/image/delete', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+                            body: JSON.stringify({ id: this.dataset.id || null, filename: fn })
+                        });
+                        const json = await res.json().catch(() => ({}));
+                        if (res.ok && json.ok) {
+                            const small = form.querySelector('small.text-muted');
+                            if (small) small.remove();
+                            this.remove();
+                            if (existingHidden) existingHidden.value = '';
+                            const imageInput = document.getElementById('image');
+                            if (imageInput) imageInput.value = '';
+                            if (preview) { preview.src = ''; preview.style.display = 'none'; }
+                            alert('Imagen eliminada correctamente.');
+                        } else {
+                            alert('No se pudo eliminar la imagen.');
+                        }
+                    } catch (err) {
+                        console.error('Error eliminando imagen:', err);
+                        alert('Error de red al eliminar la imagen');
+                    }
+                } else {
+                    // Local deletion: clear selected file and preview
+                    const imageInput = document.getElementById('image');
+                    if (imageInput) imageInput.value = '';
+                    if (preview) { preview.src = ''; preview.style.display = 'none'; }
+                    // Remove button and any small text if present
+                    const small = form.querySelector('small.text-muted');
+                    // keep small text if it describes server image; only remove if it was dynamic
+                    if (small && (!existingFilename || small.textContent.includes(existingFilename) === false)) small.remove();
+                    this.remove();
+                }
+            };
+
+            // Insert button next to small text or after file input
+            const small = form.querySelector('small.text-muted');
+            if (small && small.parentNode) small.parentNode.insertBefore(btn, small.nextSibling);
+            else {
+                const input = document.getElementById('image');
+                input.parentNode.insertBefore(btn, input.nextSibling);
+            }
+            return btn;
+        }
+
+        // If server provided existing image, show preview and ensure delete button
+        if (existingFilename) {
+            if (preview) {
+                preview.src = `/uploads/${existingFilename}`;
+                preview.style.display = 'block';
+            }
+            createDeleteButton(existingFilename);
+        }
+
+        // When user selects a new file, show preview (handled above) and ensure delete button for local clearing
+        const input = els.image;
+        if (input) {
+            input.addEventListener('change', function (e) {
+                const file = (e.target.files && e.target.files[0]) || null;
+                if (file) {
+                    // If delete button not present, create a local-only delete button
+                    if (!document.getElementById('btnDeleteImage')) {
+                        createDeleteButton(null);
+                    }
+                }
+            });
+        }
     })();
 
     function showError(fieldKey, msg) {
