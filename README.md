@@ -230,16 +230,18 @@ También he colaborado ayudando en la realización del `README.md`.
 
 
 **Neville Gil**
-
+En esta parte de la práctica la parte que más he hecho ha sido la del scroll infinito (adaptandolo a la busqueda y las categorias para mostrar la información correspondiente), el spinner de la pág. principal.
+También, en la entidad secundaria el spinner de envio, el modal para editar y enviar etc. Así como algunos ajustes al router.
 
 | Nº | Commits más relevantes |
 |----|------------------|
-| 1  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/31e5a7e2270b83812be197397991f503ef57444f |
-| 2  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/0c3eddf485eaadc54664e6809d9b09635e8e82f1 |
-| 3  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/c0571d1dcefa4a9cb313008e0ba8ac318aafc03e |
-| 4  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/6eb2a79915719544fa2d2571bf913c7e183d8ee2 |
-| 5  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/3a3975b2f9b54eb8c03f119ce1e5913b2ed1b739 |
-  
+| 1  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/64d6b80766957926a9f56374724090ecb555e084 |
+| 2  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/37960dea6b0d7b21d21100dac96f0bc31e463375 |
+| 3  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/caa8071e80d077f822a1f9d59d7d3ae4aea86917 |
+| 4  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/0c25b38d28a8ef6093526ccf27c4ad02a7e82ebc |
+| 5  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/c8e90db0cd303ce8df1f0ef93f904dd60acff9a2 |
+
+-Los ficheros en los que más he participado han sido: detail.html, index.html, app.js (public, cliente) y router.js.
 
 **Lucca Manfredotti**
 
