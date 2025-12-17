@@ -9,7 +9,7 @@ async function loadMore() {
     loading = true;
     page++;
 
-    // Mostrar spinner
+    // Show spinner
     const spinner = document.getElementById('loadingSpinner');
     if (spinner) spinner.style.display = 'flex';
 
@@ -29,7 +29,7 @@ async function loadMore() {
             if (spinner) spinner.innerHTML = '<p class="text-muted">Fin</p>';
         }
     } finally {
-        // Ocultar spinner después
+        // Hide spinner afterwards
         setTimeout(() => {
             if (spinner) spinner.style.display = 'none';
             loading = false;
@@ -37,7 +37,7 @@ async function loadMore() {
     }
 }
 
-// Scroll simple
+// Simple scroll
 window.addEventListener('scroll', () => {
     if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200) {
         loadMore();
@@ -666,7 +666,7 @@ if (document.readyState === 'loading') {
 }
 
 // ============================================
-// Comentarios: validación, modal de edición y borrado
+// Comments: validation, edit modal and delete
 // ============================================
 function initCommentValidation() {
     const form = document.querySelector('form[action*="/comment"]');
@@ -679,34 +679,9 @@ function initCommentValidation() {
 
     if (!userName || !reviewText || !submitBtn) return;
 
-    // Modal de éxito
-    if (!document.getElementById('commentSuccessModal')) {
-        const modalHTML = `
-        <div class="modal fade" id="commentSuccessModal" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content bg-dark text-light">
-                    <div class="modal-header border-success">
-                        <h5 class="modal-title text-success">
-                            <i class="bi bi-check-circle-fill me-2"></i>¡Comentario añadido!
-                        </h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Tu comentario se ha añadido correctamente.</p>
-                    </div>
-                    <div class="modal-footer border-success">
-                        <button type="button" class="btn btn-success" id="reloadPageBtn">Ver comentarios</button>
-                    </div>
-                </div>
-            </div>
-        </div>`;
-        document.body.insertAdjacentHTML('beforeend', modalHTML);
-        document.getElementById('reloadPageBtn')?.addEventListener('click', function () {
-            window.location.reload();
-        });
-    }
+    // Success modal removed: use window.confirm and dynamic refresh
 
-    // Errores
+    // Errors
     const userNameError = document.createElement('div');
     userNameError.className = 'text-danger small mt-1';
     userNameError.style.display = 'none';
@@ -725,7 +700,7 @@ function initCommentValidation() {
         if (ratingContainer) ratingContainer.parentNode.appendChild(ratingError);
     }
 
-    // Contador de caracteres
+    // Character counter
     const charCounter = document.createElement('div');
     charCounter.className = 'text-muted small mt-1';
     charCounter.textContent = '0/500';
@@ -780,14 +755,53 @@ function initCommentValidation() {
             });
             const jsonData = await response.json();
             if (jsonData.success) {
-                const successModal = new bootstrap.Modal(document.getElementById('commentSuccessModal'));
-                successModal.show();
+                // Get gameId from the form URL (e.g., /detail/123/comment)
+                const match = form.action.match(/\/detail\/([^\/]+)/);
+                const gameId = match ? match[1] : null;
+
+                const go = window.confirm('Comentario añadido correctamente. ¿Ver comentarios?');
+                if (go && gameId) {
+                    try {
+                        await refreshCommentsSection(gameId);
+                    } catch (err) {
+                        console.error('No se pudo refrescar los comentarios dinámicamente', err);
+                    }
+                }
                 userName.value = '';
                 reviewText.value = '';
                 ratingInputs.forEach(input => input.checked = false);
                 charCounter.textContent = '0/500';
             } else {
-                alert('Error: ' + (jsonData.errors?.join(', ') || 'Error desconocido'));
+                // Show server validation errors inline (AJAX)
+                const serverErrors = Array.isArray(jsonData.errors) ? jsonData.errors : [jsonData.message || 'Error desconocido'];
+                // Clear visible errors
+                userNameError.style.display = 'none';
+                reviewTextError.style.display = 'none';
+                ratingError.style.display = 'none';
+
+                // Simple mapping by keywords
+                let focused = false;
+                serverErrors.forEach(err => {
+                    const msg = String(err || '').trim();
+                    const low = msg.toLowerCase();
+                    if (low.includes('nombre') || low.includes('usuario')) {
+                        userNameError.textContent = msg;
+                        userNameError.style.display = 'block';
+                        if (!focused) { userName.focus(); focused = true; }
+                    } else if (low.includes('comentario') || low.includes('texto')) {
+                        reviewTextError.textContent = msg;
+                        reviewTextError.style.display = 'block';
+                        if (!focused) { reviewText.focus(); focused = true; }
+                    } else if (low.includes('valoración') || low.includes('valoracion') || low.includes('estrellas') || low.includes('rating')) {
+                        ratingError.textContent = msg;
+                        ratingError.style.display = 'block';
+                        if (!focused) { ratingInputs[0]?.focus(); focused = true; }
+                    }
+                });
+                // If nothing matched, show a fallback alert to keep information
+                if (!userNameError.offsetParent && !reviewTextError.offsetParent && !ratingError.offsetParent) {
+                    alert('Error: ' + serverErrors.join('\n'));
+                }
             }
         } catch (error) {
             alert('Error: No se pudo enviar el comentario');
@@ -797,11 +811,11 @@ function initCommentValidation() {
         }
     });
 
-    // Inicializar contador
+    // Initialize counter
     charCounter.textContent = `${reviewText.value.length}/500`;
 }
 
-// Utilidades de comentarios
+// Comment utilities
 function openEditModal(gameId, commentId, userName, commentText, stars) {
     // Ensure modal exists (create if missing)
     if (!document.getElementById('editCommentModal')) {
@@ -1056,6 +1070,58 @@ async function deleteComment(gameId, commentId) {
     }
 }
 
+// Refresh the comments section without reloading the entire page
+async function refreshCommentsSection(gameId) {
+    const resp = await fetch(`/detail/${gameId}`, { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
+    const html = await resp.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+
+    // Locate the LIST container (not the block that includes the form)
+    function findCommentsList(root) {
+        const listSelectors = ['#commentsList', '.comments-list', '[data-comments-list]', '.reviews-list'];
+        const direct = listSelectors.map(s => root.querySelector(s)).find(Boolean);
+        if (direct) return direct;
+        // Heuristic fallback: container with multiple comments and WITHOUT the comment form
+        const items = Array.from(root.querySelectorAll('[id^="comment-"]'));
+        if (!items.length) return null;
+        let candidate = items[0].parentElement;
+        const containsForm = (el) => !!el.querySelector('form[action*="/comment"]');
+        while (candidate && (!candidate.querySelectorAll('[id^="comment-"]').length || containsForm(candidate))) {
+            candidate = candidate.parentElement;
+        }
+        // If no clean container is found, use the first parent with multiple comments even if there's no form inside
+        if (!candidate) {
+            candidate = items[0].parentElement;
+            while (candidate && candidate.querySelectorAll('[id^="comment-"]').length <= 1) {
+                candidate = candidate.parentElement;
+            }
+        }
+        return candidate;
+    }
+
+    const newList = findCommentsList(doc);
+    const currentList = findCommentsList(document);
+    if (!newList || !currentList) return;
+
+    // Replace ONLY the list to avoid losing the form listeners
+    currentList.innerHTML = newList.innerHTML;
+
+    // Also update the comment form with the latest version from the server
+    const newForm = doc.querySelector('form[action*="/comment"]');
+    const currentForm = document.querySelector('form[action*="/comment"]');
+    if (newForm && currentForm) {
+        // Completely replace the form to avoid stale validation artifacts
+        currentForm.outerHTML = newForm.outerHTML;
+        // Reattach handlers and validations on the new markup
+        if (typeof initCommentValidation === 'function') {
+            initCommentValidation();
+        }
+    }
+
+    updateAggregateRating();
+}
+
 // Optional: Update aggregate rating displayed on detail page, if element exists
 function updateAggregateRating() {
     // Collect stars from all comments
@@ -1135,7 +1201,7 @@ function updateAggregateRating() {
         if (textEl) textEl.textContent = `Basado en ${count} valoraciones`;
     }
 
-    // Also update the "Información del juego" Valoración row
+    // Also update the "Game information" Rating row
     const infoItems = document.querySelectorAll('.game-info .info-item');
     infoItems.forEach(item => {
         const label = item.querySelector('.info-label');
@@ -1153,7 +1219,7 @@ function updateAggregateRating() {
     });
 }
 
-// Inicialización general adicional
+// Additional general initialization
 document.addEventListener('DOMContentLoaded', () => {
     if (document.querySelector('form[action*="/comment"]')) initCommentValidation();
     // Ensure average rating is set on load
