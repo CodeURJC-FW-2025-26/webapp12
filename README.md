@@ -248,13 +248,13 @@ También, en la entidad secundaria el spinner de envio, el modal para editar y e
 
 **Lucca Manfredotti**
 
-Mi desarrollo en la tercera parte de la práctica se ha basado en la eliminación de un videojuego creado, a parte de la edición de un comentario existente con su correspondiente validación y sin recargar la página usando AJAX, utilizando un spinner de procesamiento para obtener respuesta del servidor.
+Mi desarrollo en la tercera parte de la práctica se ha basado en la eliminación de un videojuego creado, a parte de la edición de un comentario existente con su correspondiente validación y sin recargar la página usando AJAX, utilizando un spinner de procesamiento para obtener respuesta del servidor. Tambén he ayudado en la solución de algunos errores.
 | Nº | Commits más relevantes |
 |----|------------------|
-| 1  |   |
-| 2  |   |
-| 3  |   |
-| 4  |   |
-| 5  |   |
+| 1  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/43b97044bdaff37a69cda9b2c571b544c6b4e393 |
+| 2  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/7a40d3effb8b1b03da345f5ddeeb60a1c8476bd8 |
+| 3  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/5b2bd8fadd9e557aa1796bcf5e33a738cf402b3d |
+| 4  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/42b23a5a427610174b2f05e586f0bd32f5361acd |
+| 5  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/8f7bd0d18a871f960f77e6e800d29f17c021234d |
   
 -Los ficheros en los que más he participado ha sido: detail.html, app.js (carpeta public) y router.js.
