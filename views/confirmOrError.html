@@ -1,0 +1,49 @@
+{{> navbar}}
+
+  <body class="bg-dark text-light d-flex flex-column min-vh-100">
+
+    <!-- HERO 2 -->
+    <section class="hero2 d-flex align-items-center justify-content-center text-center text-white">
+      <div class="container">
+        <h1 class="display-3 fw-bold">{{heroTitle}}</h1>
+      </div>
+    </section>
+
+    <!-- Main content: success or error panel -->
+    <section class="d-flex flex-column justify-content-center align-items-center text-center flex-grow-1 py-5">
+      <div class="container">
+        <div class="card bg-dark border-light shadow-lg p-5">
+          <div class="card-body">
+            <i class="bi {{iconClass}} {{iconColor}}" style="font-size: 4rem;"></i>
+            <h1 class="mt-3 mb-4 text-white">{{heading}}</h1>
+
+            {{#infoLabel}}
+            <h4 class="mb-4 text-secondary text-white">{{infoLabel}} {{infoValue}}</h4>
+            {{/infoLabel}}
+
+            {{#message}}
+            <p class="lead text-white">{{message}}</p>
+            {{/message}}
+
+            {{#hasErrors}}
+            <p class="lead mb-4 text-white">Se encontraron los siguientes errores:</p>
+            <ul class="list-group mb-4">
+              {{#errors}}
+              <li class="list-group-item list-group-item-danger">{{.}}</li>
+              {{/errors}}
+            </ul>
+            {{/hasErrors}}
+
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+              {{#actions}}
+              <a href="{{href}}" class="btn {{#outline}}btn-outline-light{{/outline}}{{^outline}}btn-gradient{{/outline}} px-4 py-2">
+                {{#icon}}<i class="bi {{icon}}"></i> {{/icon}}{{label}}
+              </a>
+              {{/actions}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+{{> footer}}
