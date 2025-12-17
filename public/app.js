@@ -176,6 +176,7 @@ function initCreateValidation() {
                 btn.id = 'btnDeleteImage';
                 btn.className = 'btn btn-sm btn-danger';
                 btn.style.marginTop = '10px';
+                btn.style.marginBottom = '25px';
                 btn.style.display = 'block';
                 btn.textContent = 'Eliminar imagen';
             }
@@ -229,22 +230,15 @@ function initCreateValidation() {
                 }
             };
 
-            // Insert button after dropzone (inside the mb-3 container) or after small text if exists
+            // Insert button before the dropzone (inside mb-3 container, below the label and above the box)
             const dropzone = document.getElementById('imageDropzone');
-            const small = form.querySelector('small.text-muted');
-            if (small && small.parentNode) {
-                // If small text exists (server image), insert after its parent container (the mt-2 div)
-                const parentDiv = small.parentNode; // the mt-2 div containing the small and button
-                if (parentDiv && parentDiv.nextSibling) {
-                    parentDiv.parentNode.insertBefore(btn, parentDiv.nextSibling);
-                } else if (parentDiv && parentDiv.parentNode) {
-                    parentDiv.parentNode.appendChild(btn);
+            if (dropzone && dropzone.parentNode) {
+                // Remove button from DOM if it exists elsewhere, then insert in correct position
+                if (btn.parentNode && btn.parentNode !== dropzone.parentNode) {
+                    btn.parentNode.removeChild(btn);
                 }
-            } else if (dropzone && dropzone.parentNode) {
-                // Otherwise insert after dropzone (within mb-3 container)
-                const next = dropzone.nextSibling;
-                if (next) dropzone.parentNode.insertBefore(btn, next);
-                else dropzone.parentNode.appendChild(btn);
+                // Insert button before dropzone (within the mb-3 container)
+                dropzone.parentNode.insertBefore(btn, dropzone);
             } else {
                 // Fallback: after hidden file input
                 const input = document.getElementById('image');
@@ -255,6 +249,10 @@ function initCreateValidation() {
 
         // If server provided existing image, show preview and ensure delete button
         if (existingFilename) {
+            // Remove any existing button HTML from template (inside mt-2 div)
+            const mtDiv = form.querySelector('div.mt-2');
+            if (mtDiv) mtDiv.remove();
+            
             if (preview) {
                 preview.src = `/uploads/${existingFilename}`;
                 preview.style.display = 'block';
@@ -553,7 +551,13 @@ function initCreateValidation() {
             if (resp.ok) {
                 const json = await resp.json().catch(() => ({}));
                 if (json.ok) {
-                    // No errors on server: submit via AJAX so we can navigate to detail without full reload
+                    // No errors on server: show spinner for 0.5s so user sees it, then submit via AJAX
+                    const submitBtn = form.querySelector('button[type="submit"]');
+                    if (submitBtn) {
+                        submitBtn.disabled = true;
+                        submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Creando...';
+                    }
+                    await new Promise(resolve => setTimeout(resolve, 500));
                     await ajaxSubmitForm(form);
                     return;
                 }
