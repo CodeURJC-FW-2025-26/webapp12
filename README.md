@@ -185,6 +185,7 @@ En esta segunda parte todos hemos tocado todos los archivos pero yo he estado tr
 
 **Neville Gil**
 
+
 En esta segunda parte todos hemos tocado todos los archivos pero yo me he centrado más en la parte de busquedas, etiquetas y todo lo relacionado con la página principal así como algunas cosas de las demás páginas. También modificando el router y app asi como introducir los datos en el json. También la creación de las plantillas footer y navbar.
 
 | Nº | Commits más relevantes |
@@ -230,6 +231,8 @@ También he colaborado ayudando en la realización del `README.md`.
 
 
 **Neville Gil**
+
+
 En esta parte de la práctica la parte que más he hecho ha sido la del scroll infinito (adaptandolo a la busqueda y las categorias para mostrar la información correspondiente), el spinner de la pág. principal.
 También, en la entidad secundaria el spinner de envio, el modal para editar y enviar etc. Así como algunos ajustes al router.
 
