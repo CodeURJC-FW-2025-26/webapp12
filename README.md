@@ -217,18 +217,18 @@ También he colaborado ayudando en la realización del `README.md`.
 ## Participation P3
 
 **Pablo Villamayor**
-
+En esta práctica mi enfoque ha estado sobre todo en la validacion del formulario de la entidad principal a traves del cliente asegurando que se comprueban los campos obligatorios con sus correspondientes caracteristicas en tiempo real asi como el tratamiento de errores cuando se producen creaciones fallidas de un elemento de la entidad principal y mejoras en la experiencia del usuario como la previsualizacion de la imagen del elemento de la entidad principal cuando se sube al formulario.
 
 
 | Nº | Commits más relevantes |
 |----|------------------|
-| 1  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/0330b253f2128defc860b03af7accafc1a893415 |
-| 2  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/cabb24aa7a619b503e712227f85da70fc8840557 |
-| 3  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/786186be3f0197365c31974ea82b6037ec40b9a2 |
-| 4  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/2ac717a55396e9084e2fb0048d76ee9268c9538a |
-| 5  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/de84e3a6e92291ace022e6403d11984c302ca8c6 |
+| 1  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/b1dbc932c390842024266fa5b8b3287e10d51030 |
+| 2  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/331a84488ef336aea3efc673dcb6d84bfa4378ed |
+| 3  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/11fee5a8588d925a3df593e4b3fc203d6eb9086e |
+| 4  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/453d227abb05e2eebeae44ed7d6999ba51073f0a |
+| 5  | https://github.com/CodeURJC-FW-2025-26/webapp12/commit/d4427723fc531dfe9def3ab95daa694ec39f24da |
   
-
+-Los ficheros en los que mas he participado han sido: create.html, app.js y router.js.
 
 **Neville Gil**
 
